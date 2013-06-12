@@ -1,0 +1,2 @@
+1. Use Protocol Buffer dll 3.5 version or earlier.
+2. Change player settings in Build Options to .NET 2.0 (from default .NET 2.0 Subset)
