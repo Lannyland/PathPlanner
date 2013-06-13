@@ -10,50 +10,36 @@ using System.Net.Sockets;
 using TCPIPTest;
 
 public class StartUpChores : MonoBehaviour {
-	
-	String strText = "Hi!\n";	
+
+    public string strText = "";
+    public Terrain terrain = new Terrain();
 	
 	// Use this for initialization
 	void Start () {
-			
+			// Clip Terrain to only who 100x100 grid
+        ClipTerrain();
 	}
-		
-	// Update is called once per frame
-	void Update () {
+
+    // Method to clip terrain to a 100x100 grid (really just hide extra part)
+    private void ClipTerrain()
+    {
+        float[, ,] alphaMap = terrain.terrainData.GetAlphamaps(0, 0, terrain.terrainData.alphamapWidth, terrain.terrainData.alphamapHeight);
+        for (int x = 100; x < terrain.terrainData.alphamapHeight; x++)
+        {
+            for (int y = 100; y < terrain.terrainData.alphamapWidth; y++)
+            {
+                 
+            }
+
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
 	}
 	
-	// Prepare GUI components
-	void OnGUI () {
-		// Go to full screen mode
-		// Screen.fullScreen = true;;
-		
-		GUI.Label (new Rect(10, 10, 300, 100), strText);								
-		
-		// Make a background box
-		// GUI.Box(new Rect((1920-300)/2,(1080-1000)/2,500,700), "Loader Menu");
-		// GUI.Box(new Rect(10,10,1910,1070), "Loader Menu");
-
-/*		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-		if(GUI.Button(new Rect((1920-300)/2+50,(1080-1000)/2+50,400,200), "Manual Control Path Planning")) {
-			Application.LoadLevel("ManualFlight");
-		}
-
-*/				// Make the second button.
-		if(GUI.Button(new Rect((1920-300)/2+50,(1080-1000)/2+260,400,200), "Flight Patterns Path Planning")) {
-			
-			// Test Client Server Call here.
-			TestCall();			
-		}
-/*
-		// Make the third button.
-		if(GUI.Button(new Rect((1920-300)/2+50,(1080-1000)/2+260+210,400,200), "Sliding Autonomy Path Planning")) {
-			strText = "Hello World!";
-		}
-			
-*/	 
-
-	}	
 	
 	// Testing client server call to path planning server IPPA
 	void TestCall()
