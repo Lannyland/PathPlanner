@@ -1,0 +1,8 @@
+ScriptAssemblies
+metadata
+obj
+
+*.DotSettings
+*.csproj
+*.sln
+*.suo
