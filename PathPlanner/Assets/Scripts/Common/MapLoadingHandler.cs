@@ -35,7 +35,7 @@ public class MapLoadingHandler : MonoBehaviour {
 	
 	void LoadButtonHandler()
 	{
-		RtwMatrix mapIn = MISCLib.LoadMap(ProjectConstants.strMapFileLoad);
+		RtwMatrix mapIn = MISCLib.LoadMap(ProjectConstants.strDistFileLoad);
         Assets.Scripts.Common.MISCLib.ScaleImageValues(ref mapIn, 4.0f);
 		Vector3[] vertices =  Assets.Scripts.Common.MISCLib.MatrixToArray(Assets.Scripts.Common.MISCLib.FlipTopBottom(mapIn));
 		// Camera.main.GetComponent<StartUpChores>().vertices = vertices;
@@ -48,9 +48,9 @@ public class MapLoadingHandler : MonoBehaviour {
 	
 	void SaveButtonHandler()
 	{
-		Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
-		RtwMatrix mapOut = Assets.Scripts.Common.MISCLib.ArrayToMatrix(mesh.vertices);
-		MISCLib.SaveMap(ProjectConstants.strMapFileSave, Assets.Scripts.Common.MISCLib.FlipTopBottom(mapOut));
+        //Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
+        //RtwMatrix mapOut = Assets.Scripts.Common.MISCLib.ArrayToMatrix(mesh.vertices);
+        //MISCLib.SaveMap(ProjectConstants.strMapFileSave, Assets.Scripts.Common.MISCLib.FlipTopBottom(mapOut));
 	}
 	
 }

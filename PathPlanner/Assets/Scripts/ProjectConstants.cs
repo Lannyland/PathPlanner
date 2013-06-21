@@ -9,15 +9,24 @@ namespace Assets.Scripts
     class ProjectConstants
     {
         #region Global constants
-        // public static string strMapFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\Smoothed_Small_HikerPaulDist.csv";
-        public static string strMapFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\TestDistMap100.csv";
-        public static string strMapFileSave = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\NewDistMap.csv";
+
+        public static int intMapWith = 100;
+        public static int intMapHeight = 100;
+        
+        public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TestDiffMap100.csv";
+        public static string strDistFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\TestDistMap100.csv";
+
+        // public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\Small_HikerPaulDiff.csv";
+        // public static string strDistFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\Smoothed_Small_HikerPaulDist.csv";
+
+
         // public static string strTerrainImage = @"http://lannyland.com/images/yulu.jpg";
         // public static string strTerrainImage = @"http://lannyland.com/images/LannylandIncHover.png";
         public static string strTerrainImage = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TerrainImage.jpg";
 
-        public static int intMapWith = 100;
-        public static int intMapHeight = 100;
+        public static bool boolUseDiffMap = false;      // Whether to use diff map for path planning.
+        public static bool boolUseEndPoint = false;     // Whether to allow user to set end point for path planning.
+        public static int intFlightDuration = 60;       // Default flight duration in minutes.
 
         #endregion
 
