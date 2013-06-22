@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using rtwmatrix;
 
 namespace Assets.Scripts
 {
@@ -27,6 +28,11 @@ namespace Assets.Scripts
         public static bool boolUseDiffMap = false;      // Whether to use diff map for path planning.
         public static bool boolUseEndPoint = false;     // Whether to allow user to set end point for path planning.
         public static int intFlightDuration = 60;       // Default flight duration in minutes.
+
+        // Also used as a data store
+        public static RtwMatrix mOriginalDistMap = null;
+        public static RtwMatrix mDistMapCurStepUndo = null;
+        public static RtwMatrix mDistMapCurStepWorking = null;
 
         #endregion
 

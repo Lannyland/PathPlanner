@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using Assets.Scripts;
+using Assets.Scripts.Common;
 using System;
+using rtwmatrix;
 
 public class StartUpChores : MonoBehaviour {
 
@@ -18,8 +20,6 @@ public class StartUpChores : MonoBehaviour {
         // Scene Initialization
         SceneInit();
 
-        // Test color map
-        // MeshInit();
     }
 
     // Method to load terrain material into Projector
@@ -54,50 +54,35 @@ public class StartUpChores : MonoBehaviour {
     // Initialize all assets parameters to set scene ready
     private void SceneInit()
     {
-        Camera.main.transform.GetComponent<DrawFreeLine>().enabled = false;
-        UISlider slider = GameObject.Find("Slider").GetComponent<UISlider>();
-        slider.sliderValue = 0.1f;
-        slider.GetComponent<BrushSize>().OnSliderChange(slider.sliderValue);
+        LoadMaps();
+
+        // The following code should be moved to scene specific start up chore scripts
+        //Camera.main.transform.GetComponent<DrawFreeLine>().enabled = false;
+        //UISlider slider = GameObject.Find("Slider").GetComponent<UISlider>();
+        //slider.sliderValue = 0.1f;
+        //slider.GetComponent<BrushSize>().OnSliderChange(slider.sliderValue);
     }
 
-    // Method to test color map
-    private void MeshInit()
+    private void LoadMaps()
     {
+        // First load dist map to mesh and show on screen
+        RtwMatrix distMapIn = MISCLib.LoadMap(ProjectConstants.strDistFileLoad);
+        MISCLib.ScaleImageValues(ref distMapIn, 4.0f);
+        Vector3[] vertices = MISCLib.MatrixToArray(Assets.Scripts.Common.MISCLib.FlipTopBottom(distMapIn));
         Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
-        Vector3[] vertices = mesh.vertices;
-        Color[] colors = new Color[vertices.Length];
-        float t = 0.0f;
-        int index = 0;
-
-        for (int i = 0; i < 100; i++)
-        {
-            for (int j = 0; j < 100; j++)
-            {
-//                if (i < 50)
-//                {
-//                    vertices[index].y = i * 2 / 100.0f;
-//                }
-//                else
-//                {
-//                    vertices[index].y = (50 - (i - 50)) / 50.0f;
-//                }
-
-                vertices[index].x = Convert.ToSingle(j)/10-5;
-				vertices[index].y = 0;
-				vertices[index].z = Convert.ToSingle(i)/10-5;
-				
-				HSLColor hslc = new HSLColor(i * 2.40f, 1f, 0.5f);
-                Color c = hslc.ToRGBA();
-                colors[index] = c;
-                index++;
-            }
-            t += 0.1f;
-        }
         mesh.vertices = vertices;
-        mesh.colors = colors;
+        mesh.colors = MISCLib.ApplyDistColorMap(vertices);
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
-    }	
+
+        // If use diff map, then load that to memory
+        if (ProjectConstants.boolUseDiffMap)
+        {
+            RtwMatrix diffMapIn = MISCLib.LoadMap(ProjectConstants.strDistFileLoad);
+            // Lanny, start here next time.
+        }
+    }
+
 
 	// Update is called once per frame
 	void Update () {

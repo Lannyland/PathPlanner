@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using Assets.Scripts;
 
 public class LoadInputs : MonoBehaviour {
 
@@ -9,18 +10,18 @@ public class LoadInputs : MonoBehaviour {
 	
         // Set input fields defualt values
         UILabel diffFileLoad = GameObject.Find("inputDiffFileLoad").GetComponent<UILabel>();
-        diffFileLoad.text = Assets.Scripts.ProjectConstants.strDiffFileLoad;
+        diffFileLoad.text = ProjectConstants.strDiffFileLoad;
         UILabel distFileLoad = GameObject.Find("inputDistFileLoad").GetComponent<UILabel>();
-        distFileLoad.text = Assets.Scripts.ProjectConstants.strDistFileLoad;
+        distFileLoad.text = ProjectConstants.strDistFileLoad;
         UILabel TerrainImage = GameObject.Find("inputTerrainImage").GetComponent<UILabel>();
-        TerrainImage.text = Assets.Scripts.ProjectConstants.strTerrainImage;
+        TerrainImage.text = ProjectConstants.strTerrainImage;
         UICheckbox useDiffMap = GameObject.Find("chkUseDiff").GetComponent<UICheckbox>();
-        useDiffMap.isChecked = Assets.Scripts.ProjectConstants.boolUseDiffMap;
+        useDiffMap.isChecked = ProjectConstants.boolUseDiffMap;
         UICheckbox useEndPoint = GameObject.Find("chkUseEnd").GetComponent<UICheckbox>();
-        useEndPoint.isChecked = Assets.Scripts.ProjectConstants.boolUseEndPoint;
+        useEndPoint.isChecked = ProjectConstants.boolUseEndPoint;
         UISlider flightDuration = GameObject.Find("Slider").GetComponent<UISlider>();
         float steps = Convert.ToSingle(flightDuration.GetComponent<SliderSetSteps>().steps);
-        flightDuration.sliderValue = Assets.Scripts.ProjectConstants.intFlightDuration / (steps - 1);
+        flightDuration.sliderValue = ProjectConstants.intFlightDuration / (steps - 1);
         flightDuration.GetComponent<SliderNoZero>().OnSliderChange(flightDuration.sliderValue);
     }
 	
