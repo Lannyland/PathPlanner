@@ -12,7 +12,7 @@ public class StartUpChores : MonoBehaviour {
 	// public Vector3[] vertices;
 
     // Use this for initialization
-    void Start()
+    protected void Start()
     {
         // Load terrain image file
         StartCoroutine(LoadMesh());
@@ -55,12 +55,6 @@ public class StartUpChores : MonoBehaviour {
     private void SceneInit()
     {
         LoadMaps();
-
-        // The following code should be moved to scene specific start up chore scripts
-        //Camera.main.transform.GetComponent<DrawFreeLine>().enabled = false;
-        //UISlider slider = GameObject.Find("Slider").GetComponent<UISlider>();
-        //slider.sliderValue = 0.1f;
-        //slider.GetComponent<BrushSize>().OnSliderChange(slider.sliderValue);
     }
 
     private void LoadMaps()
@@ -68,18 +62,23 @@ public class StartUpChores : MonoBehaviour {
         // First load dist map to mesh and show on screen
         RtwMatrix distMapIn = MISCLib.LoadMap(ProjectConstants.strDistFileLoad);
         MISCLib.ScaleImageValues(ref distMapIn, 4.0f);
-        Vector3[] vertices = MISCLib.MatrixToArray(Assets.Scripts.Common.MISCLib.FlipTopBottom(distMapIn));
+        distMapIn = MISCLib.FlipTopBottom(distMapIn);
+
+        // Store a copy at global data store
+        ProjectConstants.mOriginalDistMap = distMapIn.Clone();
+        ProjectConstants.mDistMapCurStepUndo = distMapIn.Clone();
+        ProjectConstants.mDistMapCurStepWorking = distMapIn;
+
+        // Show dist map on screen
         Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
-        mesh.vertices = vertices;
-        mesh.colors = MISCLib.ApplyDistColorMap(vertices);
-        mesh.RecalculateBounds();
-        mesh.RecalculateNormals();
+        MISCLib.ApplyMatrixToMesh(distMapIn, ref mesh);
 
         // If use diff map, then load that to memory
         if (ProjectConstants.boolUseDiffMap)
         {
             RtwMatrix diffMapIn = MISCLib.LoadMap(ProjectConstants.strDistFileLoad);
-            // Lanny, start here next time.
+            diffMapIn = MISCLib.FlipTopBottom(diffMapIn);
+            ProjectConstants.mOriginalDistMap = distMapIn.Clone();
         }
     }
 

@@ -33,6 +33,7 @@ namespace Assets.Scripts
         public static RtwMatrix mOriginalDistMap = null;
         public static RtwMatrix mDistMapCurStepUndo = null;
         public static RtwMatrix mDistMapCurStepWorking = null;
+        public static RtwMatrix mDiffMap = null;
 
         #endregion
 
