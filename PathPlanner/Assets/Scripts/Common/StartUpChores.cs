@@ -76,9 +76,9 @@ public class StartUpChores : MonoBehaviour {
         // If use diff map, then load that to memory
         if (ProjectConstants.boolUseDiffMap)
         {
-            RtwMatrix diffMapIn = MISCLib.LoadMap(ProjectConstants.strDistFileLoad);
+            RtwMatrix diffMapIn = MISCLib.LoadMap(ProjectConstants.strDiffFileLoad);
             diffMapIn = MISCLib.FlipTopBottom(diffMapIn);
-            ProjectConstants.mOriginalDistMap = distMapIn.Clone();
+            ProjectConstants.mDiffMap = diffMapIn;
         }
     }
 
