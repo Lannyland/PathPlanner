@@ -4,7 +4,7 @@ using System.Collections;
 public class StartUpSliding : StartUpChores {
 
 	// Use this for initialization
-	void Start () {
+	protected override void Start () {
         base.Start();
 
         // The following code should be moved to scene specific start up chore scripts

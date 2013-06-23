@@ -12,7 +12,7 @@ public class StartUpChores : MonoBehaviour {
 	// public Vector3[] vertices;
 
     // Use this for initialization
-    protected void Start()
+    protected virtual void Start()
     {
         // Load terrain image file
         StartCoroutine(LoadMesh());

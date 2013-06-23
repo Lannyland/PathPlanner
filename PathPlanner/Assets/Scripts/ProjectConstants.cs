@@ -37,17 +37,41 @@ namespace Assets.Scripts
 
         #endregion
 
+		#region Manual Scene constants
 		
-        #region Editor constants
+		public static int editMode = 1;		// 1: Fly 2: Draw		
+        
+		#endregion
+			
+		#region Pattern Scene constants
+		
+		#endregion
+
+		#region SlidingAutonomy Scene constants
+
+		public static int navMode = 1;		// 1: Rotate 2: Pan
+		public static int resolution = 10;	// Resolution from 1 to 10
+		public static int durationLeft = 50;// How much time is left at the current path segment
+		public static int duration = 10;	// Current duration selected
+
+        #endregion
+		
+
+		#region Old Editor Scene parameters
+
+		// public static string strMapFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\Smoothed_Small_HikerPaulDist.csv";
+        public static string strMapFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\TestDistMap100.csv";
+        public static string strMapFileSave = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\NewDistMap.csv";
+        // public static string strTerrainImage = @"http://lannyland.com/images/yulu.jpg";
+        // public static string strTerrainImage = @"http://lannyland.com/images/LannylandIncHover.png";
 
         public static int diffLevel = 1;	// 1: Easy 2: Medium 3: Difficult
 		public static int appendMode = 1;	// 1: Erase 2: Increase 3: Decrease
-		public static int navMode = 1;		// 1: Rotate 2: Pan
-		public static int editMode = 1;		// 1: Paint 2: Select
 		public static int brushSize = 1;	// Paint Brush Size from 1 to 10
 		
 		public static Mesh mesh = null;
 
         #endregion
+		
     }
 }

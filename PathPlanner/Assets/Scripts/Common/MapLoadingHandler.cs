@@ -48,9 +48,9 @@ public class MapLoadingHandler : MonoBehaviour {
 	
 	void SaveButtonHandler()
 	{
-        //Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
-        //RtwMatrix mapOut = Assets.Scripts.Common.MISCLib.ArrayToMatrix(mesh.vertices);
-        //MISCLib.SaveMap(ProjectConstants.strMapFileSave, Assets.Scripts.Common.MISCLib.FlipTopBottom(mapOut));
+		Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
+		RtwMatrix mapOut = Assets.Scripts.Common.MISCLib.ArrayToMatrix(mesh.vertices);
+		MISCLib.SaveMap(ProjectConstants.strDistFileLoad, Assets.Scripts.Common.MISCLib.FlipTopBottom(mapOut));
 	}
 	
 }
