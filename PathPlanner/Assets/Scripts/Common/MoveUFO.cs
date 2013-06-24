@@ -1,5 +1,8 @@
 using UnityEngine;
+using System;
 using System.Collections;
+using Assets.Scripts;
+using Assets.Scripts.Common;
 
 public class MoveUFO : MonoBehaviour {
 	
@@ -14,9 +17,12 @@ public class MoveUFO : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		if(grabUAV)
 		{
-			UAV.transform.position = new Vector3(Input.mousePosition.x, UAV.transform.position.y, Input.mousePosition.y);
+			Vector3 p = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,4.0f));
+			// Debug.Log("Camera world space = " + p);								
+			UAV.transform.position = p;
 		}
 	}
 	
@@ -35,10 +41,14 @@ public class MoveUFO : MonoBehaviour {
 			grabUAV = true;
 		}
 	}
-	
+
 	// When mouse button is released
 	void OnMouseUp()
 	{
 		grabUAV = false;
+		
+		// Snap UAV to the closest vertex
+		MISCLib.SnapToGrid (ref UAV);
+
 	}
 }

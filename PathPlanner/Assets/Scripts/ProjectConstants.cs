@@ -53,6 +53,10 @@ namespace Assets.Scripts
 		public static int resolution = 10;	// Resolution from 1 to 10
 		public static int durationLeft = 50;// How much time is left at the current path segment
 		public static int duration = 10;	// Current duration selected
+		
+		public static bool lastPathApproved = true;		// If last path is approved, user can set new end point
+		public static int endPointCounter = 0;			// Remember how many end points have been created
+		public static Vector3 lastEndPoint = new Vector3(0.0f, 4.0f, 0.0f);		// Put new end point right next to last end point
 
         #endregion
 		

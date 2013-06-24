@@ -8,3 +8,12 @@ obj
 *.suo
 /PathPlanner/UnityVS.PathPlanner.UnityScript.Plugins.unityproj
 Temp
+
+PathPlanner.exe
+PathPlanner_Data
+
+/PathPlanner/*.pidb
+
+/PathPlanner/*.unityproj
+
+/PathPlanner/*.userprefs

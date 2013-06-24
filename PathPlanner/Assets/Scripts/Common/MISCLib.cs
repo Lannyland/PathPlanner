@@ -262,6 +262,21 @@ namespace Assets.Scripts.Common
             mesh.RecalculateBounds();
             mesh.RecalculateNormals();
         }
+		
+		// Method to snap object to grid
+		public static void SnapToGrid (ref Transform t)
+		{
+			float x = Mathf.Round(t.transform.position.x * 10)/10;
+			float z = Mathf.Round (t.transform.position.z * 10)/10;		
+			t.transform.position = new Vector3(x, 4.0f, z);
+		}
+		
+        // Calculating Manhattan Distance
+        public static float ManhattanDistance(float x1, float y1, float x2, float y2)
+        {
+            float distance = Math.Abs(x1 - x2) + Math.Abs(y1 - y2);
+            return distance;
+        }
 
 	}
 }
