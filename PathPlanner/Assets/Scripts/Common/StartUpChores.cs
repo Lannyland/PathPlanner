@@ -71,7 +71,7 @@ public class StartUpChores : MonoBehaviour {
 
         // Show dist map on screen
         Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
-        MISCLib.ApplyMatrixToMesh(distMapIn, ref mesh);
+        MISCLib.ApplyMatrixToMesh(distMapIn, ref mesh, true);
 
         // If use diff map, then load that to memory
         if (ProjectConstants.boolUseDiffMap)
@@ -79,6 +79,8 @@ public class StartUpChores : MonoBehaviour {
             RtwMatrix diffMapIn = MISCLib.LoadMap(ProjectConstants.strDiffFileLoad);
             diffMapIn = MISCLib.FlipTopBottom(diffMapIn);
             ProjectConstants.mDiffMap = diffMapIn;
+	        Mesh mesh2 = GameObject.Find("PlaneDiff").GetComponent<MeshFilter>().mesh;
+			MISCLib.ApplyMatrixToMesh(diffMapIn, ref mesh2, false);
         }
     }
 

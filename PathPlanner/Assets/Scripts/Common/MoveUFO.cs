@@ -42,9 +42,9 @@ public class MoveUFO : MonoBehaviour {
         {
             if (hit.transform.name == this.gameObject.name)
             {
-                Debug.Log("name=" + hit.collider.name);
-                Debug.Log("point=" + hit.point);
-                Debug.Log("pos=" + hit.transform.position);
+                // Debug.Log("name=" + hit.collider.name);
+                // Debug.Log("point=" + hit.point);
+                // Debug.Log("pos=" + hit.transform.position);
                 grabUAV = true;
             }
             

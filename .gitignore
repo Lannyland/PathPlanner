@@ -17,3 +17,5 @@ PathPlanner_Data
 /PathPlanner/*.unityproj
 
 /PathPlanner/*.userprefs
+
+/PathPlanner/*.pdb

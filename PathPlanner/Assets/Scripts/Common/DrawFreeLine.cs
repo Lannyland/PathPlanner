@@ -6,7 +6,7 @@ using System;
 public class DrawFreeLine : MonoBehaviour {
 
     public Material lineMaterial;
-    public int maxPoints = 1000;
+    public int maxPoints = 2000;
     public float lineWidth = 4.0f;
     public int minPixelMove = 1;	// Must move at least this many pixels per sample for a new segment to be recorded
     public bool useEndCap = false;

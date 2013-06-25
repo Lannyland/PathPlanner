@@ -254,11 +254,18 @@ namespace Assets.Scripts.Common
         }
 
         // Method to apply a matrix to vertecies of a mesh
-        public static void ApplyMatrixToMesh(RtwMatrix distMapIn, ref Mesh mesh)
+        public static void ApplyMatrixToMesh(RtwMatrix distMapIn, ref Mesh mesh, bool dist)
         {
             Vector3[] vertices = MISCLib.MatrixToArray(distMapIn);
             mesh.vertices = vertices;
-            mesh.colors = MISCLib.ApplyDistColorMap(vertices);
+            if(dist)
+			{
+			mesh.colors = MISCLib.ApplyDistColorMap(vertices);
+			}
+			else
+			{
+				mesh.colors = MISCLib.ApplyDiffColorMap(vertices);
+			}
             mesh.RecalculateBounds();
             mesh.RecalculateNormals();
         }

@@ -40,14 +40,21 @@ public class SliderControl : MonoBehaviour {
 
 			// Remember current duration
 			Assets.Scripts.ProjectConstants.duration = v;
+
+			// This section calls PlanPath to draw lines and show vacuum
+			if(ProjectConstants.readyToPlanPath)
+			{
+				Camera.main.GetComponent<PlanPath>().PlanMultiplePaths();
+			}
 		}
 		else if (this.gameObject.name == "SliderR")
 		{
 			// Change display text
 			int v = ChangeLabelText ("lblRValue", value, 10);
+			
 			// Remember current resolution
 			Assets.Scripts.ProjectConstants.resolution = v;
-	
+			
 			// Change the duration slider's settings
 			UISlider sliderD = GameObject.Find("SliderD").GetComponent<UISlider>();
 			sliderD.numberOfSteps = Convert.ToInt16(Math.Ceiling(ProjectConstants.durationLeft * 1.0f / v)+1);
@@ -55,7 +62,7 @@ public class SliderControl : MonoBehaviour {
 			// Move slider to 1
 			sliderD.sliderValue = 1.0f / (sliderD.numberOfSteps - 1);
 			sliderD.GetComponent<SliderControl>().OnSliderChange(sliderD.sliderValue);
-			}
+		}				
 	}
 	
 	private int ChangeLabelText (string labelName, float value, int scale)
@@ -65,5 +72,23 @@ public class SliderControl : MonoBehaviour {
 		int v = Convert.ToInt16(Math.Round(value*scale));
 		label.text = v.ToString();
 		return v;
+	}
+	
+	void OnMouseDown()
+	{
+		// Tell workThread to stop
+		if (this.gameObject.name == "SliderR")
+		{
+			ProjectConstants.stopPathPlanFactory = true;
+		}
+	}
+	
+	void OnMouseUp()
+	{
+		// Tell workThread to stop
+		if (this.gameObject.name == "SliderR")
+		{
+			ProjectConstants.stopPathPlanFactory = false;
+		}
 	}
 }

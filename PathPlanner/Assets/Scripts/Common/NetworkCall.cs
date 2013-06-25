@@ -102,19 +102,19 @@ namespace TCPIPTest
 					efficiency = BitConverter.ToDouble(inStream, 0);
 	                runTime = BitConverter.ToDouble(inStream, 8);
 	
-	                path = new Vector2[inStream.Length - 16];
-	                Debug.Log("Path = ");
+	                path = new Vector2[(inStream.Length - 16)/8];
+	                Debug.Log("Path length = " + path.Length);
 	                for (int i = 16; i < inStream.Length; i = i + 4)
 	                {
-	                    Debug.Log(BitConverter.ToInt32(inStream, i).ToString() + " ");
+	                    // Debug.Log(BitConverter.ToInt32(inStream, i).ToString() + " ");
 	                    if ((i / 4) % 2 == 1)
 	                    {
-	                        Debug.Log(", ");
-							path[(i-16)/4].y = BitConverter.ToInt32(inStream, i);							
+	                        // Debug.Log(", ");
+							path[(i-16)/8].y = BitConverter.ToInt32(inStream, i);							
 	                    }
 						else
 						{
-							path[(i-16)/4].x = BitConverter.ToInt32(inStream, i);							
+							path[(i-16)/8].x = BitConverter.ToInt32(inStream, i);							
 						}
 	                }
 	            }

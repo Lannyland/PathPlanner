@@ -17,8 +17,7 @@ public class StartUpSliding : StartUpChores {
         //Camera.main.transform.GetComponent<DrawFreeLine>().enabled = false;
         //UISlider slider = GameObject.Find("Slider").GetComponent<UISlider>();
         //slider.sliderValue = 0.1f;
-        //slider.GetComponent<BrushSize>().OnSliderChange(slider.sliderValue);
-
+        //slider.GetComponent<BrushSize>().OnSliderChange(slider.sliderValue);		
 	}
 	
 	// Update is called once per frame

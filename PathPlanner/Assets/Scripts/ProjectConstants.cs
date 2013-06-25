@@ -11,10 +11,10 @@ namespace Assets.Scripts
     {
         #region Global constants
 
-        public static int intMapWith = 100;
+        public static int intMapWidth = 100;
         public static int intMapHeight = 100;
         
-        public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TestDiffMap100.csv";
+        public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TestDiffMap100_012.csv";
         public static string strDistFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\TestDistMap100.csv";
 
         // public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\Small_HikerPaulDiff.csv";
@@ -25,14 +25,14 @@ namespace Assets.Scripts
         // public static string strTerrainImage = @"http://lannyland.com/images/LannylandIncHover.png";
         public static string strTerrainImage = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TerrainImage.jpg";
 
-        public static bool boolUseDiffMap = false;      // Whether to use diff map for path planning.
+        public static bool boolUseDiffMap = true;      // Whether to use diff map for path planning.
         public static int intFlightDuration = 60;       // Default flight duration in minutes.
 
         // Also used as a data store
         public static RtwMatrix mOriginalDistMap = null;
         public static RtwMatrix mDistMapCurStepUndo = null;
         public static RtwMatrix mDistMapCurStepWorking = null;
-        public static RtwMatrix mDiffMap = null;
+        public static RtwMatrix mDiffMap = new RtwMatrix(intMapHeight, intMapWidth);
 
         #endregion
 
@@ -50,19 +50,19 @@ namespace Assets.Scripts
 
 		public static int navMode = 1;		// 1: Rotate 2: Pan
 		public static int resolution = 10;	// Resolution from 1 to 10
-		public static int durationLeft = 50;// How much time is left at the current path segment
+		public static int durationLeft = 60;// How much time is left at the current path segment
 		public static int duration = 10;	// Current duration selected
 
-        public static bool boolUseEndPoint = false;     // Whether to allow user to set end point for path planning.
-        public static bool boolPlenty = false;          // With plenty of time use EA for path planning
-        public static bool lastPathApproved = true;		// If last path is approved, user can set new end point
-		public static int endPointCounter = 0;			// Remember how many end points have been created
-		public static Vector3 lastEndPoint = new Vector3(0.0f, 4.0f, 0.0f);		// Put new end point right next to last end point
-
+        public static bool readyToPlanPath = false;				// Don't plan path even slider is dragged until plan path button is clicked.
+		public static bool boolUseEndPoint = false;     		// Whether to allow user to set end point for path planning.
+        public static bool boolPlenty = false;          		// With plenty of time use EA for path planning
+        public static bool lastPathApproved = true;				// If last path is approved, user can set new end point
+		public static int endPointCounter = 0;					// Remember how many end points have been created
+		public static Vector2 lastEndPoint = new Vector2();		// Put new end point right next to last end point
         public static Vector2 globalStart = new Vector2();      // The start of entire path
         public static Vector2 curStart = new Vector2();         // Current start point
         public static Vector2 curEnd = new Vector2();           // Current end point
-
+		public static bool stopPathPlanFactory = false;			// Once set to true, the worker thread quits.
 
         #endregion
 		

@@ -48,8 +48,8 @@ public class SetEndPoint : MonoBehaviour {
                 objectPosition = UAV.transform.position;
                 // Debug.Log("Put new point next to UAV.");
             }
-            Debug.Log( (ProjectConstants.intMapWith - 1)/10.0f - 5.0f);
-            if (Mathf.Abs((ProjectConstants.intMapWith - 1)/10.0f - 5.0f - objectPosition.x) < 0.0001)
+            // Debug.Log( (ProjectConstants.intMapWith - 1)/10.0f - 5.0f);
+            if (Mathf.Abs((ProjectConstants.intMapWidth - 1)/10.0f - 5.0f - objectPosition.x) < 0.0001)
             {
                 offset.x = -0.1f;
             }
