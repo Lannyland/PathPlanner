@@ -40,8 +40,8 @@ namespace TCPIPTest
         {
 			DistMap = _distMap.Clone();
 			DiffMap = _diffMap.Clone();
-			start = _start;
-			end = _end;
+			start = _start * 10 + new Vector2(50, 50);
+            end = _end * 10 + new Vector2(50, 50);
 			useDiffMap = _useDiffMap;
 			useEndPoint = _useEndPoint;
 			plentyTime = _plentyTime;
