@@ -17,6 +17,9 @@ namespace Assets.Scripts
         public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TestDiffMap100_012.csv";
         public static string strDistFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\TestDistMap100.csv";
 
+        // public static string strDiffFileLoad = @"http://lannyland.com/Unity/TestDistMap100.csv";
+        // public static string strDistFileLoad = @"http://lannyland.com/Unity/TestDiffMap100_012.csv";
+
         // public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\Small_HikerPaulDiff.csv";
         // public static string strDistFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\Smoothed_Small_HikerPaulDist.csv";
 
@@ -32,6 +35,7 @@ namespace Assets.Scripts
         public static RtwMatrix mOriginalDistMap = null;
         public static RtwMatrix mDistMapCurStepUndo = null;
         public static RtwMatrix mDistMapCurStepWorking = null;
+        public static Vector3[] curVertices = null;
         public static RtwMatrix mDiffMap = new RtwMatrix(intMapHeight, intMapWidth);
 
         #endregion
@@ -54,7 +58,7 @@ namespace Assets.Scripts
 		public static int duration = 10;	// Current duration selected
 
         public static bool readyToPlanPath = false;				// Don't plan path even slider is dragged until plan path button is clicked.
-		public static bool boolUseEndPoint = false;     		// Whether to allow user to set end point for path planning.
+		public static bool boolUseEndPoint = true;     		// Whether to allow user to set end point for path planning.
         public static bool boolPlenty = false;          		// With plenty of time use EA for path planning
         public static bool lastPathApproved = true;				// If last path is approved, user can set new end point
 		public static int endPointCounter = 0;					// Remember how many end points have been created

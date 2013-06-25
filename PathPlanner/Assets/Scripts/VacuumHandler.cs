@@ -58,7 +58,7 @@ public class VacuumHandler {
 			}
 			else
 			{
-				diffVertices[i].y = (4f - diffVertices[i].y) * .25f;
+                diffVertices[i].y = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
 			}
 		}
 		

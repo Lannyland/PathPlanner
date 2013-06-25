@@ -8,18 +8,22 @@ using TCPIPTest;
 using Vectrosity;
 using System.Threading;
 
-public class PlanPath : MonoBehaviour {
+public class PlanPath : MonoBehaviour
+{
+
+    #region Members
 
     public List<Vector2[]> lstPaths = new List<Vector2[]>();
-	public List<VectorLine> lstLines = new List<VectorLine>();
 	public List<Vector3[]> lstVertices = new List<Vector3[]>();
 	public List<Color[]> lstColors = new List<Color[]>();
 	public VectorLine curLine;	
 	
 	private int resolution;
 	private int duration;
-	
-	// Use this for initialization
+
+    #endregion
+
+    // Use this for initialization
 	void Start () {
 		ClearLists();
 	}
@@ -48,7 +52,7 @@ public class PlanPath : MonoBehaviour {
             Debug.Log("Doing current path planning");
 			Debug.Log("ProjectConstants.boolUseEndPoint = " + ProjectConstants.boolUseEndPoint);
             NetworkCall call = new NetworkCall(
-                ProjectConstants.mDistMapCurStepWorking,
+                ProjectConstants.mDistMapCurStepWorking.Clone(),
                 ProjectConstants.mDiffMap,
                 ProjectConstants.curStart,
                 ProjectConstants.curEnd,
@@ -92,29 +96,37 @@ public class PlanPath : MonoBehaviour {
 		workerThread.Start();
     }
 	
+    // Method to clear all lists and set each member to null
 	void ClearLists ()
 	{
+        // If lists had things in them, clear them first
+        lstPaths.Clear();
+        lstVertices.Clear();
+        lstColors.Clear();
+
 		// Fill lists with empty things
 	    for (int i = 0; i < ProjectConstants.durationLeft; i++)
-	    {
+       {
 	        lstPaths.Add(null);
-			lstLines.Add(null);
 			lstVertices.Add(null);
 			lstColors.Add (null);
 		}
 	}
 	
+    // Method to create line representing current path on screen
 	VectorLine DrawPath(Vector2[] path)
 	{
 		DrawPathHandler newDraw = new DrawPathHandler(path);
 		return newDraw.GetLine();		
 	}
 	
+    // Method to vacuum dist map using given path
 	Vector3[] ComputeVertices(Vector2[] path)
 	{
-        Mesh distMesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
-		Mesh diffMesh = GameObject.Find("PlaneDiff").GetComponent<MeshFilter>().mesh;
-		VacuumHandler vh = new VacuumHandler(path, distMesh.vertices, diffMesh.vertices);
+        Vector3[] copy = new Vector3[ProjectConstants.curVertices.Length];
+        Array.Copy(ProjectConstants.curVertices, copy, copy.Length);
+    	Mesh diffMesh = GameObject.Find("PlaneDiff").GetComponent<MeshFilter>().mesh;
+		VacuumHandler vh = new VacuumHandler(path, copy, diffMesh.vertices);
 		return vh.GetVertices();
 	}
 	
@@ -133,7 +145,7 @@ public class PlanPath : MonoBehaviour {
 	    	    else
 	    	    {
 	    	        NetworkCall call = new NetworkCall(
-	    	            ProjectConstants.mDistMapCurStepWorking,
+	    	            ProjectConstants.mDistMapCurStepUndo.Clone(),
 	    	            ProjectConstants.mDiffMap,
 	    	            ProjectConstants.curStart,
 	    	            ProjectConstants.curEnd,

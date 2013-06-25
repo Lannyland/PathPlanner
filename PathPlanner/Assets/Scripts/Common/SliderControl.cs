@@ -30,7 +30,10 @@ public class SliderControl : MonoBehaviour {
 		// Deal with different sliders differently
 		if (this.gameObject.name == "SliderD")
 		{
-			// Change display text
+			// Only enable possible values that allow the UAV to reach the end point
+
+            
+            // Change display text
 			int number = Convert.ToInt16(Math.Round (value / (1.0f / (slider.numberOfSteps-1))));
 			int v = ChangeLabelText ("lblDValue", number, ProjectConstants.resolution);
 			if (number * ProjectConstants.resolution > ProjectConstants.durationLeft)

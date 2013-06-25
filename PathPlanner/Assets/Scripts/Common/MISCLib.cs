@@ -285,5 +285,15 @@ namespace Assets.Scripts.Common
             return distance;
         }
 
+        // Calculating Manhattan Distance
+        public static float ManhattanDistance(Vector3 v1, Vector3 v2)
+        {
+            v1.x = Convert.ToSingle(Math.Round(v1.x * 10f) / 10f);
+            v1.z = Convert.ToSingle(Math.Round(v1.z * 10f) / 10f);
+            v2.x = Convert.ToSingle(Math.Round(v2.x * 10f) / 10f);
+            v2.z = Convert.ToSingle(Math.Round(v2.z * 10f) / 10f);
+            float distance = Math.Abs(v1.x - v2.x) + Math.Abs(v1.y - v2.y) + Math.Abs(v1.z - v2.z);
+            return distance;
+        }
 	}
 }
