@@ -18,7 +18,7 @@ public class LoadInputs : MonoBehaviour {
         UICheckbox useDiffMap = GameObject.Find("chkUseDiff").GetComponent<UICheckbox>();
         useDiffMap.isChecked = ProjectConstants.boolUseDiffMap;
         UICheckbox useEndPoint = GameObject.Find("chkUseEnd").GetComponent<UICheckbox>();
-        useEndPoint.isChecked = ProjectConstants.boolUseEndPoint;
+        useEndPoint.isChecked = ProjectConstants.boolAnyEndPoint;
         UISlider flightDuration = GameObject.Find("Slider").GetComponent<UISlider>();
         float steps = Convert.ToSingle(flightDuration.GetComponent<SliderSetSteps>().steps);
         flightDuration.sliderValue = ProjectConstants.intFlightDuration / (steps - 1);

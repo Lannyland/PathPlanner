@@ -22,9 +22,8 @@ public class MoveUFO : MonoBehaviour {
 
 		if(grabUAV)
 		{
-
-            Debug.Log("UAV position = " + UAV.transform.position);
-            Debug.Log("distance is = " + (UAV.transform.position.x + UAV.transform.position.z));
+            // Debug.Log("UAV position = " + UAV.transform.position);
+            // Debug.Log("distance is = " + (UAV.transform.position.x + UAV.transform.position.z));
 
             Vector3 newMousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,0f));
             Vector3 UAVPosOffset = new Vector3(newMousePos.x - curMousePos.x, 0f, newMousePos.z - curMousePos.z);
@@ -108,6 +107,6 @@ public class MoveUFO : MonoBehaviour {
 		grabUAV = false;
 		
 		// Snap UAV to the closest vertex
-		// MISCLib.SnapToGrid (ref UAV);
+		MISCLib.SnapToGrid (ref UAV);
 	}
 }

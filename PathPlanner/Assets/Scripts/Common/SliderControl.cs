@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using Assets.Scripts;
+using Assets.Scripts.Common;
 
 public class SliderControl : MonoBehaviour {
 
@@ -30,9 +31,6 @@ public class SliderControl : MonoBehaviour {
 		// Deal with different sliders differently
 		if (this.gameObject.name == "SliderD")
 		{
-			// Only enable possible values that allow the UAV to reach the end point
-
-            
             // Change display text
 			int number = Convert.ToInt16(Math.Round (value / (1.0f / (slider.numberOfSteps-1))));
 			int v = ChangeLabelText ("lblDValue", number, ProjectConstants.resolution);
@@ -41,6 +39,25 @@ public class SliderControl : MonoBehaviour {
 				v = ChangeLabelText ("lblDValue", ProjectConstants.durationLeft, 1);
 			}			
 
+			// Only enable possible values that allow the UAV to reach the end point
+			if(ProjectConstants.boolUseEndPoint &&  ProjectConstants.endPointCounter > 0)
+			{
+				// Find last endpoint and UAV
+				GameObject UAV = GameObject.Find("UAV");
+				GameObject curEndPoint = GameObject.Find("EndPoint" + ProjectConstants.endPointCounter);
+				UILabel curSliderDValue = GameObject.Find("lblDValue").GetComponent<UILabel>();
+				int duration = Convert.ToInt16(curSliderDValue.text);			
+				UILabel curSliderRValue = GameObject.Find("lblRValue").GetComponent<UILabel>();
+				int resolution = Convert.ToInt16(curSliderRValue.text);			
+				while(MISCLib.ManhattanDistance(curEndPoint.transform.position, UAV.transform.position)*10 > duration*30)
+				{
+					duration+=resolution;
+				}
+				UISlider sliderD = 	GameObject.Find("SliderD").GetComponent<UISlider>();
+				sliderD.sliderValue = Mathf.Clamp01(duration/resolution*(1f/(sliderD.numberOfSteps-1)));
+				v = ChangeLabelText ("lblDValue", duration/resolution, ProjectConstants.resolution);
+			}
+			
 			// Remember current duration
 			Assets.Scripts.ProjectConstants.duration = v;
 

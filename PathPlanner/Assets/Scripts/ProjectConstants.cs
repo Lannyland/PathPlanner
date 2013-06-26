@@ -29,6 +29,7 @@ namespace Assets.Scripts
         public static string strTerrainImage = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TerrainImage.jpg";
 
         public static bool boolUseDiffMap = true;      // Whether to use diff map for path planning.
+		public static bool boolAnyEndPoint = false;
         public static int intFlightDuration = 60;       // Default flight duration in minutes.
 
         // Also used as a data store
@@ -58,15 +59,14 @@ namespace Assets.Scripts
 		public static int duration = 10;	// Current duration selected
 
         public static bool readyToPlanPath = false;				// Don't plan path even slider is dragged until plan path button is clicked.
-		public static bool boolUseEndPoint = true;     		// Whether to allow user to set end point for path planning.
+		public static bool boolUseEndPoint = false;     			// Whether to allow user to set end point for path planning.
         public static bool boolPlenty = false;          		// With plenty of time use EA for path planning
         public static bool lastPathApproved = true;				// If last path is approved, user can set new end point
 		public static int endPointCounter = 0;					// Remember how many end points have been created
-		public static Vector2 lastEndPoint = new Vector2();		// Put new end point right next to last end point
-        public static Vector2 globalStart = new Vector2();      // The start of entire path
         public static Vector2 curStart = new Vector2();         // Current start point
         public static Vector2 curEnd = new Vector2();           // Current end point
 		public static bool stopPathPlanFactory = false;			// Once set to true, the worker thread quits.
+		public static List<Vector2[]> AllPathSegments = new List<Vector2[]>();
 
         #endregion
 		

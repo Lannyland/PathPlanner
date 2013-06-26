@@ -28,7 +28,7 @@ public class SaveSettings : MonoBehaviour {
         UICheckbox useDiffMap = GameObject.Find("chkUseDiff").GetComponent<UICheckbox>();
         ProjectConstants.boolUseDiffMap = useDiffMap.isChecked;
         UICheckbox useEndPoint = GameObject.Find("chkUseEnd").GetComponent<UICheckbox>();
-        ProjectConstants.boolUseEndPoint = useEndPoint.isChecked;
+        ProjectConstants.boolAnyEndPoint = useEndPoint.isChecked;
         UISlider flightDuration = GameObject.Find("Slider").GetComponent<UISlider>();
         int steps = flightDuration.GetComponent<SliderSetSteps>().steps;
         ProjectConstants.intFlightDuration = Convert.ToInt16(flightDuration.sliderValue) * (steps - 1);

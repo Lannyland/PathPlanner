@@ -17,6 +17,7 @@ public class PlanPath : MonoBehaviour
 	public List<Vector3[]> lstVertices = new List<Vector3[]>();
 	public List<Color[]> lstColors = new List<Color[]>();
 	public VectorLine curLine;	
+	public Thread workerThread;
 	
 	private int resolution;
 	private int duration;
@@ -92,12 +93,12 @@ public class PlanPath : MonoBehaviour
 
         // While the user is not doing anything, just keep planning in a different thread
 		ThreadStart threadDelegate = new ThreadStart(this.PathPlannerFactory);
-		Thread workerThread = new Thread(threadDelegate);
+		workerThread = new Thread(threadDelegate);
 		workerThread.Start();
     }
 	
     // Method to clear all lists and set each member to null
-	void ClearLists ()
+	public void ClearLists ()
 	{
         // If lists had things in them, clear them first
         lstPaths.Clear();
@@ -138,10 +139,20 @@ public class PlanPath : MonoBehaviour
 			for (int i = resolution; i < ProjectConstants.durationLeft + 1; i += resolution)
 	    	{
 	    	    Debug.Log("Doing additional path planning");
-	    	    // If a path already exists, then no need to plan again
 	    	    if (lstPaths[i - 1] != null)
-	    	    { 
+	    	    {
+					// If a path already exists, then no need to plan again
 	    	    }
+				else if(ProjectConstants.boolUseEndPoint &&  ProjectConstants.endPointCounter > 0)
+				{
+					// If duration won't allow reaching end point, then no need to plan
+					GameObject UAV = GameObject.Find("UAV");
+					GameObject curEndPoint = GameObject.Find("EndPoint" + ProjectConstants.endPointCounter);
+					if(MISCLib.ManhattanDistance(curEndPoint.transform.position, UAV.transform.position)*10 > i*30)
+					{
+						continue;
+					}					
+				}
 	    	    else
 	    	    {
 	    	        NetworkCall call = new NetworkCall(
