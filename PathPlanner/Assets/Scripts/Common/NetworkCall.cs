@@ -93,17 +93,18 @@ namespace TCPIPTest
 	            // Convert byte array to things we want
 	            if (inStream.Length == 0)
 	            {
-	               Debug.Log("Server exception occurred. No data received!");
+	               	Debug.Log("Server exception occurred. No data received!");
+					message = "Server exception occurred. No data received!";
 	            }
 	            else
 	            {
-	                Debug.Log("Efficiency = " + BitConverter.ToDouble(inStream, 0) + "\n");
-	                Debug.Log("Run Time = " + BitConverter.ToDouble(inStream, 8) + "\n");
+	                // Debug.Log("Efficiency = " + BitConverter.ToDouble(inStream, 0) + "\n");
+	                // Debug.Log("Run Time = " + BitConverter.ToDouble(inStream, 8) + "\n");
 					efficiency = BitConverter.ToDouble(inStream, 0);
 	                runTime = BitConverter.ToDouble(inStream, 8);
 	
 	                path = new Vector2[(inStream.Length - 16)/8];
-	                Debug.Log("Path length = " + path.Length);
+	                // Debug.Log("Path length = " + path.Length);
 	                for (int i = 16; i < inStream.Length; i = i + 4)
 	                {
 	                    // Debug.Log(BitConverter.ToInt32(inStream, i).ToString() + " ");

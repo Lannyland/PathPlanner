@@ -2,7 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 using Assets.Scripts;
+using Assets.Scripts.Common;
 using Vectrosity;
+using rtwmatrix;
 
 public class ApprovePath : MonoBehaviour {
 	
@@ -31,11 +33,18 @@ public class ApprovePath : MonoBehaviour {
 		
 		// Tell workerThread factory to stop
 		ProjectConstants.stopPathPlanFactory = true;
-
+		
 		// Find path and add it to total path
 		UILabel curSliderDValue = GameObject.Find("lblDValue").GetComponent<UILabel>();
 		int duration = Convert.ToInt16(curSliderDValue.text);
 		ProjectConstants.AllPathSegments.Add(Camera.main.GetComponent<PlanPath>().lstPaths[duration-1]);
+		// Add CDF for current segment to totalCDF
+		Camera.main.GetComponent<PlanPath>().totalCDF += Camera.main.GetComponent<PlanPath>().lstCDF[duration-1];
+		if(ProjectConstants.AllPathSegments.Count != 1)
+		{
+			Camera.main.GetComponent<PlanPath>().totalCDF -= Camera.main.GetComponent<PlanPath>().lstFirstVacuum[duration-1];
+		}
+		GameObject.Find("lblScore").GetComponent<IncreasingScoreEffect>().curScore = Camera.main.GetComponent<PlanPath>().totalCDF;
 		
 		// Next move UAV to end point of last path segment
 		Vector2[] curPath = Camera.main.GetComponent<PlanPath>().lstPaths[duration-1];
@@ -66,11 +75,12 @@ public class ApprovePath : MonoBehaviour {
         Vector3[] copy = new Vector3[distMesh.vertices.Length];
         Array.Copy(distMesh.vertices, copy, copy.Length);
         ProjectConstants.curVertices = copy;
-
+		
 		// Remember new curDistMapUndo
-		// Modify VacuumHandler class to include probability volume and first point vacuum.
-		// Convert current vertices to mDistMapCurStepUndo so we can do multpile path planning on this.
-		// ProjectConstants.mDistMapCurStepUndo = 
+		// Convert vertices back to matrix map
+		RtwMatrix curDistMap = MISCLib.ArrayToMatrix(copy);
+		ProjectConstants.mDistMapCurStepUndo = curDistMap;
+		ProjectConstants.mDistMapCurStepWorking = curDistMap.Clone();
 		
 		// Get rid of the line
 		VectorLine line = Camera.main.GetComponent<PlanPath>().curLine;
@@ -92,7 +102,7 @@ public class ApprovePath : MonoBehaviour {
 		// Clear all lists of things for next path segment planning		
 		Camera.main.GetComponent<PlanPath>().workerThread.Abort();
 		Camera.main.GetComponent<PlanPath>().ClearLists();
-		
+				
 		if(ProjectConstants.durationLeft == 0)
 		{
 			// We are done planning.
@@ -111,8 +121,8 @@ public class ApprovePath : MonoBehaviour {
 			b3.isEnabled = false;
 			
 			// Enable things
-			GameObject b4 = GameObject.Find("btnFly");
-			b4.AddComponent<FlyPath>();
+			UIButton b4 = GameObject.Find("btnFly").GetComponent<UIButton>();
+			b4.isEnabled = true;
 		}
 	}	
 }

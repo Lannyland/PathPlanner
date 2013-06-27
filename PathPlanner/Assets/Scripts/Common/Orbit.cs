@@ -71,7 +71,7 @@ public class Orbit : MonoBehaviour
 			
 	        transform.rotation = rotation;
 	        transform.position = position;
-			transform.camera.orthographicSize += GetInput(inputDevice, "Mouse ScrollWheel");
+			transform.camera.orthographicSize -= GetInput(inputDevice, "Mouse ScrollWheel");
 			transform.Translate(h, v, 0);
 	    }
 	}

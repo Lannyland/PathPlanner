@@ -8,7 +8,7 @@ public class ReadyToPlanPath : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("ProjectConstants.endPointCounter = " + ProjectConstants.endPointCounter);	
+		// Debug.Log("ProjectConstants.endPointCounter = " + ProjectConstants.endPointCounter);	
 	}
 	
 	// Update is called once per frame
@@ -69,6 +69,10 @@ public class ReadyToPlanPath : MonoBehaviour {
         ProjectConstants.curVertices = copy;
 		
         // Start path planning
+		if(ProjectConstants.boolUseEndPoint)
+		{
+			Camera.main.GetComponent<PlanPath>().curEndPointPos = GameObject.Find("EndPoint" + ProjectConstants.endPointCounter).transform.position;
+		}
         Camera.main.GetComponent<PlanPath>().PlanMultiplePaths();        
     }
 }

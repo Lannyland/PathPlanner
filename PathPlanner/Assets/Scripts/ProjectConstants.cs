@@ -28,7 +28,7 @@ namespace Assets.Scripts
         // public static string strTerrainImage = @"http://lannyland.com/images/LannylandIncHover.png";
         public static string strTerrainImage = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TerrainImage.jpg";
 
-        public static bool boolUseDiffMap = true;      // Whether to use diff map for path planning.
+        public static bool boolUseDiffMap = false;      // Whether to use diff map for path planning.
 		public static bool boolAnyEndPoint = false;
         public static int intFlightDuration = 60;       // Default flight duration in minutes.
 

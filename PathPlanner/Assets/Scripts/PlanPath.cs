@@ -7,6 +7,7 @@ using Assets.Scripts.Common;
 using TCPIPTest;
 using Vectrosity;
 using System.Threading;
+using rtwmatrix;
 
 public class PlanPath : MonoBehaviour
 {
@@ -16,8 +17,12 @@ public class PlanPath : MonoBehaviour
     public List<Vector2[]> lstPaths = new List<Vector2[]>();
 	public List<Vector3[]> lstVertices = new List<Vector3[]>();
 	public List<Color[]> lstColors = new List<Color[]>();
+	public List<float> lstCDF = new List<float>();
+	public List<float> lstFirstVacuum = new List<float>();
 	public VectorLine curLine;	
 	public Thread workerThread;
+	public Vector3 curEndPointPos;
+	public float totalCDF = 0f;
 	
 	private int resolution;
 	private int duration;
@@ -39,6 +44,14 @@ public class PlanPath : MonoBehaviour
     // The most important part of the tool: actually plan paths
     public void PlanMultiplePaths()
     {
+		// Get rid or previous path line
+		if(curLine!=null)
+		{
+			curLine.ZeroPoints();
+			curLine.Draw3D();
+		}
+		VectorLine.Destroy(ref curLine);
+		
         // First store UAV current position to object
         GameObject UAV = GameObject.Find("UAV");
         UAVPos = UAV.transform.position;
@@ -47,55 +60,66 @@ public class PlanPath : MonoBehaviour
         resolution = Convert.ToInt16(GameObject.Find("lblRValue").GetComponent<UILabel>().text);
         duration = Convert.ToInt16(GameObject.Find("lblDValue").GetComponent<UILabel>().text);
 		
-		Debug.Log("resolution = " + resolution);
-		Debug.Log("duration = " + duration);
+		// Debug.Log("resolution = " + resolution);
+		// Debug.Log("duration = " + duration);
 
         // First plan the selected duration path if it has not been planned before
         // (each time step is 2 seconds, so divide by 60 and times 2)
-        if (lstPaths[duration - 1] != null) {}
-        else
-        {
-            Debug.Log("Doing current path planning");
-			Debug.Log("ProjectConstants.boolUseEndPoint = " + ProjectConstants.boolUseEndPoint);
-            NetworkCall call = new NetworkCall(
-                ProjectConstants.mDistMapCurStepWorking.Clone(),
-                ProjectConstants.mDiffMap,
-                ProjectConstants.curStart,
-                ProjectConstants.curEnd,
-                ProjectConstants.boolUseDiffMap,
-                ProjectConstants.boolUseEndPoint,
-                ProjectConstants.boolPlenty,
-                duration * 30);
+		try
+		{{
+			if (lstPaths[duration - 1] != null) {}
+	        else
+	        {
+	            // Debug.Log("Doing current path planning");
+				// Debug.Log("ProjectConstants.boolUseEndPoint = " + ProjectConstants.boolUseEndPoint);
+	            NetworkCall call = new NetworkCall(
+	                ProjectConstants.mDistMapCurStepWorking.Clone(),
+	                ProjectConstants.mDiffMap,
+	                ProjectConstants.curStart,
+	                ProjectConstants.curEnd,
+	                ProjectConstants.boolUseDiffMap,
+	                ProjectConstants.boolUseEndPoint,
+	                ProjectConstants.boolPlenty,
+	                duration * 30);
+				
+				// Display any error message if there is any
+				GameObject.Find("GUIText").GetComponent<UILabel>().text = call.message;
+				// Store everything in List
+	            lstPaths[duration - 1] = call.path;
+	        	// Debug.Log("Path returned length = " + call.path.Length);
+				}
+			}
 			
-			// Store everything in List
-            lstPaths[duration - 1] = call.path;
-        	Debug.Log("Path returned length = " + call.path.Length);
+			// Next re-draw path each time
+			curLine = DrawPath(lstPaths[duration-1]);			
+			curLine.Draw3DAuto();
+					
+			// Next show vacuumed dist map. If vertices and colors were computed before, simply use that one.
+			if(lstVertices[duration-1]!=null){}
+			else
+			{
+				// Store vertices and colors to list
+				VacuumHandler vh = ComputeVertices(lstPaths[duration-1]);
+				Vector3[] vertices = vh.GetVertices();
+				lstVertices[duration-1] = vertices;
+				Color[] colors = MISCLib.ApplyDistColorMap(vertices);
+				lstColors[duration-1] = colors;
+				lstCDF[duration-1] = vh.GetCDF();
+				lstFirstVacuum[duration-1] = vh.GetFirstVacuum();
+			}
+			Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
+			mesh.vertices = lstVertices[duration-1];
+			mesh.colors = lstColors[duration-1];
+			mesh.RecalculateNormals();
+			mesh.RecalculateBounds();
+		}
+		catch(Exception e)
+		{
+			string message = "Path planning server error: " + e.Message + " Please wait and try again.";
+			GameObject.Find("GUIText").GetComponent<UILabel>().text = message;
+			return;
 		}
 		
-		// Next re-draw path each time
-		if(curLine!=null)
-		{
-			curLine.ZeroPoints();
-			curLine.Draw3D();
-		}
-		curLine = DrawPath(lstPaths[duration-1]);			
-		curLine.Draw3DAuto();
-				
-		// Next show vacuumed dist map. If vertices and colors were computed before, simply use that one.
-		if(lstVertices[duration-1]!=null){}
-		else
-		{
-			Vector3[] vertices = ComputeVertices(lstPaths[duration-1]);
-			lstVertices[duration-1] = vertices;
-			Color[] colors = MISCLib.ApplyDistColorMap(vertices);
-			lstColors[duration-1] = colors;
-		}
-		Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
-		mesh.vertices = lstVertices[duration-1];
-		mesh.colors = lstColors[duration-1];
-		mesh.RecalculateNormals();
-		mesh.RecalculateBounds();
-
         // While the user is not doing anything, just keep planning in a different thread
 		ThreadStart threadDelegate = new ThreadStart(this.PathPlannerFactory);
 		workerThread = new Thread(threadDelegate);
@@ -109,6 +133,8 @@ public class PlanPath : MonoBehaviour
         lstPaths.Clear();
         lstVertices.Clear();
         lstColors.Clear();
+		lstCDF.Clear();
+		lstFirstVacuum.Clear();
 
 		// Fill lists with empty things
 	    for (int i = 0; i < ProjectConstants.durationLeft; i++)
@@ -116,6 +142,8 @@ public class PlanPath : MonoBehaviour
 	        lstPaths.Add(null);
 			lstVertices.Add(null);
 			lstColors.Add (null);
+			lstCDF.Add (0);
+			lstFirstVacuum.Add(0);
 		}
 	}
 	
@@ -127,13 +155,13 @@ public class PlanPath : MonoBehaviour
 	}
 	
     // Method to vacuum dist map using given path
-	Vector3[] ComputeVertices(Vector2[] path)
+	VacuumHandler ComputeVertices(Vector2[] path)
 	{
         Vector3[] copy = new Vector3[ProjectConstants.curVertices.Length];
         Array.Copy(ProjectConstants.curVertices, copy, copy.Length);
     	Mesh diffMesh = GameObject.Find("PlaneDiff").GetComponent<MeshFilter>().mesh;
 		VacuumHandler vh = new VacuumHandler(path, copy, diffMesh.vertices);
-		return vh.GetVertices();
+		return vh;
 	}
 	
 	// Work to be done by a separate thread. And it will stop when a flag is set to false;
@@ -143,7 +171,6 @@ public class PlanPath : MonoBehaviour
 		{
 			for (int i = resolution; i < ProjectConstants.durationLeft + 1; i += resolution)
 	    	{
-	    	    Debug.Log("Doing additional path planning");
 	    	    if (lstPaths[i - 1] != null)
 	    	    {
 					// If a path already exists, then no need to plan again
@@ -151,15 +178,15 @@ public class PlanPath : MonoBehaviour
 				else if(ProjectConstants.boolUseEndPoint &&  ProjectConstants.endPointCounter > 0)
 				{
 					// If duration won't allow reaching end point, then no need to plan
-					GameObject curEndPoint = GameObject.Find("EndPoint" + ProjectConstants.endPointCounter);
-					if(MISCLib.ManhattanDistance(curEndPoint.transform.position, UAVPos)*10 > i*30)
+					if(MISCLib.ManhattanDistance(curEndPointPos, UAVPos)*10 > i*30)
 					{
 						continue;
 					}					
 				}
 	    	    else
 	    	    {
-	    	        NetworkCall call = new NetworkCall(
+					Debug.Log("Duration: " + i + ". Doing additional path planning.");
+					NetworkCall call = new NetworkCall(
 	    	            ProjectConstants.mDistMapCurStepUndo.Clone(),
 	    	            ProjectConstants.mDiffMap,
 	    	            ProjectConstants.curStart,
@@ -169,7 +196,7 @@ public class PlanPath : MonoBehaviour
 	    	            ProjectConstants.boolPlenty,
 	    	            i * 30);
 	    	        lstPaths[i - 1] = call.path;
-	    	        Debug.Log("Path returned length = " + call.path.Length);
+	    	        // Debug.Log("Path returned length = " + call.path.Length);
 	    	    }
 				if(ProjectConstants.stopPathPlanFactory)
 				{

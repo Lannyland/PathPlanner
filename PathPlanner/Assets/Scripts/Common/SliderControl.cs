@@ -18,7 +18,7 @@ public class SliderControl : MonoBehaviour {
         if (this.gameObject.name == "SliderR")
         {
             // Set initial number of steps to 11 or (durationLeft+1) if less than 10 and value to 1
-            Debug.Log(this.gameObject.name + " Start() set initial number of steps and value.");
+            // Debug.Log(this.gameObject.name + " Start() set initial number of steps and value.");
             slider.sliderValue = 1; // This will call SliderR OnSliderChange()
         }
         //if(this.gameObject.name == "SliderD")
@@ -46,7 +46,7 @@ public class SliderControl : MonoBehaviour {
 			return;
 		}
 		
-        Debug.Log(this.gameObject.name + " OnSliderChange called.");
+        // Debug.Log(this.gameObject.name + " OnSliderChange called.");
 
 		// Not allow slider value to be 0		
         if (value == 0)
@@ -66,7 +66,7 @@ public class SliderControl : MonoBehaviour {
 			// This section calls PlanPath to draw lines and show vacuum
 			if(ProjectConstants.readyToPlanPath)
 			{
-                Debug.Log("ProjectConstants.readyToPlanPath = " + ProjectConstants.readyToPlanPath + " and let's start path planning");
+                // Debug.Log("ProjectConstants.readyToPlanPath = " + ProjectConstants.readyToPlanPath + " and let's start path planning");
 				Camera.main.GetComponent<PlanPath>().PlanMultiplePaths();
 			}
 		}
