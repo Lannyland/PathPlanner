@@ -73,7 +73,7 @@ public class PlanPath : MonoBehaviour
 	            // Debug.Log("Doing current path planning");
 				// Debug.Log("ProjectConstants.boolUseEndPoint = " + ProjectConstants.boolUseEndPoint);
 	            NetworkCall call = new NetworkCall(
-	                ProjectConstants.mDistMapCurStepWorking.Clone(),
+                    ProjectConstants.mDistMapCurStepUndo.Clone(),
 	                ProjectConstants.mDiffMap,
 	                ProjectConstants.curStart,
 	                ProjectConstants.curEnd,
@@ -93,6 +93,8 @@ public class PlanPath : MonoBehaviour
 			// Next re-draw path each time
 			curLine = DrawPath(lstPaths[duration-1]);			
 			curLine.Draw3DAuto();
+
+            //List<float> CDFGraph = new List<float>();
 					
 			// Next show vacuumed dist map. If vertices and colors were computed before, simply use that one.
 			if(lstVertices[duration-1]!=null){}
@@ -106,12 +108,24 @@ public class PlanPath : MonoBehaviour
 				lstColors[duration-1] = colors;
 				lstCDF[duration-1] = vh.GetCDF();
 				lstFirstVacuum[duration-1] = vh.GetFirstVacuum();
+
+                //// Debug info
+                //CDFGraph = vh.getCDFGraph();
 			}
 			Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
 			mesh.vertices = lstVertices[duration-1];
 			mesh.colors = lstColors[duration-1];
 			mesh.RecalculateNormals();
 			mesh.RecalculateBounds();
+
+            //// Debug info
+            //string output = "";
+            //for (int i = 0; i < CDFGraph.Count; i++)
+            //{
+            //    output += (CDFGraph[i] + 368.5937f).ToString() + " ";
+            //}
+
+            //Debug.Log(output);
 		}
 		catch(Exception e)
 		{
@@ -120,10 +134,10 @@ public class PlanPath : MonoBehaviour
 			return;
 		}
 		
-        // While the user is not doing anything, just keep planning in a different thread
-		ThreadStart threadDelegate = new ThreadStart(this.PathPlannerFactory);
-		workerThread = new Thread(threadDelegate);
-		workerThread.Start();
+        //// While the user is not doing anything, just keep planning in a different thread
+        //ThreadStart threadDelegate = new ThreadStart(this.PathPlannerFactory);
+        //workerThread = new Thread(threadDelegate);
+        //workerThread.Start();
     }
 	
     // Method to clear all lists and set each member to null

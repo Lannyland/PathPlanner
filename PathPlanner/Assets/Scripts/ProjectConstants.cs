@@ -32,10 +32,12 @@ namespace Assets.Scripts
 		public static bool boolAnyEndPoint = false;
         public static int intFlightDuration = 60;       // Default flight duration in minutes.
 
+        // Max wait time (*10)
+        public static int MaxWaitTime = 1500;            // 15000 milisecond, so 15 seconds.
+
         // Also used as a data store
         public static RtwMatrix mOriginalDistMap = null;
         public static RtwMatrix mDistMapCurStepUndo = null;
-        public static RtwMatrix mDistMapCurStepWorking = null;
         public static Vector3[] curVertices = null;
         public static RtwMatrix mDiffMap = new RtwMatrix(intMapHeight, intMapWidth);
 

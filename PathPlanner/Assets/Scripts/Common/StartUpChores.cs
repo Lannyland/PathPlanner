@@ -67,7 +67,6 @@ public class StartUpChores : MonoBehaviour {
         // Store a copy at global data store
         ProjectConstants.mOriginalDistMap = distMapIn.Clone();
         ProjectConstants.mDistMapCurStepUndo = distMapIn.Clone();
-        ProjectConstants.mDistMapCurStepWorking = distMapIn;
 
         // Show dist map on screen
         Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;

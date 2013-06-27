@@ -46,7 +46,6 @@ public class StartOver : MonoBehaviour {
 		
 		// Set everything back to default values
 		ProjectConstants.mDistMapCurStepUndo = ProjectConstants.mOriginalDistMap.Clone();
-		ProjectConstants.mDistMapCurStepWorking = ProjectConstants.mOriginalDistMap.Clone();
 		Mesh distMesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
         Vector3[] copy = new Vector3[distMesh.vertices.Length];
         Array.Copy(distMesh.vertices, copy, copy.Length);
@@ -73,6 +72,12 @@ public class StartOver : MonoBehaviour {
 		b2.isEnabled = true;
 		UIButton b3 = GameObject.Find("btnApprove").GetComponent<UIButton>();
 		b3.isEnabled = true;	
+
+        // reset score
+        Camera.main.GetComponent<PlanPath>().totalCDF = 0f;
+        Camera.main.GetComponent<IncreasingScoreEffect>().curScore = 0f;
+        Camera.main.GetComponent<IncreasingScoreEffect>().initialScore = 0f;
+        GameObject.Find("lblScore").GetComponent<UILabel>().text = "0";
 		
 		// Disable buttons
 		if(!Assets.Scripts.ProjectConstants.boolAnyEndPoint)

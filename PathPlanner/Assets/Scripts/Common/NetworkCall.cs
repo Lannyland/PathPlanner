@@ -164,7 +164,8 @@ namespace TCPIPTest
 				}
 				else
 				{
-					newRequest.AlgToUse = AlgType.LHCGWCONV_E;
+					// newRequest.AlgToUse = AlgType.LHCGWCONV_E;
+                    newRequest.AlgToUse = AlgType.LHCGWCONV_E;
 				}
 			}
 			else
@@ -177,7 +178,8 @@ namespace TCPIPTest
 				}
 				else
 				{
-					newRequest.AlgToUse = AlgType.LHCGWCONV;
+					// newRequest.AlgToUse = AlgType.LHCGWCONV;
+                    newRequest.AlgToUse = AlgType.LHCGWCONV;
 				}
 			}			
 	        newRequest.DrawPath = false;

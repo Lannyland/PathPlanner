@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.Common;
 using rtwmatrix;
@@ -13,6 +14,9 @@ public class VacuumHandler {
 	private Color[] colors;
 	private float firstVacuum;
 	private float CDF;
+
+    // Debug List
+    List<float> CDFGraph = new List<float>();
 	
 	// Contructor
 	public VacuumHandler(Vector2[] _path, Vector3[] _distMapVertices, Vector3[] _diffMapVertices)
@@ -51,6 +55,7 @@ public class VacuumHandler {
 		{
 			// No Diff map is used
 			maxDiff = 0f;
+            Debug.Log("No diff map is used based on maxDiff.");
 		}
 
 		// Just use the Vector3 array to set probability of detection	
@@ -75,6 +80,7 @@ public class VacuumHandler {
 				firstVacuum = distVertices[index].y * diffVertices[index].y;
 			}
 			CDF += distVertices[index].y * diffVertices[index].y;
+            CDFGraph.Add(CDF);
 			distVertices[index].y -= distVertices[index].y * diffVertices[index].y;
 		}
 		
@@ -101,4 +107,9 @@ public class VacuumHandler {
 	{
 		return CDF;
 	}
+
+    public List<float> getCDFGraph()
+    {
+        return CDFGraph;
+    }
 }
