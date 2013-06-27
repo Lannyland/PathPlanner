@@ -51,8 +51,11 @@ public class ApprovePath : MonoBehaviour {
 			GameObject newEndPoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 			ProjectConstants.endPointCounter++;
 			newEndPoint.name = "EndPoint" + ProjectConstants.endPointCounter;
-			newEndPoint.transform.localScale = new Vector3(0.2f,0.2f,0.2f);
+			newEndPoint.transform.localScale = new Vector3(0.1f,0.1f,0.1f);
 			newEndPoint.transform.position = new Vector3(ProjectConstants.curStart.x,4f,ProjectConstants.curStart.y);
+            // Attach script and set it to not movable
+            newEndPoint.AddComponent("MoveUFO");
+            newEndPoint.GetComponent<MoveUFO>().movable = false;
 		}
 		
 		// Set ready to plan path mode to false, so moving slider won't change anything.
@@ -78,13 +81,14 @@ public class ApprovePath : MonoBehaviour {
 		}
 			
 		// Set left duration
-		ProjectConstants.durationLeft = ProjectConstants.duration - duration;
-		UILabel dMax = GameObject.Find("lblDMax").GetComponent<UILabel>();
-		dMax.text = ProjectConstants.durationLeft.ToString();
+		ProjectConstants.durationLeft -= duration;
+		/// UILabel dMax = GameObject.Find("lblDMax").GetComponent<UILabel>();
+		// dMax.text = ProjectConstants.durationLeft.ToString();
 		UISlider sliderR = GameObject.Find("SliderR").GetComponent<UISlider>();
 		if(ProjectConstants.durationLeft >= 10)
 		{
 			sliderR.sliderValue = 1;
+            sliderR.GetComponent<SliderControl>().OnSliderChange(sliderR.sliderValue);
 		}
 		else
 		{

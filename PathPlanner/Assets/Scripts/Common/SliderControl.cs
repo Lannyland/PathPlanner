@@ -6,11 +6,30 @@ using Assets.Scripts.Common;
 
 public class SliderControl : MonoBehaviour {
 
+    private UISlider slider;
+    private int resolution;
+
 	// Use this for initialization
 	void Start () {
-	
+
+        slider = this.gameObject.GetComponent<UISlider>();
+
+	    // Set initial values
+        if (this.gameObject.name == "SliderR")
+        {
+            // Set initial number of steps to 11 or (durationLeft+1) if less than 10 and value to 1
+            Debug.Log(this.gameObject.name + " Start() set initial number of steps and value.");
+            slider.sliderValue = 1; // This will call SliderR OnSliderChange()
+        }
+        //if(this.gameObject.name == "SliderD")
+        //{
+        //    // Set initial number of steps dynamically and value to 1
+        //    Debug.Log(this.gameObject.name + " Start() set initial number of steps dynamically and value to 1.");
+        //    this.gameObject.GetComponent<UISlider>().numberOfSteps = ProjectConstants.intFlightDuration / 10 + 1;
+        //    this.gameObject.GetComponent<UISlider>().sliderValue = 1 / (ProjectConstants.intFlightDuration / 10);
+        //}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -19,11 +38,12 @@ public class SliderControl : MonoBehaviour {
 	// When value changes
 	public void OnSliderChange(float value)
 	{
+        Debug.Log(this.gameObject.name + " OnSliderChange called.");
+
 		// Not allow slider value to be 0		
-        UISlider slider = this.gameObject.GetComponent<UISlider>();
         if (value == 0)
         {
-            float v = 1.0f / (slider.numberOfSteps + 1);
+            float v = 1.0f / (slider.numberOfSteps - 1);
 			slider.sliderValue = v;
 			return;
         }
@@ -32,68 +52,102 @@ public class SliderControl : MonoBehaviour {
 		if (this.gameObject.name == "SliderD")
 		{
             // Change display text
-			int number = Convert.ToInt16(Math.Round (value / (1.0f / (slider.numberOfSteps-1))));
-			int v = ChangeLabelText ("lblDValue", number, ProjectConstants.resolution);
-			if (number * ProjectConstants.resolution > ProjectConstants.durationLeft)
-			{
-				v = ChangeLabelText ("lblDValue", ProjectConstants.durationLeft, 1);
-			}			
-
-			// Only enable possible values that allow the UAV to reach the end point
-			if(ProjectConstants.boolUseEndPoint &&  ProjectConstants.endPointCounter > 0)
-			{
-				// Find last endpoint and UAV
-				GameObject UAV = GameObject.Find("UAV");
-				GameObject curEndPoint = GameObject.Find("EndPoint" + ProjectConstants.endPointCounter);
-				UILabel curSliderDValue = GameObject.Find("lblDValue").GetComponent<UILabel>();
-				int duration = Convert.ToInt16(curSliderDValue.text);			
-				UILabel curSliderRValue = GameObject.Find("lblRValue").GetComponent<UILabel>();
-				int resolution = Convert.ToInt16(curSliderRValue.text);			
-				while(MISCLib.ManhattanDistance(curEndPoint.transform.position, UAV.transform.position)*10 > duration*30)
-				{
-					duration+=resolution;
-				}
-				UISlider sliderD = 	GameObject.Find("SliderD").GetComponent<UISlider>();
-				sliderD.sliderValue = Mathf.Clamp01(duration/resolution*(1f/(sliderD.numberOfSteps-1)));
-				v = ChangeLabelText ("lblDValue", duration/resolution, ProjectConstants.resolution);
-			}
-			
-			// Remember current duration
-			Assets.Scripts.ProjectConstants.duration = v;
+            int duration = ComputeDuration(slider);
+			ChangeLabelText ("lblDValue", duration.ToString());
 
 			// This section calls PlanPath to draw lines and show vacuum
 			if(ProjectConstants.readyToPlanPath)
 			{
+                Debug.Log("ProjectConstants.readyToPlanPath = " + ProjectConstants.readyToPlanPath + " and let's start path planning");
 				Camera.main.GetComponent<PlanPath>().PlanMultiplePaths();
 			}
 		}
 		else if (this.gameObject.name == "SliderR")
 		{
-			// Change display text
-			int v = ChangeLabelText ("lblRValue", value, 10);
+            // Sets the max label, value label, number of steps automatically
+            SetSliderR(value);
 			
-			// Remember current resolution
-			Assets.Scripts.ProjectConstants.resolution = v;
-			
-			// Change the duration slider's settings
-			UISlider sliderD = GameObject.Find("SliderD").GetComponent<UISlider>();
-			sliderD.numberOfSteps = Convert.ToInt16(Math.Ceiling(ProjectConstants.durationLeft * 1.0f / v)+1);
+    		// Change the duration slider's settings
+            UISlider sliderD = GameObject.Find("SliderD").GetComponent<UISlider>();
+            ChangeLabelText("lblDMax", ProjectConstants.durationLeft.ToString());
+            sliderD.numberOfSteps = Convert.ToInt16(Math.Ceiling(ProjectConstants.durationLeft * 1.0f / resolution) + 1);
 
-			// Move slider to 1
-			sliderD.sliderValue = 1.0f / (sliderD.numberOfSteps - 1);
-			sliderD.GetComponent<SliderControl>().OnSliderChange(sliderD.sliderValue);
+			// Move sliderD to lowest possible
+            // Only enable possible values that allow the UAV to reach the end point
+            if (ProjectConstants.boolUseEndPoint && ProjectConstants.endPointCounter > 0)
+            {
+                // Find last endpoint and UAV
+                GameObject UAV = GameObject.Find("UAV");
+                GameObject curEndPoint = GameObject.Find("EndPoint" + ProjectConstants.endPointCounter);
+                int duration = ComputeDuration(sliderD);
+                while (MISCLib.ManhattanDistance(curEndPoint.transform.position, UAV.transform.position) * 10 > duration * 30)
+                {
+                    duration += ProjectConstants.resolution;
+                }
+                sliderD.sliderValue = Mathf.Clamp01(duration / ProjectConstants.resolution * (1f / (slider.numberOfSteps - 1))); // This calls OnSliderChange() for SliderD.
+            }
+            else
+            {
+                float newV = 1 / (sliderD.numberOfSteps - 1);
+                float oldV = sliderD.sliderValue;
+                Debug.Log("Setting sliderD value to same. And numberOfSteps = " + sliderD.numberOfSteps);
+                sliderD.sliderValue = newV;
+                if (Math.Abs(oldV - newV)>0.0001)
+                {
+                   sliderD.GetComponent<SliderControl>().OnSliderChange(newV);
+                }
+            }
 		}				
 	}
+
+    // Sets up the max value label, the current selected value label for SliderR.
+    private void SetSliderR(float value)
+    {
+        // Change display text
+        int steps = ResolutionSteps();
+        slider.numberOfSteps = steps;
+        resolution = steps - 1;
+        int curResolution = Convert.ToInt16(Math.Round(value * resolution));
+        ChangeLabelText("lblRMax", resolution.ToString());
+        ChangeLabelText("lblRValue", curResolution.ToString());
+        ProjectConstants.resolution = curResolution;
+    }
+
+    // Compute resolution steps for resolution slider
+    private static int ResolutionSteps()
+    {
+        int steps = 0;
+        if (ProjectConstants.durationLeft >= 10)
+        {
+            steps = 11;
+        }
+        else
+        {
+            steps = ProjectConstants.durationLeft + 1;
+        }
+        return steps;
+    }
 	
-	private int ChangeLabelText (string labelName, float value, int scale)
+    // Automatically compute the right duration based on sliderD selection.
+    private int ComputeDuration(UISlider sliderD)
+    {
+        float stepValue = 1.0f / (sliderD.numberOfSteps - 1);
+        int duration = Convert.ToInt16(sliderD.sliderValue / stepValue) * ProjectConstants.resolution;
+        if (duration > ProjectConstants.durationLeft)
+        {
+            duration = ProjectConstants.durationLeft;
+        }
+        return duration;
+    }
+	
+    // Method to change given label text to given text.
+	private void ChangeLabelText (string labelName, string text)
 	{
-		UISlider sliderD = this.gameObject.GetComponent<UISlider>();		
 		UILabel label = GameObject.Find(labelName).GetComponent<UILabel>();
-		int v = Convert.ToInt16(Math.Round(value*scale));
-		label.text = v.ToString();
-		return v;
+		label.text = text;
 	}
 	
+    // When mouse is clicked on slider
 	void OnMouseDown()
 	{
 		// Tell workThread to stop
@@ -103,6 +157,7 @@ public class SliderControl : MonoBehaviour {
 		}
 	}
 	
+    // When mouse button is released on slider
 	void OnMouseUp()
 	{
 		// Tell workThread to stop

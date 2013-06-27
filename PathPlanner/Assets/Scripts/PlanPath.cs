@@ -21,6 +21,7 @@ public class PlanPath : MonoBehaviour
 	
 	private int resolution;
 	private int duration;
+    private Vector3 UAVPos;
 
     #endregion
 
@@ -38,6 +39,10 @@ public class PlanPath : MonoBehaviour
     // The most important part of the tool: actually plan paths
     public void PlanMultiplePaths()
     {
+        // First store UAV current position to object
+        GameObject UAV = GameObject.Find("UAV");
+        UAVPos = UAV.transform.position;
+
         // Set things up first
         resolution = Convert.ToInt16(GameObject.Find("lblRValue").GetComponent<UILabel>().text);
         duration = Convert.ToInt16(GameObject.Find("lblDValue").GetComponent<UILabel>().text);
@@ -146,9 +151,8 @@ public class PlanPath : MonoBehaviour
 				else if(ProjectConstants.boolUseEndPoint &&  ProjectConstants.endPointCounter > 0)
 				{
 					// If duration won't allow reaching end point, then no need to plan
-					GameObject UAV = GameObject.Find("UAV");
 					GameObject curEndPoint = GameObject.Find("EndPoint" + ProjectConstants.endPointCounter);
-					if(MISCLib.ManhattanDistance(curEndPoint.transform.position, UAV.transform.position)*10 > i*30)
+					if(MISCLib.ManhattanDistance(curEndPoint.transform.position, UAVPos)*10 > i*30)
 					{
 						continue;
 					}					
