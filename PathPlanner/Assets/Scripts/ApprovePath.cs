@@ -85,15 +85,9 @@ public class ApprovePath : MonoBehaviour {
 		/// UILabel dMax = GameObject.Find("lblDMax").GetComponent<UILabel>();
 		// dMax.text = ProjectConstants.durationLeft.ToString();
 		UISlider sliderR = GameObject.Find("SliderR").GetComponent<UISlider>();
-		if(ProjectConstants.durationLeft >= 10)
-		{
-			sliderR.sliderValue = 1;
-            sliderR.GetComponent<SliderControl>().OnSliderChange(sliderR.sliderValue);
-		}
-		else
-		{
-			sliderR.sliderValue = ProjectConstants.durationLeft * (1f / (sliderR.numberOfSteps - 1));
-		}	
+		Debug.Log("Setting sliderR value to triggle OnSliderChange()");
+		sliderR.sliderValue = 1f;	// Just to trigger OnSliderChange on SliderR, and then it will take care of itself.
+		sliderR.GetComponent<SliderControl>().OnSliderChange(1f);
 		
 		// Clear all lists of things for next path segment planning		
 		Camera.main.GetComponent<PlanPath>().workerThread.Abort();
@@ -102,17 +96,23 @@ public class ApprovePath : MonoBehaviour {
 		if(ProjectConstants.durationLeft == 0)
 		{
 			// We are done planning.
+			Debug.Log("We are done planning.");
+			
+			// Change SliderD value
+			UILabel valueD = GameObject.Find("lblDValue").GetComponent<UILabel>();
+			valueD.text = "0";
+			
 			// Disable things
 			UIButton b1 = GameObject.Find("btnSetEndPoint").GetComponent<UIButton>();
-			b1.GetComponent<SetEndPoint>().enabled = false;
+			b1.isEnabled = false;
 			UIButton b2 = GameObject.Find("btnPlanPath").GetComponent<UIButton>();
-			b2.GetComponent<ReadyToPlanPath>().enabled = false;
+			b2.isEnabled = false;
 			UIButton b3 = GameObject.Find("btnApprove").GetComponent<UIButton>();
-			b3.GetComponent<ApprovePath>().enabled = false;
+			b3.isEnabled = false;
 			
 			// Enable things
-			UIButton b4 = GameObject.Find("btnFly").GetComponent<UIButton>();
-			b4.GetComponent<FlyPath>().enabled = true;
+			GameObject b4 = GameObject.Find("btnFly");
+			b4.AddComponent<FlyPath>();
 		}
 	}	
 }

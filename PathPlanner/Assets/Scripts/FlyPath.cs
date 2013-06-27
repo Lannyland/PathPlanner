@@ -15,6 +15,6 @@ public class FlyPath : MonoBehaviour {
 	
 	void OnClick()
 	{
-		
+		Debug.Log("Fly Path button is clicked.");	
 	}
 }

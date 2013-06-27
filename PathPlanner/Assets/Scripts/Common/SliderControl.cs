@@ -36,8 +36,16 @@ public class SliderControl : MonoBehaviour {
 	}
 
 	// When value changes
-	public void OnSliderChange(float value)
+	public void OnSliderChange(float value)		
 	{
+		if(slider != null)
+		{			
+		}
+		else
+		{
+			return;
+		}
+		
         Debug.Log(this.gameObject.name + " OnSliderChange called.");
 
 		// Not allow slider value to be 0		
@@ -84,18 +92,22 @@ public class SliderControl : MonoBehaviour {
                 {
                     duration += ProjectConstants.resolution;
                 }
-                sliderD.sliderValue = Mathf.Clamp01(duration / ProjectConstants.resolution * (1f / (slider.numberOfSteps - 1))); // This calls OnSliderChange() for SliderD.
+                if(slider.numberOfSteps != 1)
+				{									
+					sliderD.sliderValue = Mathf.Clamp01(duration / ProjectConstants.resolution * (1f / (slider.numberOfSteps - 1))); // This calls OnSliderChange() for SliderD.
+				}
             }
             else
             {
-                float newV = 1 / (sliderD.numberOfSteps - 1);
-                float oldV = sliderD.sliderValue;
-                Debug.Log("Setting sliderD value to same. And numberOfSteps = " + sliderD.numberOfSteps);
-                sliderD.sliderValue = newV;
-                if (Math.Abs(oldV - newV)>0.0001)
-                {
-                   sliderD.GetComponent<SliderControl>().OnSliderChange(newV);
-                }
+				sliderD.sliderValue = Mathf.Clamp01(1f / (slider.numberOfSteps - 1)); // This calls OnSliderChange() for SliderD.
+//                float newV = 1 / (sliderD.numberOfSteps - 1);
+//                float oldV = sliderD.sliderValue;
+//                Debug.Log("Setting sliderD value to same. And numberOfSteps = " + sliderD.numberOfSteps);
+//                sliderD.sliderValue = newV;
+//                if (Math.Abs(oldV - newV)<0.0001)
+//                {
+//                   sliderD.GetComponent<SliderControl>().OnSliderChange(newV);
+//                }
             }
 		}				
 	}
@@ -111,6 +123,7 @@ public class SliderControl : MonoBehaviour {
         ChangeLabelText("lblRMax", resolution.ToString());
         ChangeLabelText("lblRValue", curResolution.ToString());
         ProjectConstants.resolution = curResolution;
+		resolution = curResolution;
     }
 
     // Compute resolution steps for resolution slider
