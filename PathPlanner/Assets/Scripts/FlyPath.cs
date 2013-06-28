@@ -11,9 +11,9 @@ public class Flypath : MonoBehaviour {
 	public Transform UAV;
 	public float speed = 50;
 	public Vector2[] path;
-	public float maxDiff = 0f;
-		
-	private int currentWayPoint;
+	public float maxDiff = 0f;		
+	public int currentWayPoint;
+	
 	private Mesh diffMesh;			
 	private Mesh distMesh;			
 	private Vector3[] diffVertices;
@@ -59,7 +59,11 @@ public class Flypath : MonoBehaviour {
 				currentWayPoint++;
 			}
 			UAV.Translate(moveDirection*speed*Time.deltaTime);
-		}		
+		}
+		else
+		{
+			fly = false;
+		}
 	}
 	
 	float PointVacuum(int i)

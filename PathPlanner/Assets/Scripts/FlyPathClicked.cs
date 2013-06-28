@@ -66,6 +66,7 @@ public class FlyPathClicked : MonoBehaviour {
 
         // Fly plane following path and then vacuum up as the plane goes and also up the score
 		Camera.main.GetComponent<Flypath>().path = path;
+		Camera.main.GetComponent<Flypath>().currentWayPoint = 1;
 		Camera.main.GetComponent<Flypath>().fly = true;
 	}
 }
