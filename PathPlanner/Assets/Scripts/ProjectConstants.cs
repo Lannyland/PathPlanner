@@ -65,6 +65,7 @@ namespace Assets.Scripts
         public static bool boolPlenty = false;          		// With plenty of time use EA for path planning
         public static bool lastPathApproved = true;				// If last path is approved, user can set new end point
 		public static int endPointCounter = 0;					// Remember how many end points have been created
+        public static Vector2 originalStart = new Vector2();    // The UAV start position
         public static Vector2 curStart = new Vector2();         // Current start point
         public static Vector2 curEnd = new Vector2();           // Current end point
 		public static bool stopPathPlanFactory = false;			// Once set to true, the worker thread quits.

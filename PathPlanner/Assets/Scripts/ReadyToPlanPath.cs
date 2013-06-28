@@ -20,7 +20,13 @@ public class ReadyToPlanPath : MonoBehaviour {
     {
         // Set UAV movable to false
         GameObject UAV = GameObject.Find("UAV");
-        UAV.GetComponent<MoveUFO>().movable = false;
+        if (UAV.GetComponent<MoveUFO>().movable)
+        {
+            // This is the first time this Plan Path button is clicked.
+            // Remember the UAV original position
+            ProjectConstants.originalStart = new Vector2(UAV.transform.position.x, UAV.transform.position.z);
+            UAV.GetComponent<MoveUFO>().movable = false;
+        }
 
         // Remember start position
         ProjectConstants.curStart = new Vector2(UAV.transform.position.x, UAV.transform.position.z);

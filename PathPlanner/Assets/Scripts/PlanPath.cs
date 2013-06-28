@@ -133,11 +133,11 @@ public class PlanPath : MonoBehaviour
 			GameObject.Find("GUIText").GetComponent<UILabel>().text = message;
 			return;
 		}
-		
-        //// While the user is not doing anything, just keep planning in a different thread
-        //ThreadStart threadDelegate = new ThreadStart(this.PathPlannerFactory);
-        //workerThread = new Thread(threadDelegate);
-        //workerThread.Start();
+
+        // While the user is not doing anything, just keep planning in a different thread
+        ThreadStart threadDelegate = new ThreadStart(this.PathPlannerFactory);
+        workerThread = new Thread(threadDelegate);
+        workerThread.Start();
     }
 	
     // Method to clear all lists and set each member to null
