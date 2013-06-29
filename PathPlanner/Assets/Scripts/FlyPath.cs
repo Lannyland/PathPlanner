@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.Common;
 
-public class Flypath : MonoBehaviour {
+public class FlyPath : MonoBehaviour {
 	
 	public bool fly = false;
 	public Transform UAV;
@@ -13,12 +13,12 @@ public class Flypath : MonoBehaviour {
 	public Vector2[] path;
 	public float maxDiff = 0f;		
 	public int currentWayPoint;
+    public Vector3[] distVertices;
+    public Color[] distColors;		
 	
 	private Mesh diffMesh;			
 	private Mesh distMesh;			
 	private Vector3[] diffVertices;
-	private Vector3[] distVertices;
-	private Color[] distColors;		
 	
 	
 	// Use this for initialization

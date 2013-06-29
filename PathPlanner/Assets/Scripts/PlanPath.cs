@@ -94,7 +94,7 @@ public class PlanPath : MonoBehaviour
 			curLine = DrawPath(lstPaths[duration-1]);			
 			curLine.Draw3DAuto();
 
-            //List<float> CDFGraph = new List<float>();
+            List<float> CDFGraph = new List<float>();
 					
 			// Next show vacuumed dist map. If vertices and colors were computed before, simply use that one.
 			if(lstVertices[duration-1]!=null){}
@@ -109,8 +109,8 @@ public class PlanPath : MonoBehaviour
 				lstCDF[duration-1] = vh.GetCDF();
 				lstFirstVacuum[duration-1] = vh.GetFirstVacuum();
 
-                //// Debug info
-                //CDFGraph = vh.getCDFGraph();
+                // Debug info
+                CDFGraph = vh.getCDFGraph();
 			}
 			Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
 			mesh.vertices = lstVertices[duration-1];
