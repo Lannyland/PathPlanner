@@ -15,15 +15,17 @@ public class FlyPath : MonoBehaviour {
 	public int currentWayPoint;
     public Vector3[] distVertices;
     public Color[] distColors;		
+	public string CDFGraph = "";
 	
 	private Mesh diffMesh;			
 	private Mesh distMesh;			
 	private Vector3[] diffVertices;
+
 	
 	
 	// Use this for initialization
 	void Start () {
-		currentWayPoint = 1;	
+		currentWayPoint = 0;	
 		diffMesh = GameObject.Find("PlaneDiff").GetComponent<MeshFilter>().mesh;			
 		distMesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;			
 		diffVertices = diffMesh.vertices;
@@ -55,6 +57,15 @@ public class FlyPath : MonoBehaviour {
 				effect.style = IncreasingScoreEffect.EffectStyle.MileStone;
 				effect.curScore += v;
 				
+//				// For Debug
+//				CDFGraph += effect.curScore.ToString()+ " ";
+//
+//				if(currentWayPoint == 50)
+//				{
+//					// Debug
+//					Debug.Log(CDFGraph);
+//				}
+					
 				// Ready for next waypoint
 				currentWayPoint++;
 			}
@@ -66,6 +77,7 @@ public class FlyPath : MonoBehaviour {
 		}
 	}
 	
+	// Method to vacuum the point visited on path.
 	float PointVacuum(int i)
 	{
 		if(maxDiff == 0f)
@@ -87,5 +99,5 @@ public class FlyPath : MonoBehaviour {
 		distMesh.RecalculateNormals();
 		distMesh.RecalculateBounds();
 		return v;
-	}
+	}	
 }

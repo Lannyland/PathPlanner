@@ -111,6 +111,8 @@ public class PlanPath : MonoBehaviour
 
                 // Debug info
                 CDFGraph = vh.getCDFGraph();
+				
+				vh = null;
 			}
 			Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
 			mesh.vertices = lstVertices[duration-1];
@@ -118,14 +120,14 @@ public class PlanPath : MonoBehaviour
 			mesh.RecalculateNormals();
 			mesh.RecalculateBounds();
 
-            //// Debug info
-            //string output = "";
-            //for (int i = 0; i < CDFGraph.Count; i++)
-            //{
-            //    output += (CDFGraph[i] + 368.5937f).ToString() + " ";
-            //}
-
-            //Debug.Log(output);
+//            // Debug info
+//            string output = "";
+//            //for (int i = 0; i < CDFGraph.Count; i++)
+//			for (int i = 0; i < 50; i++)
+//            {
+//                output += (CDFGraph[i]).ToString() + " ";
+//            }
+//          	Debug.Log(output);
 		}
 		catch(Exception e)
 		{

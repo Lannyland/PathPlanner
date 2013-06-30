@@ -34,6 +34,8 @@ public class VacuumHandler {
 		path = null;
 		distVertices = null;
 		diffVertices = null;
+		CDFGraph.Clear ();
+		CDFGraph = null;
 	}
 	
 	// Method to create a 3D line.
