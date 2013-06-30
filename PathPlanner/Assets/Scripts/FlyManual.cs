@@ -81,10 +81,19 @@ public class FlyManual : MonoBehaviour {
 			TimeStep += Time.deltaTime;
 			if(TimeStep > 0.05)
 			{			
+				// Do this only once. Vacuum starting point
+				Vector3 UAVPos;
+				if(curWaypoint == 1)
+				{
+					UAVPos = this.transform.position;
+					Camera.main.GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
+					// Debug.Log("First visit score: " + Camera.main.GetComponent<IncreasingScoreEffect>().curScore);
+				}
+				
 				if(curWaypoint < flightDuration + 1)
 				{
 					// Vacuum probability and change score
-					Vector3 UAVPos = this.transform.position;
+					UAVPos = this.transform.position;
 					// Debug.Log("UAVPos = " + UAVPos);
 					Camera.main.GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
 					
@@ -98,13 +107,13 @@ public class FlyManual : MonoBehaviour {
 					GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
 					
 					// Remember Path
-					Debug.Log("curWaypoint = " + curWaypoint);
+					// Debug.Log("curWaypoint = " + curWaypoint);
 					path[curWaypoint] = UAVPos;
 					curWaypoint++;
 				}
 				if(curWaypoint == flightDuration + 1)
 				{
-					Debug.Log("Setting UAV movable to false.");
+					// Debug.Log("Setting UAV movable to false.");
 					fly = false;
 				}
 				TimeStep = 0f;
@@ -132,10 +141,23 @@ public class FlyManual : MonoBehaviour {
 		
 		float cellCDF = 0f;
 		List<Vector3> cells = FindOverlapCells(UAVPos);
-		foreach(Vector3 c in cells)
+		if(cells.Count>1)
 		{
-			cellCDF += PartialVacuum(c, square);
+			foreach(Vector3 c in cells)
+			{
+				cellCDF += PartialVacuum(c, square, false);
+			}
 		}
+		else
+		{
+			cellCDF += PartialVacuum(cells[0], square, true);
+		}
+		
+		distMesh.vertices = distVertices;
+		distMesh.colors = distColors;
+		// distMesh.RecalculateNormals();
+		// distMesh.RecalculateBounds();
+
 		// Debug.Log("Total partial vacuum = " + cellCDF);		
 		return cellCDF;
 	}
@@ -186,14 +208,15 @@ public class FlyManual : MonoBehaviour {
 		float r = Mathf.Sqrt (0.05f*0.05f*2);
 		List<Vector3> corners = new List<Vector3>();
 		corners.Add (new Vector3(-0.05f, 0f, 0.05f));	// Top Left
-		corners.Add (new Vector3(-0.05f, 0f, 0.05f));	// Top Left	
-		corners.Add (new Vector3(-0.05f, 0f, 0.05f));	// Top Left
-		corners.Add (new Vector3(-0.05f, 0f, 0.05f));	// Top Left		
+		corners.Add (new Vector3(0.05f, 0f, 0.05f));	// Top Right	
+		corners.Add (new Vector3(0.05f, 0f, - 0.05f));	// Bottom Right
+		corners.Add (new Vector3(-0.05f, 0f, -0.05f));	// Bottom Left		
 		foreach(Vector3 v in corners)
 		{
-			Vector3 temp = v2 + v - v1;
-			float distance = Mathf.Sqrt (temp.x*temp.x + temp.y*temp.y);
-			if( distance < r)
+			Vector3 corner = v2 + v;
+			Vector3 temp = corner - v1;
+			float distance = Mathf.Sqrt (temp.x*temp.x + temp.z*temp.z);
+			if( distance + 0.00001 < r)
 			{
 				return true;
 			}
@@ -203,29 +226,36 @@ public class FlyManual : MonoBehaviour {
 	
 	// Method to partially vacuum a cell
 	// This is where the vertex height and color actually gets changed
-	float PartialVacuum(Vector3 c, Vector2[] square)
+	float PartialVacuum(Vector3 c, Vector2[] square, bool skip)
 	{
 		float p = 0f;
 		float cellCDF = 0f;
 		Vector2 point = Vector2.zero;
 		
-		// Use monte carlo method to estimate portion of cell that's overlapping		
-		string log = "";
-		int counter = 0;		
-		for(int i=-5; i<5; i++)
+		if(skip)
 		{
-			for(int j=-5; j<5;j++)
+			p = 1;
+		}
+		else
+		{
+			// Use monte carlo method to estimate portion of cell that's overlapping		
+			string log = "";
+			int counter = 0;		
+			for(int i=-5; i<5; i++)
 			{
-				point.x = c.x + 0.01f*j;
-				point.y = c.z + 0.01f*i;
-				log+="(" + point.x.ToString() + "," + point.y.ToString() + ")";
-				if(MISCLib.PointInPolygon(point, square))
+				for(int j=-5; j<5;j++)
 				{
-					counter++;
+					point.x = c.x + 0.01f*j;
+					point.y = c.z + 0.01f*i;
+					log+="(" + point.x.ToString() + "," + point.y.ToString() + ")";
+					if(MISCLib.PointInPolygon(point, square))
+					{
+						counter++;
+					}
 				}
-			}
-		}		
-		p = counter/100f;
+			}		
+			p = counter/100f;
+		}
 		// Debug.Log("p = " + p );		
 		// Debug.Log(log);
 		
@@ -261,12 +291,6 @@ public class FlyManual : MonoBehaviour {
 		distVertices[i].y -= v;
 		
 		distColors[i] = MISCLib.HeightToDistColor(distVertices[i].y, 4f);
-		
-		distMesh.vertices = distVertices;
-		distMesh.colors = distColors;
-		// distMesh.RecalculateNormals();
-		// distMesh.RecalculateBounds();
-		
 		return v;
 	}	
 }

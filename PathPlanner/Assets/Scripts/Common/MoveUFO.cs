@@ -24,7 +24,13 @@ public class MoveUFO : MonoBehaviour {
 		{
             // Debug.Log("UAV position = " + UAV.transform.position);
             // Debug.Log("distance is = " + (UAV.transform.position.x + UAV.transform.position.z));
-
+			
+	        // Show coordinates while moving
+			float X = Mathf.Round(transform.position.x*10)+50;
+			float Y = Mathf.Round(transform.position.z*10)+50;
+			Y = ProjectConstants.intMapHeight - 1 - Y;
+			GameObject.Find("GUIText").GetComponent<UILabel>().text = "(" + X + "," + Y + ")";
+			
             Vector3 newMousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,0f));
             Vector3 UAVPosOffset = new Vector3(newMousePos.x - curMousePos.x, 0f, newMousePos.z - curMousePos.z);
             // If end point is used
@@ -51,7 +57,7 @@ public class MoveUFO : MonoBehaviour {
     // Check if current move position is within UAV flight duration range 
     bool ValidPoint(Vector3 offset)
     {
-        GameObject go1 = this.gameObject;
+		GameObject go1 = this.gameObject;
         GameObject go2 = null;
         if (go1.name == "UAV")
         {
@@ -90,9 +96,9 @@ public class MoveUFO : MonoBehaviour {
         {
             if (hit.transform.name == this.gameObject.name)
             {
-                Debug.Log("name=" + hit.collider.name);
-                Debug.Log("point=" + hit.point);
-                Debug.Log("pos=" + hit.transform.position);
+//                Debug.Log("name=" + hit.collider.name);
+//                Debug.Log("point=" + hit.point);
+//                Debug.Log("pos=" + hit.transform.position);
                 grabUAV = true;
             }
             

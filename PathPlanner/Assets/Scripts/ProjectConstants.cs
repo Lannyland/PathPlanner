@@ -30,7 +30,7 @@ namespace Assets.Scripts
 
         public static bool boolUseDiffMap = false;      // Whether to use diff map for path planning.
 		public static bool boolAnyEndPoint = false;
-        public static int intFlightDuration = 1;       // Default flight duration in minutes.
+        public static int intFlightDuration = 60;       // Default flight duration in minutes.
 
         // Max wait time (*10)
         public static int MaxWaitTime = 1500;            // 15000 milisecond, so 15 seconds.
