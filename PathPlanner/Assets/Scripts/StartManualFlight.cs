@@ -16,6 +16,16 @@ public class StartManualFlight : MonoBehaviour {
 	void OnClick()
 	{
 		// Make UAV movable
-		GameObject.Find("UAV").GetComponent<FlyManual>().fly = true;
+        UILabel label = GameObject.Find("lblStartPause").GetComponent<UILabel>();
+        if (label.text == "Start")
+        {
+            GameObject.Find("UAV").GetComponent<FlyManual>().fly = true;
+            label.text = "Pause";
+        }
+        else
+        {
+            GameObject.Find("UAV").GetComponent<FlyManual>().fly = false;
+            label.text = "Start";
+        }
 	}
 }

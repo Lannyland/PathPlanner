@@ -8,20 +8,23 @@ using rtwmatrix;
 
 public class FlyManual : MonoBehaviour {
 
+    public enum FlyMode { Turn, Strafe };
+
     public float moveSpeed = 10f;
     public float turnSpeed = 50f;
 	public Vector2[] path;
 	public bool fly = false;
-	
+    public FlyMode flyMode = FlyMode.Turn;
+    public Vector3[] distVertices;
+    public Color[] distColors;
+    public int timer = 0;
+
 	private int flightDuration = 0;
 	private int curWaypoint = 1;
 	private float maxDiff = 0f;		
 	private Mesh diffMesh;			
 	private Mesh distMesh;			
 	private Vector3[] diffVertices;
-    private Vector3[] distVertices;
-    private Color[] distColors;	
-	private int timer = 0;
 	private float TimeStep = 0f;
 	
 	// Use this for initialization
@@ -57,18 +60,28 @@ public class FlyManual : MonoBehaviour {
 	void Update () {
 		if(fly)
 		{
-			// Move around
-	        if (Input.GetKey(KeyCode.UpArrow))
-	            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-	
-	        if (Input.GetKey(KeyCode.DownArrow))
-	            transform.Translate(-Vector3.forward * moveSpeed * Time.deltaTime);
-	
-	        if (Input.GetKey(KeyCode.LeftArrow))
-	            transform.Rotate(Vector3.up, -turnSpeed * Time.deltaTime);
-	
-	        if (Input.GetKey(KeyCode.RightArrow))
-	            transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime);
+            // Move around
+            if (Input.GetKey(KeyCode.UpArrow))
+                transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.DownArrow))
+                transform.Translate(-Vector3.forward * moveSpeed * Time.deltaTime);
+            // Different fly mode
+            if (flyMode == FlyMode.Turn)
+            {
+                if (Input.GetKey(KeyCode.LeftArrow))
+                    transform.Rotate(Vector3.up, -turnSpeed * Time.deltaTime);
+
+                if (Input.GetKey(KeyCode.RightArrow))
+                    transform.Rotate(Vector3.up, turnSpeed * Time.deltaTime);
+            }
+            if (flyMode == FlyMode.Strafe)
+            {
+                if (Input.GetKey(KeyCode.LeftArrow))
+                    transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+
+                if (Input.GetKey(KeyCode.RightArrow))
+                    transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+            }
 		}
 	}
 	
@@ -86,6 +99,7 @@ public class FlyManual : MonoBehaviour {
 				if(curWaypoint == 1)
 				{
 					UAVPos = this.transform.position;
+                    Debug.Log("UAVPos = " + UAVPos);
 					Camera.main.GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
 					// Debug.Log("First visit score: " + Camera.main.GetComponent<IncreasingScoreEffect>().curScore);
 				}
@@ -113,8 +127,11 @@ public class FlyManual : MonoBehaviour {
 				}
 				if(curWaypoint == flightDuration + 1)
 				{
-					// Debug.Log("Setting UAV movable to false.");
+					// Manual flight is over!
+                    // Debug.Log("Setting UAV movable to false.");
 					fly = false;
+                    // Disable the Start/Pause button.
+                    GameObject.Find("btnStart").GetComponent<UIButton>().isEnabled= false;
 				}
 				TimeStep = 0f;
 			}
@@ -235,6 +252,8 @@ public class FlyManual : MonoBehaviour {
 		if(skip)
 		{
 			p = 1;
+            point.x = c.x;
+            point.y = c.z;
 		}
 		else
 		{
