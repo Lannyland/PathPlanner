@@ -25,18 +25,22 @@ public class CameraModes : MonoBehaviour {
         if (this.gameObject.name == "btnGlobal")
         {
             GameObject.Find("CameraGlobal").GetComponent<Camera>().enabled = true;
+		   	GameObject.Find ("ControlCenter").GetComponent<StartUpManual>().curCam = GameObject.Find("CameraGlobal").GetComponent<Camera>();
         }
         if (this.gameObject.name == "btnBirdEye")
         {
             GameObject.Find("CameraBirdEye").GetComponent<Camera>().enabled = true;
+			GameObject.Find ("ControlCenter").GetComponent<StartUpManual>().curCam = GameObject.Find("CameraBirdEye").GetComponent<Camera>();
         }
         if (this.gameObject.name == "btnBehind")
         {
             GameObject.Find("CameraBehind").GetComponent<Camera>().enabled = true;
+			GameObject.Find ("ControlCenter").GetComponent<StartUpManual>().curCam = GameObject.Find("CameraBehind").GetComponent<Camera>();
         }
         if (this.gameObject.name == "btnFreeForm")
         {
             GameObject.Find("CameraFree").GetComponent<Camera>().enabled = true;
+			GameObject.Find ("ControlCenter").GetComponent<StartUpManual>().curCam = GameObject.Find("CameraFree").GetComponent<Camera>();
         }
     }
 }

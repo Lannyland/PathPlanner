@@ -18,9 +18,9 @@ public class FlyManual : MonoBehaviour {
     public Vector3[] distVertices;
     public Color[] distColors;
     public int timer = 0;
-
+	public int curWaypoint = 1;
+	
 	private int flightDuration = 0;
-	private int curWaypoint = 1;
 	private float maxDiff = 0f;		
 	private Mesh diffMesh;			
 	private Mesh distMesh;			

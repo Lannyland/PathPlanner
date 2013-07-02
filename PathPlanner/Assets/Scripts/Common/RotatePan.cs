@@ -23,13 +23,15 @@ public class RotatePan : MonoBehaviour {
         {
             label.text = "Rotate";
 			Assets.Scripts.ProjectConstants.navMode = 2;
-			Camera.mainCamera.GetComponent<Orbit>().gesture = Orbit.Gesture.Pan;
+			if(Camera.main != null)
+				Camera.mainCamera.GetComponent<Orbit>().gesture = Orbit.Gesture.Pan;
         }
         else
         {
             label.text = "Pan";
 			Assets.Scripts.ProjectConstants.navMode = 1;
-			Camera.mainCamera.GetComponent<Orbit>().gesture = Orbit.Gesture.Rotate;
+			if(Camera.main != null)
+				Camera.mainCamera.GetComponent<Orbit>().gesture = Orbit.Gesture.Rotate;
         }        
     }
 

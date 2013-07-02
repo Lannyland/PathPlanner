@@ -38,6 +38,7 @@ public class StartOverManual : MonoBehaviour {
 
         // Reset timer
         fm.timer = ProjectConstants.intFlightDuration * 60;
+		fm.curWaypoint = 1;
 
 		
 		// Set everything back to default values

@@ -9,6 +9,7 @@ public class StartUpChores : MonoBehaviour {
 
     public Plane plane;
 	public WWW www;
+	public Camera curCam;
 	// public Vector3[] vertices;
 
     // Use this for initialization
@@ -19,7 +20,8 @@ public class StartUpChores : MonoBehaviour {
         
         // Scene Initialization
         SceneInit();
-
+		
+		curCam = Camera.main;
     }
 
     // Method to load terrain material into Projector
