@@ -282,7 +282,18 @@ public class FlyManual : MonoBehaviour {
 		int Y = Convert.ToInt16(Mathf.Round (point.y * 10)+50);
 		int X = Convert.ToInt16(Mathf.Round (point.x * 10)+50);
 		int index = Convert.ToInt16(Y * ProjectConstants.intMapWidth + X);
-		cellCDF = PointVacuum (index, p);
+        // Don't vacuum if flying out of map
+        if (Y < 0 || Y > ProjectConstants.intMapHeight - 1
+            || X < 0 || X > ProjectConstants.intMapWidth - 1)
+        {
+            index = -1;
+        }
+        // Don't vacuum if outside of map
+        if (index < ProjectConstants.intMapWidth * ProjectConstants.intMapHeight
+            && index > 0)
+        {
+            cellCDF = PointVacuum(index, p);
+        }
 		
 		// Change vetext height and color
 		// Debug.Log("Partial vacuum cell = " + cellCDF);		
@@ -297,6 +308,10 @@ public class FlyManual : MonoBehaviour {
 			// UAV flew outside of map.
 			return 0f;
 		}
+        if (i > diffVertices.Length)
+        {
+            Debug.Log("Stop!");
+        }
 		if(maxDiff == 0f)
 		{
 			diffVertices[i].y = 1;

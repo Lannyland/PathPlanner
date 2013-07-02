@@ -31,7 +31,15 @@ public class MoveUFO : MonoBehaviour {
 			Y = ProjectConstants.intMapHeight - 1 - Y;
 			GameObject.Find("GUIText").GetComponent<UILabel>().text = "(" + X + "," + Y + ")";
 			
-			Camera curCam = GameObject.Find ("ControlCenter").GetComponent<StartUpManual>().curCam;
+            Camera curCam;
+            if (Camera.main != null)
+            {
+                curCam = Camera.main;
+            }
+            else
+            {
+                curCam = GameObject.Find("ControlCenter").GetComponent<StartUpManual>().curCam;
+            }
             Vector3 newMousePos = curCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,0f));
             Vector3 UAVPosOffset = new Vector3(newMousePos.x - curMousePos.x, 0f, newMousePos.z - curMousePos.z);
             // If end point is used
@@ -92,15 +100,23 @@ public class MoveUFO : MonoBehaviour {
         }
 
 	    RaycastHit hit;
-		Camera curCam = GameObject.Find ("ControlCenter").GetComponent<StartUpManual>().curCam;
+		Camera curCam;
+        if (Camera.main != null)
+        {
+            curCam = Camera.main;
+        }
+        else
+        {
+            curCam = GameObject.Find("ControlCenter").GetComponent<StartUpManual>().curCam;
+        }
 	    Ray ray = curCam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100))
         {
             if (hit.transform.name == this.gameObject.name)
             {
-//                Debug.Log("name=" + hit.collider.name);
-//                Debug.Log("point=" + hit.point);
-//                Debug.Log("pos=" + hit.transform.position);
+                Debug.Log("name=" + hit.collider.name);
+                // Debug.Log("point=" + hit.point);
+                // Debug.Log("pos=" + hit.transform.position);
                 grabUAV = true;
             }
             
