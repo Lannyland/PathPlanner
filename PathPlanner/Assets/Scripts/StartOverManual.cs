@@ -51,8 +51,8 @@ public class StartOverManual : MonoBehaviour {
         fm.fly = false;
 
         // reset score
-        Camera.main.GetComponent<IncreasingScoreEffect>().curScore = 0f;
-        Camera.main.GetComponent<IncreasingScoreEffect>().initialScore = 0f;
+        GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore = 0f;
+        GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().initialScore = 0f;
         GameObject.Find("lblScore").GetComponent<UILabel>().text = "0";
 
         // Reset pause button

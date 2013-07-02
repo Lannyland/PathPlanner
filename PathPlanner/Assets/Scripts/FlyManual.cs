@@ -100,7 +100,7 @@ public class FlyManual : MonoBehaviour {
 				{
 					UAVPos = this.transform.position;
                     Debug.Log("UAVPos = " + UAVPos);
-					Camera.main.GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
+					GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
 					// Debug.Log("First visit score: " + Camera.main.GetComponent<IncreasingScoreEffect>().curScore);
 				}
 				
@@ -109,7 +109,7 @@ public class FlyManual : MonoBehaviour {
 					// Vacuum probability and change score
 					UAVPos = this.transform.position;
 					// Debug.Log("UAVPos = " + UAVPos);
-					Camera.main.GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
+                    GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
 					
 					// Change timer remaining time
 					if(timer>0)
