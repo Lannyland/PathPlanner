@@ -13,12 +13,12 @@ public class StartUpPattern : StartUpChores {
 		int minute = timer / 60;
 		GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
 
-        GameObject.Find("CameraGlobal").GetComponent<Camera>().enabled = true;
-        GameObject.Find("CameraFree").GetComponent<Camera>().enabled = false;
+        GameObject.Find("CameraGlobal").GetComponent<Camera>().enabled = false;
+        GameObject.Find("CameraFree").GetComponent<Camera>().enabled = true;
         GameObject.Find("CameraBirdEye").GetComponent<Camera>().enabled = false;
         GameObject.Find("CameraBehind").GetComponent<Camera>().enabled = false;
-        
-        curCam = GameObject.Find("CameraGlobal").GetComponent<Camera>();
+
+        curCam = GameObject.Find("CameraFree").GetComponent<Camera>();
 	}
 	
 	// Update is called once per frame
