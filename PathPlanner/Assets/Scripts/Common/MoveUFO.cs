@@ -38,7 +38,14 @@ public class MoveUFO : MonoBehaviour {
             }
             else
             {
-                curCam = GameObject.Find("ControlCenter").GetComponent<StartUpManual>().curCam;
+                if(GameObject.Find("ControlCenter").GetComponent<StartUpManual>() !=null)
+				{
+					curCam = GameObject.Find("ControlCenter").GetComponent<StartUpManual>().curCam;
+				}
+				else
+				{
+					curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
+				}
             }
             Vector3 newMousePos = curCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,Input.mousePosition.y,0f));
             Vector3 UAVPosOffset = new Vector3(newMousePos.x - curMousePos.x, 0f, newMousePos.z - curMousePos.z);
@@ -107,7 +114,14 @@ public class MoveUFO : MonoBehaviour {
         }
         else
         {
-            curCam = GameObject.Find("ControlCenter").GetComponent<StartUpManual>().curCam;
+            if(GameObject.Find("ControlCenter").GetComponent<StartUpManual>() !=null)
+			{
+				curCam = GameObject.Find("ControlCenter").GetComponent<StartUpManual>().curCam;
+			}
+			else
+			{
+				curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;	
+			}
         }
 	    Ray ray = curCam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100))

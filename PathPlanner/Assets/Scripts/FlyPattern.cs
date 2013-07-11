@@ -16,7 +16,11 @@ public class FlyPattern : MonoBehaviour {
     public Color[] distColors;
     public VectorLine line;
     public Vector2[] linePoints;
-
+	public Material lineMaterial;
+    public int maxPoints = 2000;
+    public float lineWidth = 4.0f;
+	
+	
     private int index = 0;
     private int flightDuration = 0;
     private float maxDiff = 0f;
@@ -41,13 +45,9 @@ public class FlyPattern : MonoBehaviour {
         VectorLine.Destroy (ref line);
         // Start new line with up to 500 points
         linePoints = new Vector2[500];
-        // Add UAV current location to be the beginning of the line
-        linePoints[0] = new Vector2(transform.position.x, transform.position.z);
         // Create line
-    	line = new VectorLine("Line", linePoints, lineWidth, lineType, joins);
-	endReached = false;
-	index = 0;
-
+		linePoints[0] = Vector2.zero;
+    	line = new VectorLine("Line", linePoints, lineMaterial, lineWidth, LineType.Continuous, Joins.Weld);
     }
 	
 	// Update is called once per frame
@@ -70,7 +70,25 @@ public class FlyPattern : MonoBehaviour {
 
     private void DrawLine()
     {
-        
+        // Add UAV current location to be the beginning of the line
+		Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
+		Vector3 UAVPos = this.gameObject.transform.position;
+		linePoints[0] = curCam.WorldToScreenPoint(UAVPos);
+		index = 1;
+
+		// The current line point should always be where the mouse is
+		Vector2 mousePos = transform.InverseTransformPoint(Input.mousePosition);
+		linePoints[index] = mousePos;
+		line.maxDrawIndex = index;
+
+		// Draw line
+		line.Draw ();
+		
+		if(Input.GetMouseButtonUp(0))
+		{
+			OnMouseUp();
+		}
+		
     }
 
     private void DrawLawnmower()
@@ -82,4 +100,37 @@ public class FlyPattern : MonoBehaviour {
     {
         throw new System.NotImplementedException();
     }
+	
+	void OnMouseUp()
+	{
+		// Don't do anything if clicking button panel
+		Vector2 mousePos = transform.InverseTransformPoint(Input.mousePosition);
+		if(mousePos.x > Screen.width-200)
+		{
+			return;			
+		}
+		
+		// Erase line
+		line.ZeroPoints();
+		line.Draw();
+		
+		// Move UAV to mousePos
+		Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;		
+		// Debug.Log("angle = " + curCam.transform.eulerAngles.x + " = " + curCam.transform.eulerAngles.x * Math.PI / 180f);
+		// Debug.Log("sin(angle) = " + (Math.Sin(curCam.transform.eulerAngles.x * Math.PI / 180f)));
+		float z = Convert.ToSingle((curCam.transform.position.y - 4f) / Math.Sin(curCam.transform.eulerAngles.x * Math.PI / 180f));
+		Vector3 oldUAVPos = this.gameObject.transform.position;
+		Vector3 newUAVPos = curCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, z));
+		this.gameObject.transform.position = newUAVPos;
+		
+		// Save Undo States and vacuum following line
+		
+		
+		// Deduct time needed to complete line		
+		
+		
+
+	}
+		
+		
 }
