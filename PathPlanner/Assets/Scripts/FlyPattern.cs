@@ -97,7 +97,11 @@ public class FlyPattern : MonoBehaviour {
 
     private void DrawLawnmower()
     {
-        index = 0;
+        // Clear previous lines
+		line.ZeroPoints();
+		line.Draw ();
+		
+		index = 0;
         // Add UAV current location to be the beginning of the line
         Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
         Vector2 UAVScreenPos = curCam.WorldToScreenPoint(UAVPos);
@@ -128,8 +132,9 @@ public class FlyPattern : MonoBehaviour {
 
         // Determine column size in screen space
         int columnWidth = 50;
-        float remain = Mathf.Abs(mousePos.x - UAVPos.x);
-
+        float remain = Mathf.Abs(mousePos.x - UAVScreenPos.x);
+		// Debug.Log("Original remain = " + remain );
+				
         // Draw first segment
         index++;
         linePoints[index] = new Vector2(linePoints[index - 1].x, mousePos.y);
@@ -147,8 +152,8 @@ public class FlyPattern : MonoBehaviour {
             index++;
             linePoints[index] = new Vector2(linePoints[index - 1].x, UAVScreenPos.y * flagU + mousePos.y * flagM);
             remain -= columnWidth;
+			// Debug.Log("Next remain = " + remain );
         }
-
         line.maxDrawIndex = index;
 
 
@@ -185,26 +190,26 @@ public class FlyPattern : MonoBehaviour {
 			return;			
 		}
 		
-		// Erase line
-		line.ZeroPoints();
-		line.Draw();
-
-        switch (flyMode)
+        Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
+        // Debug.Log("angle = " + curCam.transform.eulerAngles.x + " = " + curCam.transform.eulerAngles.x * Math.PI / 180f);
+        // Debug.Log("sin(angle) = " + (Math.Sin(curCam.transform.eulerAngles.x * Math.PI / 180f)));
+		float z = Convert.ToSingle((curCam.transform.position.y - 4f) / Math.Sin(curCam.transform.eulerAngles.x * Math.PI / 180f));
+        Vector3 oldUAVPos = this.gameObject.transform.position;
+		Vector3 newUAVPos = Vector3.zero;
+		
+		switch (flyMode)
         {
             case PatternMode.Line:
-                // Move UAV to mousePos
-                Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
-                // Debug.Log("angle = " + curCam.transform.eulerAngles.x + " = " + curCam.transform.eulerAngles.x * Math.PI / 180f);
-                // Debug.Log("sin(angle) = " + (Math.Sin(curCam.transform.eulerAngles.x * Math.PI / 180f)));
-                float z = Convert.ToSingle((curCam.transform.position.y - 4f) / Math.Sin(curCam.transform.eulerAngles.x * Math.PI / 180f));
-                Vector3 oldUAVPos = this.gameObject.transform.position;
-                Vector3 newUAVPos = curCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, z));
-                this.gameObject.transform.position = newUAVPos;
-                UAVPos = this.gameObject.transform.position;
+                // Move UAV to mousePos                
+                newUAVPos = curCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, z));
                 break;
 
             case PatternMode.Lawnmower:
-                
+				// Move UAV to mousePos\
+				// Debug.Log("linePoints = " + linePoints[0] + " " + linePoints[1] + " " + linePoints[2] + " " + linePoints[3] + " " + linePoints[4] + " " +linePoints[5]);
+				// Debug.Log("maxDrawIndex = " + line.maxDrawIndex);
+				// Debug.Log("linePoints[max] = " + linePoints[line.maxDrawIndex]);
+                newUAVPos = curCam.ScreenToWorldPoint(new Vector3(linePoints[line.maxDrawIndex].x, linePoints[line.maxDrawIndex].y, z));
                 break;
 
             case PatternMode.Spiral:
@@ -214,7 +219,12 @@ public class FlyPattern : MonoBehaviour {
             default:
                 break;
         }
+        this.gameObject.transform.position = newUAVPos;
+        UAVPos = this.gameObject.transform.position;
 
+		// Erase line
+		line.ZeroPoints();
+		line.Draw();
 		
 		// Save Undo States and vacuum following line
 		
