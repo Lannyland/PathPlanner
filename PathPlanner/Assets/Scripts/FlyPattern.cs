@@ -193,20 +193,23 @@ public class FlyPattern : MonoBehaviour {
         float angle = Vector2.Angle(UAVScreenPos, mousePos);
         Vector3 cross = Vector3.Cross(UAVScreenPos, mousePos);
         if (cross.z > 0)
-        {
+        {			
             angle = 360 - angle;
         }
+		Debug.Log("angle = " + angle);
         double rotate = angle * oneDegree;
 
         // Debug.Log("dist = " + dist);
         double end = dist / b;
+		
+		end = 1440 * oneDegree;
         // Debug.Log("count = " + end/Math.PI/2);
         // Draw points
         for (double theta = 0; theta < end; theta += step)
         {
             double r = a + b * theta; // Radius of current point
-            float x = Convert.ToSingle(Math.Cos(theta - angle) * r) + UAVScreenPos.x;
-            float y = Convert.ToSingle(Math.Sin(theta - angle) * r) + UAVScreenPos.y;
+            float x = Convert.ToSingle(Math.Cos(theta + Math.PI/2) * r) + UAVScreenPos.x;
+            float y = Convert.ToSingle(Math.Sin(theta + Math.PI/2) * r) + UAVScreenPos.y;
             index++;
             linePoints[index] = new Vector2(x, y);
         }
