@@ -17,7 +17,7 @@ public class FlyPattern : MonoBehaviour {
     public VectorLine line;
     public Vector2[] linePoints;
 	public Material lineMaterial;
-    public int maxPoints = 2000;
+    public int maxPoints = 16000;
     public float lineWidth = 4.0f;
 	
     private int index = 0;
@@ -47,8 +47,8 @@ public class FlyPattern : MonoBehaviour {
     {
 	    // Get rid of previous lines
         VectorLine.Destroy (ref line);
-        // Start new line with up to 500 points
-        linePoints = new Vector2[500];
+        // Start new line with up to maxPoints points
+        linePoints = new Vector2[maxPoints];
         // Create line
 		linePoints[0] = Vector2.zero;
     	line = new VectorLine("Line", linePoints, lineMaterial, lineWidth, LineType.Continuous, Joins.Weld);
@@ -110,9 +110,8 @@ public class FlyPattern : MonoBehaviour {
         // Mouse position should be a corner of the rectangle
         mousePos = transform.InverseTransformPoint(Input.mousePosition);
 
-        // Determine signs in each axies
+        // Determine signs in x axis
         int sign_x = 1;
-        int sign_y = 1;
         if (mousePos.x > UAVScreenPos.x)
         {
             sign_x = 1;
@@ -121,17 +120,10 @@ public class FlyPattern : MonoBehaviour {
         {
             sign_x = -1;
         }
-        if (mousePos.y > UAVScreenPos.y)
-        {
-            sign_y = 1;
-        }
-        else
-        {
-            sign_y = -1;
-        }
 
-        // Determine column size in screen space
-        int columnWidth = 50;
+        int columnWidth = GetOffsetDistance(curCam);
+        Debug.Log("columnWidth = " + columnWidth);
+
         float remain = Mathf.Abs(mousePos.x - UAVScreenPos.x);
 		// Debug.Log("Original remain = " + remain );
 				
@@ -178,7 +170,50 @@ public class FlyPattern : MonoBehaviour {
 
     private void DrawSpiral()
     {
-        throw new System.NotImplementedException();
+        // Clear previous lines
+        line.ZeroPoints();
+        line.Draw();
+
+        index = 0;
+        // Add UAV current location to be the beginning of the line
+        Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
+        Vector2 UAVScreenPos = curCam.WorldToScreenPoint(UAVPos);
+        linePoints[0] = curCam.WorldToScreenPoint(UAVPos);
+
+        // One degree:
+        double oneDegree = Math.PI / 180f;
+        double step = 5 * oneDegree;
+        // a is the radius of the center empty area
+        double a = 0f;
+        // b is the distance between spines (0.1 world unit)
+        double b = GetOffsetDistance(curCam) / (2 * Math.PI);
+        // Compute hao many total degrees we need.
+        mousePos = transform.InverseTransformPoint(Input.mousePosition);
+        float dist = (UAVScreenPos - mousePos).magnitude;
+        float angle = Vector2.Angle(UAVScreenPos, mousePos);
+        Vector3 cross = Vector3.Cross(UAVScreenPos, mousePos);
+        if (cross.z > 0)
+        {
+            angle = 360 - angle;
+        }
+        double rotate = angle * oneDegree;
+
+        // Debug.Log("dist = " + dist);
+        double end = dist / b;
+        // Debug.Log("count = " + end/Math.PI/2);
+        // Draw points
+        for (double theta = 0; theta < end; theta += step)
+        {
+            double r = a + b * theta; // Radius of current point
+            float x = Convert.ToSingle(Math.Cos(theta - angle) * r) + UAVScreenPos.x;
+            float y = Convert.ToSingle(Math.Sin(theta - angle) * r) + UAVScreenPos.y;
+            index++;
+            linePoints[index] = new Vector2(x, y);
+        }
+        line.maxDrawIndex = index;
+
+        line.Draw();
+        line.SetTextureScale(textureScale, -Time.time * 2.0f % 1);
     }
 	
 	void OnMouseUp()
@@ -234,6 +269,17 @@ public class FlyPattern : MonoBehaviour {
 		
 
 	}
-		
+
+    // Compute 0.1 world unit length in screen space
+    private static int GetOffsetDistance(Camera curCam)
+    {
+        // Determine column size in screen space
+        Vector3 p1 = Vector3.zero;
+        Vector3 p2 = new Vector3(0f, 0f, 0.1f);
+        Vector2 p3 = curCam.WorldToScreenPoint(p1);
+        Vector2 p4 = curCam.WorldToScreenPoint(p2);
+        int width = Convert.ToInt16((p3 - p4).magnitude);
+        return width;
+    }
 		
 }
