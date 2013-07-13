@@ -56,6 +56,24 @@ public class FlyPattern : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // Clear previous lines
+        line.ZeroPoints();
+        line.Draw();
+        index = 0;
+
+        // Enable special key combinations
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.M))
+        {
+            flyMode = PatternMode.Lawnmower;
+        }
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.L))
+        {
+            flyMode = PatternMode.Line;
+        }
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.S))
+        {
+            flyMode = PatternMode.Spiral;
+        }
         switch (flyMode)
         {
             case PatternMode.Line:
@@ -97,11 +115,6 @@ public class FlyPattern : MonoBehaviour {
 
     private void DrawLawnmower()
     {
-        // Clear previous lines
-		line.ZeroPoints();
-		line.Draw ();
-		
-		index = 0;
         // Add UAV current location to be the beginning of the line
         Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
         Vector2 UAVScreenPos = curCam.WorldToScreenPoint(UAVPos);
@@ -147,8 +160,6 @@ public class FlyPattern : MonoBehaviour {
 			// Debug.Log("Next remain = " + remain );
         }
         line.maxDrawIndex = index;
-
-
         
         line.Draw();
         line.SetTextureScale(textureScale, -Time.time * 2.0f % 1);
@@ -170,11 +181,6 @@ public class FlyPattern : MonoBehaviour {
 
     private void DrawSpiral()
     {
-        // Clear previous lines
-        line.ZeroPoints();
-        line.Draw();
-
-        index = 0;
         // Add UAV current location to be the beginning of the line
         Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
         Vector2 UAVScreenPos = curCam.WorldToScreenPoint(UAVPos);
@@ -189,27 +195,24 @@ public class FlyPattern : MonoBehaviour {
         double b = GetOffsetDistance(curCam) / (2 * Math.PI);
         // Compute hao many total degrees we need.
         mousePos = transform.InverseTransformPoint(Input.mousePosition);
-        float dist = (UAVScreenPos - mousePos).magnitude;
-        float angle = Vector2.Angle(UAVScreenPos, mousePos);
-        Vector3 cross = Vector3.Cross(UAVScreenPos, mousePos);
-        if (cross.z > 0)
-        {			
-            angle = 360 - angle;
+        Vector2 v = mousePos - UAVScreenPos;
+        float dist = v.magnitude;
+        float angle = Mathf.Atan2(v.y, v.x);
+        if (angle<0)
+        {
+            angle = angle + 2 * Mathf.PI;
         }
-		Debug.Log("angle = " + angle);
-        double rotate = angle * oneDegree;
+		// Debug.Log("v = " + v + " angle = " + angle * Mathf.Rad2Deg);
 
         // Debug.Log("dist = " + dist);
         double end = dist / b;
-		
-		end = 1440 * oneDegree;
         // Debug.Log("count = " + end/Math.PI/2);
         // Draw points
         for (double theta = 0; theta < end; theta += step)
         {
             double r = a + b * theta; // Radius of current point
-            float x = Convert.ToSingle(Math.Cos(theta + Math.PI/2) * r) + UAVScreenPos.x;
-            float y = Convert.ToSingle(Math.Sin(theta + Math.PI/2) * r) + UAVScreenPos.y;
+            float x = Convert.ToSingle(Math.Cos(theta - end + angle) * r) + UAVScreenPos.x;
+            float y = Convert.ToSingle(Math.Sin(theta - end + angle) * r) + UAVScreenPos.y;
             index++;
             linePoints[index] = new Vector2(x, y);
         }
@@ -217,6 +220,11 @@ public class FlyPattern : MonoBehaviour {
 
         line.Draw();
         line.SetTextureScale(textureScale, -Time.time * 2.0f % 1);
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            OnMouseUp();
+        }
     }
 	
 	void OnMouseUp()
@@ -251,7 +259,7 @@ public class FlyPattern : MonoBehaviour {
                 break;
 
             case PatternMode.Spiral:
-                
+                newUAVPos = curCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, z));
                 break;
 
             default:
