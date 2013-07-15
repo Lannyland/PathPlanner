@@ -5,7 +5,7 @@ using Assets.Scripts;
 using Assets.Scripts.Common;
 using rtwmatrix;
 
-public class StartOverManual : MonoBehaviour {
+public class StartOverPattern : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -20,10 +20,13 @@ public class StartOverManual : MonoBehaviour {
 	// When button is clicked
 	void OnClick()
 	{
-        GameObject UAV = GameObject.Find("UAV");
+		GameObject UAV = GameObject.Find("UAV");
         Transform transform = UAV.transform;
-        FlyManual fm = UAV.GetComponent<FlyManual>();
+        FlyPattern fm = UAV.GetComponent<FlyPattern>();
 
+        // Clear line
+		fm.ClearLine();
+		
 		// Move UAV back to center and make it movable
         transform.position = new Vector3(0f, 4f, 0f);
         transform.rotation = Quaternion.identity;
@@ -38,8 +41,7 @@ public class StartOverManual : MonoBehaviour {
 
         // Reset timer
         fm.timer = ProjectConstants.intFlightDuration * 60;
-		fm.curWaypoint = 1;
-
+		
 		// Set everything back to default values
 		ProjectConstants.mDistMapCurStepUndo = ProjectConstants.mOriginalDistMap.Clone();
         Vector3[] copy = new Vector3[mesh.vertices.Length];
@@ -54,13 +56,6 @@ public class StartOverManual : MonoBehaviour {
         GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore = 0f;
         GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().initialScore = 0f;
         GameObject.Find("lblScore").GetComponent<UILabel>().text = "0";
-
-        // Reset pause button
-        UILabel label = GameObject.Find("lblStartPause").GetComponent<UILabel>();
-        if (label.text == "Pause")
-        {
-            label.text = "Start";
-        }
 
         // Reset timer label
         int second = fm.timer % 60;

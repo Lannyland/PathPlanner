@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using Assets.Scripts;
+using Assets.Scripts.Common;
 using Vectrosity;
 
 public class FlyPattern : MonoBehaviour {
@@ -14,12 +16,15 @@ public class FlyPattern : MonoBehaviour {
     public PatternMode flyMode = PatternMode.Line;
     public Vector3[] distVertices;
     public Color[] distColors;
+    public int timer = 0;
+	
     public VectorLine line;
     public Vector2[] linePoints;
 	public Material lineMaterial;
-    public int maxPoints = 16000;
+    public int maxPoints = 5000;
     public float lineWidth = 4.0f;
 	
+	private double lineLength = 0;
     private int index = 0;
     private int flightDuration = 0;
     private float maxDiff = 0f;
@@ -29,7 +34,9 @@ public class FlyPattern : MonoBehaviour {
 
     private float textureScale = 4.0f;
     private Vector3 UAVPos;
+	private Vector2 UAVScreenPos;
     private Vector2 mousePos;
+	private Camera curCam;
     
     //public float turnSpeed = 50f;
     //public int timer = 0;
@@ -39,7 +46,11 @@ public class FlyPattern : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        UAVPos = this.gameObject.transform.position;        
+		flightDuration = ProjectConstants.intFlightDuration * 60;
+		timer = flightDuration;
+		path = new Vector2[flightDuration+1];
+
+		UAVPos = this.gameObject.transform.position;        
         SetLine();
 	}
 
@@ -56,25 +67,34 @@ public class FlyPattern : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        // Clear previous lines
-        line.ZeroPoints();
-        line.Draw();
-        index = 0;
-
+        if(!fly)
+		{
+			return;
+		}			
+		
+		// Update UAV position
+ 		curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;		
+		UAVPos = this.gameObject.transform.position;                
+		UAVScreenPos = curCam.WorldToScreenPoint(UAVPos);
+		
+		// Clear previous lines
+		ClearLine();
+		
         // Enable special key combinations
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.M))
+        if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKeyDown(KeyCode.M))
         {
             flyMode = PatternMode.Lawnmower;
         }
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.L))
+        if ((Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) && Input.GetKeyDown(KeyCode.L))
         {
             flyMode = PatternMode.Line;
         }
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.S))
+        if ((Input.GetKey(KeyCode.LeftAlt)  || Input.GetKey(KeyCode.RightAlt)) && Input.GetKeyDown(KeyCode.S))
         {
             flyMode = PatternMode.Spiral;
         }
-        switch (flyMode)
+
+		switch (flyMode)
         {
             case PatternMode.Line:
                 DrawLine();               
@@ -93,7 +113,6 @@ public class FlyPattern : MonoBehaviour {
     private void DrawLine()
     {
         // Add UAV current location to be the beginning of the line
-		Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
 		linePoints[0] = curCam.WorldToScreenPoint(UAVPos);
 		index = 1;
 
@@ -101,7 +120,20 @@ public class FlyPattern : MonoBehaviour {
 		mousePos = transform.InverseTransformPoint(Input.mousePosition);
 		linePoints[index] = mousePos;
 		line.maxDrawIndex = index;
-
+		
+		// Make sure line won't exceed remaining time
+		lineLength = GetLineLength(line, linePoints);
+		double screenUnit = GetOffsetDistance(curCam);
+		int timeNeeded = Convert.ToInt16(lineLength / screenUnit*2);
+		if(timeNeeded > timer)
+		{
+			// Find point along the line with exact length
+			float ratio = timer *1f / timeNeeded;
+			float new_x = UAVScreenPos.x + (mousePos.x - UAVScreenPos.x)*ratio;
+			float new_y = UAVScreenPos.y + (mousePos.y - UAVScreenPos.y)*ratio;
+			linePoints[index] = new Vector2(new_x, new_y);
+		}		
+		
 		// Draw line
 		line.Draw ();
         line.SetTextureScale(textureScale, -Time.time * 2.0f % 1);
@@ -117,7 +149,6 @@ public class FlyPattern : MonoBehaviour {
     {
         // Add UAV current location to be the beginning of the line
         Camera curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;
-        Vector2 UAVScreenPos = curCam.WorldToScreenPoint(UAVPos);
         linePoints[0] = curCam.WorldToScreenPoint(UAVPos);
 
         // Mouse position should be a corner of the rectangle
@@ -134,7 +165,7 @@ public class FlyPattern : MonoBehaviour {
             sign_x = -1;
         }
 
-        int columnWidth = GetOffsetDistance(curCam);
+        float columnWidth = GetOffsetDistance(curCam);
         Debug.Log("columnWidth = " + columnWidth);
 
         float remain = Mathf.Abs(mousePos.x - UAVScreenPos.x);
@@ -268,29 +299,55 @@ public class FlyPattern : MonoBehaviour {
         this.gameObject.transform.position = newUAVPos;
         UAVPos = this.gameObject.transform.position;
 
-		// Erase line
-		line.ZeroPoints();
-		line.Draw();
-		
 		// Save Undo States and vacuum following line
 		
 		
 		// Deduct time needed to complete line		
+		if(timer>0)
+		{
+			lineLength = GetLineLength(line, linePoints);
+			double screenUnit = GetOffsetDistance(curCam);
+			Debug.Log("T_used = " + lineLength + "/" + screenUnit + "*2 = " + (lineLength/screenUnit*2));
+			timer -= Convert.ToInt16(Math.Round (lineLength / screenUnit*2));
+		}
+		int second = timer % 60;
+		int minute = timer / 60;
+		GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
 		
+		// Erase line
+		line.ZeroPoints();
+		line.Draw();
 		
-
 	}
 
     // Compute 0.1 world unit length in screen space
-    private static int GetOffsetDistance(Camera curCam)
+    private static float GetOffsetDistance(Camera curCam)
     {
         // Determine column size in screen space
         Vector3 p1 = Vector3.zero;
         Vector3 p2 = new Vector3(0f, 0f, 0.1f);
         Vector2 p3 = curCam.WorldToScreenPoint(p1);
         Vector2 p4 = curCam.WorldToScreenPoint(p2);
-        int width = Convert.ToInt16((p3 - p4).magnitude);
+        float width = (p3 - p4).magnitude;
         return width;
     }
-		
+	
+	private static float GetLineLength(VectorLine l, Vector2[] points)
+	{
+		float length = 0;
+		for(int i=0; i<l.maxDrawIndex; i++)
+		{
+			length += (points[i+1] - points[i]).magnitude;
+		}
+		return length;
+	}
+	
+	// Erase line
+	public void ClearLine()
+	{
+		line.ZeroPoints();
+        line.Draw();
+        index = 0;
+		lineLength = 0;
+	}		
 }
