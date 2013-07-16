@@ -26,6 +26,7 @@ public class StartOverPattern : MonoBehaviour {
 
         // Clear line
 		fm.ClearLine();
+		fm.Initialize();
 		
 		// Move UAV back to center and make it movable
         transform.position = new Vector3(0f, 4f, 0f);

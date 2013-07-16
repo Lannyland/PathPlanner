@@ -52,8 +52,7 @@ public class FlyManual : MonoBehaviour {
         }
         distMesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;			
         distVertices = distMesh.vertices;
-        distColors = distMesh.colors;				
-		
+        distColors = distMesh.colors;						
 	}
 	
 	// Update is called once per frame

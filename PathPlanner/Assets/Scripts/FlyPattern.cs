@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.Common;
 using Vectrosity;
@@ -11,7 +12,7 @@ public class FlyPattern : MonoBehaviour {
     public enum PatternMode { Line, Lawnmower, Spiral };
 
     public float moveSpeed = 10f;
-    public Vector2[] path;
+    public List<Vector2> path = new List<Vector2>();
     public bool fly = false;
     public PatternMode flyMode = PatternMode.Line;
     public Vector3[] distVertices;
@@ -21,7 +22,7 @@ public class FlyPattern : MonoBehaviour {
     public VectorLine line;
     public Vector2[] linePoints;
 	public Material lineMaterial;
-    public int maxPoints = 1800;
+    public int maxPoints = 10000;
     public float lineWidth = 4.0f;
     public double lastSegLeft = 0;
 
@@ -38,13 +39,11 @@ public class FlyPattern : MonoBehaviour {
 	private Vector2 UAVScreenPos;
     private Vector2 mousePos;
 	private Camera curCam;
-    
-    //public float turnSpeed = 50f;
-    //public int timer = 0;
-    //public int curWaypoint = 1;
-    //private float TimeStep = 0f;
-
-
+	private double screenUnit;
+	private double unitCount;
+	
+	private List<UAVState> UAVStates = new List<UAVState>();
+	
 	// Use this for initialization
 	void Start () {
 
@@ -52,22 +51,42 @@ public class FlyPattern : MonoBehaviour {
         SetLine();
 	}
 
-    private void Initialize()
+    public void Initialize()
     {
         moveSpeed = 10f;
         fly = false;
         flyMode = PatternMode.Line;
-        maxPoints = 1800;
+        maxPoints = 10000;
         lineWidth = 4.0f;
         lineLength = 0;
         index = 0;
         maxDiff = 0f;
         textureScale = 4.0f;
         lastSegLeft = 0;
-
+		
+        // Get diff map max
+        diffMesh = GameObject.Find("PlaneDiff").GetComponent<MeshFilter>().mesh;
+        diffVertices = diffMesh.vertices;
+        for (int i = 0; i < diffVertices.Length; i++)
+        {
+            if (maxDiff < diffVertices[i].y)
+            {
+                maxDiff = diffVertices[i].y;
+            }
+        }
+        if (maxDiff < 0.001f)
+        {
+            // No Diff map is used
+            maxDiff = 0f;
+            Debug.Log("No diff map is used based on maxDiff.");
+        }
+        distMesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;			
+        distVertices = distMesh.vertices;
+        distColors = distMesh.colors;				
+		
         flightDuration = ProjectConstants.intFlightDuration * 60;
         timer = flightDuration;
-        path = new Vector2[flightDuration + 1];
+		path.Add(ProjectConstants.originalStart);		
 
         UAVPos = this.gameObject.transform.position;
     }
@@ -94,6 +113,9 @@ public class FlyPattern : MonoBehaviour {
  		curCam = GameObject.Find("ControlCenter").GetComponent<StartUpPattern>().curCam;		
 		UAVPos = this.gameObject.transform.position;                
 		UAVScreenPos = curCam.WorldToScreenPoint(UAVPos);
+		screenUnit = GetOffsetDistance(curCam);	
+		lastSegLeft = screenUnit * unitCount;
+		// Debug.Log("lastSegLeft = " + lastSegLeft);
 		
 		// Clear previous lines
 		ClearLine();
@@ -141,8 +163,7 @@ public class FlyPattern : MonoBehaviour {
 		
 		// Make sure line won't exceed remaining time
 		lineLength = GetLineLength(line, linePoints);
-		double screenUnit = GetOffsetDistance(curCam);
-		int timeNeeded = Convert.ToInt16(lineLength / screenUnit*2);
+		int timeNeeded = Convert.ToInt32(lineLength / screenUnit*2);
 		if(timeNeeded > timer)
 		{
 			// Find point along the line with exact length
@@ -184,7 +205,7 @@ public class FlyPattern : MonoBehaviour {
         }
 
         float columnWidth = GetOffsetDistance(curCam);
-        Debug.Log("columnWidth = " + columnWidth);
+        // Debug.Log("columnWidth = " + columnWidth);
 
         float remain = Mathf.Abs(mousePos.x - UAVScreenPos.x);
 		// Debug.Log("Original remain = " + remain );
@@ -212,7 +233,6 @@ public class FlyPattern : MonoBehaviour {
 
         // Make sure line won't exceed remaining time
         lineLength = 0;
-        double screenUnit = GetOffsetDistance(curCam);
         int lastTimeNeeded = 0;
         int timerLeft = 0;
         for (int i = 0; i < line.maxDrawIndex; i++)
@@ -242,15 +262,6 @@ public class FlyPattern : MonoBehaviour {
         {
             OnMouseUp();
         }
-
-        //if (Input.GetMouseButton(0))
-        //{
-        //    line.MakeRect(UAVPos, Input.mousePosition);
-        //    line.Draw();
-        //}
-
-        //selectionLine.SetTextureScale(textureScale, -Time.time * 2.0 % 1);
-
     }
 
     private void DrawSpiral()
@@ -294,7 +305,6 @@ public class FlyPattern : MonoBehaviour {
 
         // Make sure line won't exceed remaining time
         lineLength = 0;
-        double screenUnit = GetOffsetDistance(curCam);
         int lastTimeNeeded = 0;
         int timerLeft = 0;
         for (int i = 0; i < line.maxDrawIndex; i++)
@@ -352,97 +362,125 @@ public class FlyPattern : MonoBehaviour {
         this.gameObject.transform.position = newUAVPos;
         UAVPos = this.gameObject.transform.position;
 
-		// Save Undo States
-        
-        // Save path segment 
-
-        // Vacuum following line
-        // First find all points along line based on fixed speeed.
-        double screenUnit = GetOffsetDistance(curCam);
-        // This path is in screen space
+        // First find all points along line based on fixed speeed. This path is in screen space
         Vector2[] screenPath = new Vector2[ProjectConstants.intFlightDuration * 60 / 2 + 1];
         // Add start point to path
-        screenPath[0] = linePoints[0];
+        int counter = 0;
+		if(UAVStates.Count == 0)
+		{
+			screenPath[0] = linePoints[0];
+			counter = 1;
+		}
 
-        // lineLength = 0;
-        int counter = 1;
         for (int i = 0; i < line.maxDrawIndex; i++)
         {
             Vector2 v = linePoints[i + 1] - linePoints[i];
             float dist = v.magnitude;
             double curSegLeft = dist;
             int curSegPointCounter = 0;
-            // lineLength += dist;
-            while (curSegLeft + lastSegLeft >= screenUnit)
+
+			// Get points for current segment
+            float angle = Mathf.Atan2(v.y, v.x);
+            if (angle < 0)
             {
-                // Get points for current segment
-                float angle = Mathf.Atan2(v.y, v.x);
-                if (angle < 0)
-                {
-                    angle = angle + 2 * Mathf.PI;
-                }
-                if (curSegPointCounter == 0)
-                {
-                    double r = screenUnit - lastSegLeft;
-                    float x = Convert.ToSingle(Math.Cos(angle) * r) + linePoints[i].x;
-                    float y = Convert.ToSingle(Math.Sin(angle) * r) + linePoints[i].y;
-                    screenPath[counter] = new Vector2(x, y);
-                }
-                else
-                {
-                    float x = Convert.ToSingle(Math.Cos(angle) * screenUnit) + screenPath[counter - 1].x;
-                    float y = Convert.ToSingle(Math.Sin(angle) * screenUnit) + screenPath[counter - 1].y;
-                    screenPath[counter] = new Vector2(x, y);
-                }
-                curSegLeft -= screenUnit;
-                counter++;
-                curSegPointCounter++;
+                angle = angle + 2 * Mathf.PI;
             }
-            lastSegLeft = curSegLeft;
+			
+			if(curSegLeft + lastSegLeft >= screenUnit)
+			{
+				while (curSegLeft + lastSegLeft >= screenUnit)
+	            {
+	                if(curSegPointCounter == 0)
+					{
+						double r = screenUnit - lastSegLeft;
+		                float x = Convert.ToSingle(Math.Cos(angle) * r) + linePoints[i].x;
+		                float y = Convert.ToSingle(Math.Sin(angle) * r) + linePoints[i].y;
+		                screenPath[counter] = new Vector2(x, y);
+						curSegLeft -= screenUnit - lastSegLeft;
+						lastSegLeft = 0;
+					}
+					else
+					{
+						double r = screenUnit;
+		                float x = Convert.ToSingle(Math.Cos(angle) * r) + screenPath[counter - 1].x;
+		                float y = Convert.ToSingle(Math.Sin(angle) * r) + screenPath[counter - 1].y;
+		                screenPath[counter] = new Vector2(x, y);
+	                	curSegLeft -= screenUnit;					
+					}
+	                counter++;
+	                curSegPointCounter++;
+	            }
+	            lastSegLeft = curSegLeft;
+			}
+			else
+			{
+				lastSegLeft += curSegLeft;
+			}
         }
-
-        // Draw points to make sure it looks right.
-        VectorPoints myPoints = new VectorPoints("Points", screenPath, lineMaterial, lineWidth);
-        myPoints.Draw();
-
-        //    int timeNeeded = Convert.ToInt16(lineLength / screenUnit * 2);
-        //    if (timeNeeded > timer)
-        //    {
-        //        // Find point along the line with exact length
-        //        int timeNeededCurSeg = timeNeeded - lastTimeNeeded;
-        //        float ratio = timerLeft * 1f / timeNeededCurSeg;
-        //        float new_x = linePoints[i].x + (linePoints[i + 1].x - linePoints[i].x) * ratio;
-        //        float new_y = linePoints[i].y + (linePoints[i + 1].y - linePoints[i].y) * ratio;
-        //        linePoints[i + 1] = new Vector2(new_x, new_y);
-        //        line.maxDrawIndex = i + 1;
-        //        break;
-        //    }
-        //    lastTimeNeeded = timeNeeded;
-        //    timerLeft = timer - lastTimeNeeded;
-        //}
-
-
-        //int lastTimeNeeded = 0;
-        //int timerLeft = 0;
+		unitCount = lastSegLeft / screenUnit;
 		
+//		Debug.Log("Path:");
+//		for(int i=0; i<20; i++)
+//		{
+//			Debug.Log (screenPath[i]);
+//		}
+
+//      // Draw points to make sure it looks right.
+//      VectorPoints myPoints = new VectorPoints("Points", screenPath, lineMaterial, 10.0f);
+//      myPoints.Draw();
+		
+		// Convert screen path to real path
+		List<Vector3> realPath = new List<Vector3>();
+		for(int i=0; i<counter; i++)
+		{
+			Vector3 point = curCam.ScreenToWorldPoint(new Vector3(screenPath[i].x, screenPath[i].y, z));
+			realPath.Add(point);
+			Debug.Log(point);
+		}
+		// Save path (less points)
+		List<Vector2> temp = new List<Vector2>();
+		temp.AddRange(linePoints);
+		temp.RemoveAt(0);
+		path.AddRange(temp);		
+		
+		// Save Undo States
+		UAVState curState = new UAVState();
+		curState.lastSegLeft = lastSegLeft;
+		curState.path = path;
+		curState.distVertices = (Vector3[])distVertices.Clone();
+		curState.distColors = (Color[])distColors.Clone();
+		curState.timer = timer;
+		curState.UAVPos = UAVPos;
+		curState.Score = GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore;
+		UAVStates.Add (curState);
+
+        // Vacuum following line
+		UAVPos = this.gameObject.transform.position;
+		for(int i=0; i<realPath.Count; i++)
+		{
+			this.gameObject.transform.position = realPath[i];
+			GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(realPath[i]);	
+		}
+		this.gameObject.transform.position = UAVPos;
+   		distMesh.vertices = distVertices;
+		distMesh.colors = distColors;
+
+
+		// Debug.Log("screenUnit = " + screenUnit + " lastSegLeft = " + lastSegLeft);
+
+
+
 
         
-
-
-
-
-
-
         
-        
-        
+        // Save path segment         
         
         
         // Deduct time needed to complete line		
 		if(timer>0)
 		{
 			lineLength = GetLineLength(line, linePoints);
-			Debug.Log("T_used = " + lineLength + "/" + screenUnit + "*2 = " + (lineLength/screenUnit*2));
+			// Debug.Log("T_used = " + lineLength + "/" + screenUnit + "*2 = " + (lineLength/screenUnit*2));
 			timer -= Convert.ToInt16(Math.Round (lineLength / screenUnit * 2));
 		}
 		int second = timer % 60;
@@ -485,5 +523,222 @@ public class FlyPattern : MonoBehaviour {
         line.Draw();
         index = 0;
 		lineLength = 0;
-	}		
+	}
+	
+	// Undo and set things back
+	public void Undo()
+	{
+		
+	}
+	
+	// Method to do partial Vacuum
+	float VacuumCells(Vector3 UAVPos)
+	{
+		// Get square corners
+		Vector3 TL = GameObject.Find("TL").transform.position;
+		Vector3 TR = GameObject.Find("TR").transform.position;
+		Vector3 BR = GameObject.Find("BR").transform.position;
+		Vector3 BL = GameObject.Find("BL").transform.position;
+		Vector2[] square = new Vector2[4];
+		square[0] = new Vector2(TL.x, TL.z);
+		square[1] = new Vector2(TR.x, TR.z);
+		square[2] = new Vector2(BR.x, BR.z);
+		square[3] = new Vector2(BL.x, BL.z);
+//		Debug.Log("Sqaure: (" + square[0].x + "," + square[0].y + ")"
+//					   + " (" + square[1].x + "," + square[1].y + ")"
+//					   + " (" + square[2].x + "," + square[2].y + ")" 
+//					   + " (" + square[3].x + "," + square[3].y + ")");
+		
+		float cellCDF = 0f;
+		List<Vector3> cells = FindOverlapCells(UAVPos);
+		if(cells.Count>1)
+		{
+			foreach(Vector3 c in cells)
+			{
+				cellCDF += PartialVacuum(c, square, false);
+			}
+		}
+		else
+		{
+			cellCDF += PartialVacuum(cells[0], square, true);
+		}
+		
+		// distMesh.vertices = distVertices;
+		// distMesh.colors = distColors;
+		// distMesh.RecalculateNormals();
+		// distMesh.RecalculateBounds();
+
+		// Debug.Log("Total partial vacuum = " + cellCDF);		
+		return cellCDF;
+	}
+	
+	// Method to find all partially overlapping cells
+	List<Vector3> FindOverlapCells(Vector3 UAVPos)
+	{
+		Vector3 closestVetex = new Vector3(Mathf.Round(UAVPos.x * 10f)/10f, UAVPos.y, Mathf.Round(UAVPos.z * 10f)/10f);
+
+		List<Vector3> neighbors = new List<Vector3>();
+		List<Vector3> overlapNeighbors = new List<Vector3>();
+		
+		// Find eight neighbors
+		Vector3 new1 = closestVetex + new Vector3(-0.1f, 0f, 0.1f);
+		neighbors.Add(new1);
+		Vector3 new2 = closestVetex + new Vector3(0f, 0f, 0.1f);
+		neighbors.Add(new2);
+		Vector3 new3 = closestVetex + new Vector3(0.1f, 0f, 0.1f);
+		neighbors.Add(new3);
+		Vector3 new4 = closestVetex + new Vector3(0.1f, 0f, 0f);
+		neighbors.Add(new4);
+		Vector3 new5 = closestVetex + new Vector3(0.1f, 0f, -0.1f);
+		neighbors.Add(new5);
+		Vector3 new6 = closestVetex + new Vector3(0f, 0f, -0.1f);
+		neighbors.Add(new6);
+		Vector3 new7 = closestVetex + new Vector3(-0.1f, 0f, -0.1f);
+		neighbors.Add(new7);
+		Vector3 new8 = closestVetex + new Vector3(-0.1f, 0f, 0f);
+		neighbors.Add(new8);		
+			
+		// Determine overlapping neighbors
+		// The closest one must be valid
+		overlapNeighbors.Add(closestVetex);	
+		foreach(Vector3 n in neighbors)
+		{
+			if(Overlap(UAVPos, n))
+			{
+				overlapNeighbors.Add(n);
+			}
+		}
+		return overlapNeighbors;		
+	}
+	
+	// Method to check if overlap
+	bool Overlap(Vector3 v1, Vector3 v2)
+	{
+		bool result = false;
+		float r = Mathf.Sqrt (0.05f*0.05f*2);
+		List<Vector3> corners = new List<Vector3>();
+		corners.Add (new Vector3(-0.05f, 0f, 0.05f));	// Top Left
+		corners.Add (new Vector3(0.05f, 0f, 0.05f));	// Top Right	
+		corners.Add (new Vector3(0.05f, 0f, - 0.05f));	// Bottom Right
+		corners.Add (new Vector3(-0.05f, 0f, -0.05f));	// Bottom Left		
+		foreach(Vector3 v in corners)
+		{
+			Vector3 corner = v2 + v;
+			Vector3 temp = corner - v1;
+			float distance = Mathf.Sqrt (temp.x*temp.x + temp.z*temp.z);
+			if( distance + 0.00001 < r)
+			{
+				return true;
+			}
+		}		
+		return result;
+	}
+	
+	// Method to partially vacuum a cell
+	// This is where the vertex height and color actually gets changed
+	float PartialVacuum(Vector3 c, Vector2[] square, bool skip)
+	{
+		float p = 0f;
+		float cellCDF = 0f;
+		Vector2 point = Vector2.zero;
+		
+		// string log = "";		
+		if(skip)
+		{
+			p = 1;
+            point.x = c.x;
+            point.y = c.z;
+		}
+		else
+		{
+			// Use monte carlo method to estimate portion of cell that's overlapping		
+			int counter = 0;		
+			for(int i=-5; i<5; i++)
+			{
+				for(int j=-5; j<5;j++)
+				{
+					point.x = c.x + 0.01f*j;
+					point.y = c.z + 0.01f*i;
+					// log+="(" + point.x.ToString() + "," + point.y.ToString() + ")";
+					if(MISCLib.PointInPolygon(point, square))
+					{
+						counter++;
+					}
+				}
+			}		
+			p = counter/100f;
+		}
+		// Debug.Log("p = " + p );		
+		// Debug.Log(log);
+		
+		// Now let's vacuum
+		int Y = Convert.ToInt16(Mathf.Round (point.y * 10)+50);
+		int X = Convert.ToInt16(Mathf.Round (point.x * 10)+50);
+		int index = Convert.ToInt16(Y * ProjectConstants.intMapWidth + X);
+        // Don't vacuum if flying out of map
+        if (Y < 0 || Y > ProjectConstants.intMapHeight - 1
+            || X < 0 || X > ProjectConstants.intMapWidth - 1)
+        {
+            index = -1;
+        }
+        // Don't vacuum if outside of map
+        if (index < ProjectConstants.intMapWidth * ProjectConstants.intMapHeight
+            && index > 0)
+        {
+            cellCDF = PointVacuum(index, p);
+        }
+		
+		// Change vetext height and color
+		// Debug.Log("Partial vacuum cell = " + cellCDF);		
+		return cellCDF;
+	}
+	
+	// Method to vacuum the point visited on path.
+	float PointVacuum(int i, float p)
+	{
+		if(i>ProjectConstants.intMapWidth*ProjectConstants.intMapWidth-1)
+		{
+			// UAV flew outside of map.
+			return 0f;
+		}
+        if (i > diffVertices.Length)
+        {
+            Debug.Log("Stop!");
+        }
+		if(maxDiff == 0f)
+		{
+			diffVertices[i].y = 1;
+		}
+		else
+		{
+	        diffVertices[i].y = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
+		}
+		
+		float v = distVertices[i].y * diffVertices[i].y * p;
+		distVertices[i].y -= v;
+		
+		distColors[i] = MISCLib.HeightToDistColor(distVertices[i].y, 4f);
+		return v;
+	}	
+	
+	
+}
+
+public class UAVState
+{
+	public double lastSegLeft;
+	public List<Vector2> path;
+    public Vector3[] distVertices;
+    public Color[] distColors;
+	public int timer;
+	public Vector3 UAVPos;	
+	public double Score;
+			
+	public UAVState()
+	{
+	}
+			
+	~UAVState()
+	{
+	}
 }

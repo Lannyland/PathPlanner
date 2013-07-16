@@ -146,5 +146,7 @@ public class MoveUFO : MonoBehaviour {
 		
 		// Snap UAV to the closest vertex
 		MISCLib.SnapToGrid (ref UAV);
+		
+		ProjectConstants.originalStart = this.gameObject.transform.position;
 	}
 }
