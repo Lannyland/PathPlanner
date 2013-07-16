@@ -21,9 +21,10 @@ public class FlyPattern : MonoBehaviour {
     public VectorLine line;
     public Vector2[] linePoints;
 	public Material lineMaterial;
-    public int maxPoints = 5000;
+    public int maxPoints = 1800;
     public float lineWidth = 4.0f;
-	
+    public double lastSegLeft = 0;
+
 	private double lineLength = 0;
     private int index = 0;
     private int flightDuration = 0;
@@ -46,13 +47,30 @@ public class FlyPattern : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		flightDuration = ProjectConstants.intFlightDuration * 60;
-		timer = flightDuration;
-		path = new Vector2[flightDuration+1];
 
-		UAVPos = this.gameObject.transform.position;        
+        Initialize();
         SetLine();
 	}
+
+    private void Initialize()
+    {
+        moveSpeed = 10f;
+        fly = false;
+        flyMode = PatternMode.Line;
+        maxPoints = 1800;
+        lineWidth = 4.0f;
+        lineLength = 0;
+        index = 0;
+        maxDiff = 0f;
+        textureScale = 4.0f;
+        lastSegLeft = 0;
+
+        flightDuration = ProjectConstants.intFlightDuration * 60;
+        timer = flightDuration;
+        path = new Vector2[flightDuration + 1];
+
+        UAVPos = this.gameObject.transform.position;
+    }
 
     void SetLine()
     {
@@ -191,6 +209,31 @@ public class FlyPattern : MonoBehaviour {
 			// Debug.Log("Next remain = " + remain );
         }
         line.maxDrawIndex = index;
+
+        // Make sure line won't exceed remaining time
+        lineLength = 0;
+        double screenUnit = GetOffsetDistance(curCam);
+        int lastTimeNeeded = 0;
+        int timerLeft = 0;
+        for (int i = 0; i < line.maxDrawIndex; i++)
+        {
+            lineLength += (linePoints[i + 1] - linePoints[i]).magnitude;
+
+            int timeNeeded = Convert.ToInt16(lineLength / screenUnit * 2);
+            if (timeNeeded > timer)
+            {
+                // Find point along the line with exact length
+                int timeNeededCurSeg = timeNeeded - lastTimeNeeded;
+                float ratio = timerLeft * 1f / timeNeededCurSeg;
+                float new_x = linePoints[i].x + (linePoints[i + 1].x - linePoints[i].x) * ratio;
+                float new_y = linePoints[i].y + (linePoints[i + 1].y - linePoints[i].y) * ratio;
+                linePoints[i + 1] = new Vector2(new_x, new_y);
+                line.maxDrawIndex = i + 1;
+                break;
+            }
+            lastTimeNeeded = timeNeeded;
+            timerLeft = timer - lastTimeNeeded;
+        }
         
         line.Draw();
         line.SetTextureScale(textureScale, -Time.time * 2.0f % 1);
@@ -249,6 +292,31 @@ public class FlyPattern : MonoBehaviour {
         }
         line.maxDrawIndex = index;
 
+        // Make sure line won't exceed remaining time
+        lineLength = 0;
+        double screenUnit = GetOffsetDistance(curCam);
+        int lastTimeNeeded = 0;
+        int timerLeft = 0;
+        for (int i = 0; i < line.maxDrawIndex; i++)
+        {
+            lineLength += (linePoints[i + 1] - linePoints[i]).magnitude;
+
+            int timeNeeded = Convert.ToInt16(lineLength / screenUnit * 2);
+            if (timeNeeded > timer)
+            {
+                // Find point along the line with exact length
+                int timeNeededCurSeg = timeNeeded - lastTimeNeeded;
+                float ratio = timerLeft * 1f / timeNeededCurSeg;
+                float new_x = linePoints[i].x + (linePoints[i + 1].x - linePoints[i].x) * ratio;
+                float new_y = linePoints[i].y + (linePoints[i + 1].y - linePoints[i].y) * ratio;
+                linePoints[i + 1] = new Vector2(new_x, new_y);
+                line.maxDrawIndex = i + 1;
+                break;
+            }
+            lastTimeNeeded = timeNeeded;
+            timerLeft = timer - lastTimeNeeded;
+        }
+
         line.Draw();
         line.SetTextureScale(textureScale, -Time.time * 2.0f % 1);
 
@@ -260,7 +328,13 @@ public class FlyPattern : MonoBehaviour {
 	
 	void OnMouseUp()
 	{
-		// Don't do anything if clicking button panel
+		// Don't do anything if start button is not clicked yet.
+        if (!fly)
+        {
+            return;
+        }
+        
+        // Don't do anything if clicking button panel
 		mousePos = transform.InverseTransformPoint(Input.mousePosition);
 		if(mousePos.x > Screen.width-200)
 		{
@@ -274,46 +348,107 @@ public class FlyPattern : MonoBehaviour {
         Vector3 oldUAVPos = this.gameObject.transform.position;
 		Vector3 newUAVPos = Vector3.zero;
 		
-		switch (flyMode)
-        {
-            case PatternMode.Line:
-                // Move UAV to mousePos                
-                newUAVPos = curCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, z));
-                break;
-
-            case PatternMode.Lawnmower:
-				// Move UAV to mousePos\
-				// Debug.Log("linePoints = " + linePoints[0] + " " + linePoints[1] + " " + linePoints[2] + " " + linePoints[3] + " " + linePoints[4] + " " +linePoints[5]);
-				// Debug.Log("maxDrawIndex = " + line.maxDrawIndex);
-				// Debug.Log("linePoints[max] = " + linePoints[line.maxDrawIndex]);
-                newUAVPos = curCam.ScreenToWorldPoint(new Vector3(linePoints[line.maxDrawIndex].x, linePoints[line.maxDrawIndex].y, z));
-                break;
-
-            case PatternMode.Spiral:
-                newUAVPos = curCam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, z));
-                break;
-
-            default:
-                break;
-        }
+        newUAVPos = curCam.ScreenToWorldPoint(new Vector3(linePoints[line.maxDrawIndex].x, linePoints[line.maxDrawIndex].y, z));
         this.gameObject.transform.position = newUAVPos;
         UAVPos = this.gameObject.transform.position;
 
-		// Save Undo States and vacuum following line
+		// Save Undo States
+        
+        // Save path segment 
+
+        // Vacuum following line
+        // First find all points along line based on fixed speeed.
+        double screenUnit = GetOffsetDistance(curCam);
+        // This path is in screen space
+        Vector2[] screenPath = new Vector2[ProjectConstants.intFlightDuration * 60 / 2 + 1];
+        // Add start point to path
+        screenPath[0] = linePoints[0];
+
+        // lineLength = 0;
+        int counter = 1;
+        for (int i = 0; i < line.maxDrawIndex; i++)
+        {
+            Vector2 v = linePoints[i + 1] - linePoints[i];
+            float dist = v.magnitude;
+            double curSegLeft = dist;
+            int curSegPointCounter = 0;
+            // lineLength += dist;
+            while (curSegLeft + lastSegLeft >= screenUnit)
+            {
+                // Get points for current segment
+                float angle = Mathf.Atan2(v.y, v.x);
+                if (angle < 0)
+                {
+                    angle = angle + 2 * Mathf.PI;
+                }
+                if (curSegPointCounter == 0)
+                {
+                    double r = screenUnit - lastSegLeft;
+                    float x = Convert.ToSingle(Math.Cos(angle) * r) + linePoints[i].x;
+                    float y = Convert.ToSingle(Math.Sin(angle) * r) + linePoints[i].y;
+                    screenPath[counter] = new Vector2(x, y);
+                }
+                else
+                {
+                    float x = Convert.ToSingle(Math.Cos(angle) * screenUnit) + screenPath[counter - 1].x;
+                    float y = Convert.ToSingle(Math.Sin(angle) * screenUnit) + screenPath[counter - 1].y;
+                    screenPath[counter] = new Vector2(x, y);
+                }
+                curSegLeft -= screenUnit;
+                counter++;
+                curSegPointCounter++;
+            }
+            lastSegLeft = curSegLeft;
+        }
+
+        // Draw points to make sure it looks right.
+        VectorPoints myPoints = new VectorPoints("Points", screenPath, lineMaterial, lineWidth);
+        myPoints.Draw();
+
+        //    int timeNeeded = Convert.ToInt16(lineLength / screenUnit * 2);
+        //    if (timeNeeded > timer)
+        //    {
+        //        // Find point along the line with exact length
+        //        int timeNeededCurSeg = timeNeeded - lastTimeNeeded;
+        //        float ratio = timerLeft * 1f / timeNeededCurSeg;
+        //        float new_x = linePoints[i].x + (linePoints[i + 1].x - linePoints[i].x) * ratio;
+        //        float new_y = linePoints[i].y + (linePoints[i + 1].y - linePoints[i].y) * ratio;
+        //        linePoints[i + 1] = new Vector2(new_x, new_y);
+        //        line.maxDrawIndex = i + 1;
+        //        break;
+        //    }
+        //    lastTimeNeeded = timeNeeded;
+        //    timerLeft = timer - lastTimeNeeded;
+        //}
+
+
+        //int lastTimeNeeded = 0;
+        //int timerLeft = 0;
 		
-		
-		// Deduct time needed to complete line		
+
+        
+
+
+
+
+
+
+        
+        
+        
+        
+        
+        // Deduct time needed to complete line		
 		if(timer>0)
 		{
 			lineLength = GetLineLength(line, linePoints);
-			double screenUnit = GetOffsetDistance(curCam);
 			Debug.Log("T_used = " + lineLength + "/" + screenUnit + "*2 = " + (lineLength/screenUnit*2));
-			timer -= Convert.ToInt16(Math.Round (lineLength / screenUnit*2));
+			timer -= Convert.ToInt16(Math.Round (lineLength / screenUnit * 2));
 		}
 		int second = timer % 60;
 		int minute = timer / 60;
 		GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
-		
+
 		// Erase line
 		line.ZeroPoints();
 		line.Draw();
@@ -332,6 +467,7 @@ public class FlyPattern : MonoBehaviour {
         return width;
     }
 	
+    // Compute line total length
 	private static float GetLineLength(VectorLine l, Vector2[] points)
 	{
 		float length = 0;

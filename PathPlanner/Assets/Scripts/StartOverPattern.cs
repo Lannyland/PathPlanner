@@ -39,8 +39,8 @@ public class StartOverPattern : MonoBehaviour {
         fm.distVertices = mesh.vertices;
         fm.distColors = mesh.colors;
 
-        // Reset timer
-        fm.timer = ProjectConstants.intFlightDuration * 60;
+        //// Reset timer
+        //fm.timer = ProjectConstants.intFlightDuration * 60;
 		
 		// Set everything back to default values
 		ProjectConstants.mDistMapCurStepUndo = ProjectConstants.mOriginalDistMap.Clone();
@@ -50,7 +50,7 @@ public class StartOverPattern : MonoBehaviour {
 		
 		// Enable those buttons
         GameObject.Find("btnStart").GetComponent<UIButton>().isEnabled = true;
-        fm.fly = false;
+        //fm.fly = false;
 
         // reset score
         GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore = 0f;
