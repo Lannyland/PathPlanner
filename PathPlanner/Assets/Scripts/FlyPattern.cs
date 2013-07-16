@@ -86,7 +86,7 @@ public class FlyPattern : MonoBehaviour {
 		
         flightDuration = ProjectConstants.intFlightDuration * 60;
         timer = flightDuration;
-		path.Add(ProjectConstants.originalStart);		
+		// path.Add(ProjectConstants.originalStart);		
 
         UAVPos = this.gameObject.transform.position;
     }
@@ -435,13 +435,9 @@ public class FlyPattern : MonoBehaviour {
 		{
 			Vector3 point = curCam.ScreenToWorldPoint(new Vector3(screenPath[i].x, screenPath[i].y, z));
 			realPath.Add(point);
-			Debug.Log(point);
-		}
-		// Save path (less points)
-		List<Vector2> temp = new List<Vector2>();
-		temp.AddRange(linePoints);
-		temp.RemoveAt(0);
-		path.AddRange(temp);		
+            path.Add(new Vector2(point.x, point.z));
+			// Debug.Log(point);
+        }
 		
 		// Save Undo States
 		UAVState curState = new UAVState();
@@ -450,7 +446,7 @@ public class FlyPattern : MonoBehaviour {
 		curState.distVertices = (Vector3[])distVertices.Clone();
 		curState.distColors = (Color[])distColors.Clone();
 		curState.timer = timer;
-		curState.UAVPos = UAVPos;
+		curState.UAVPos = oldUAVPos;
 		curState.Score = GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore;
 		UAVStates.Add (curState);
 
@@ -465,16 +461,7 @@ public class FlyPattern : MonoBehaviour {
    		distMesh.vertices = distVertices;
 		distMesh.colors = distColors;
 
-
 		// Debug.Log("screenUnit = " + screenUnit + " lastSegLeft = " + lastSegLeft);
-
-
-
-
-        
-        
-        // Save path segment         
-        
         
         // Deduct time needed to complete line		
 		if(timer>0)
@@ -490,7 +477,12 @@ public class FlyPattern : MonoBehaviour {
 		// Erase line
 		line.ZeroPoints();
 		line.Draw();
-		
+
+        if (timer == 0)
+        {
+            GameObject.Find("btnFly").GetComponent<UIButton>().isEnabled = true;
+            fly = false;
+        }		
 	}
 
     // Compute 0.1 world unit length in screen space
@@ -528,7 +520,25 @@ public class FlyPattern : MonoBehaviour {
 	// Undo and set things back
 	public void Undo()
 	{
-		
+        int last = UAVStates.Count - 1;
+        if (last < 0)
+        {
+            // Already back at the very beginning. Cannot undo anymore.
+            return;
+        }
+        UAVState lastState = UAVStates[last];
+        UAVStates.RemoveAt(last);
+
+	    lastSegLeft = lastState.lastSegLeft;
+        path = lastState.path;
+        distVertices = (Vector3[])lastState.distVertices.Clone();
+        distColors = (Color[])lastState.distColors.Clone();
+        timer = lastState.timer;
+        UAVPos = lastState.UAVPos;
+        GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore = lastState.Score;
+        distMesh.vertices = distVertices;
+        distMesh.colors = distColors;
+        this.gameObject.transform.position = UAVPos;		
 	}
 	
 	// Method to do partial Vacuum
@@ -720,8 +730,6 @@ public class FlyPattern : MonoBehaviour {
 		distColors[i] = MISCLib.HeightToDistColor(distVertices[i].y, 4f);
 		return v;
 	}	
-	
-	
 }
 
 public class UAVState
@@ -732,7 +740,7 @@ public class UAVState
     public Color[] distColors;
 	public int timer;
 	public Vector3 UAVPos;	
-	public double Score;
+	public float Score;
 			
 	public UAVState()
 	{

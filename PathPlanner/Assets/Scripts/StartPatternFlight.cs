@@ -17,5 +17,8 @@ public class StartPatternFlight : MonoBehaviour {
         // Make UAV not movable
         GameObject.Find("UAV").GetComponent<FlyPattern>().fly = true;
 		GameObject.Find("UAV").GetComponent<MoveUFO>().movable = false;
+        this.gameObject.GetComponent<UIButton>().isEnabled = false;
+        GameObject.Find("UAV").GetComponent<FlyPattern>().path.Clear();
+        GameObject.Find("UAV").GetComponent<FlyPathPattern>().path.Clear();
 	}		
 }

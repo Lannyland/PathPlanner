@@ -19,6 +19,8 @@ public class StartUpPattern : StartUpChores {
         GameObject.Find("CameraBehind").GetComponent<Camera>().enabled = false;
 
         curCam = GameObject.Find("CameraFree").GetComponent<Camera>();
+
+        GameObject.Find("btnFly").GetComponent<UIButton>().isEnabled = false;
 	}
 	
 	// Update is called once per frame

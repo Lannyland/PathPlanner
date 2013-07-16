@@ -18,28 +18,29 @@ public class StartOverPattern : MonoBehaviour {
 	}
 	
 	// When button is clicked
-	void OnClick()
+	public void OnClick()
 	{
 		GameObject UAV = GameObject.Find("UAV");
         Transform transform = UAV.transform;
         FlyPattern fm = UAV.GetComponent<FlyPattern>();
 
+        // Reload distMap to mesh
+        RtwMatrix distMapIn = ProjectConstants.mOriginalDistMap.Clone();
+        Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
+        MISCLib.ApplyMatrixToMesh(distMapIn, ref mesh, true);
+        fm.distVertices = mesh.vertices;
+        fm.distColors = mesh.colors;
+
         // Clear line
 		fm.ClearLine();
 		fm.Initialize();
+        GameObject.Find("UAV").GetComponent<FlyPathPattern>().Initialize();
 		
 		// Move UAV back to center and make it movable
         transform.position = new Vector3(0f, 4f, 0f);
         transform.rotation = Quaternion.identity;
         UAV.GetComponent<MoveUFO>().movable = true;
 				
-		// Reload distMap to mesh
-		RtwMatrix distMapIn = ProjectConstants.mOriginalDistMap.Clone();
-		Mesh mesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;
-        MISCLib.ApplyMatrixToMesh(distMapIn, ref mesh, true);
-        fm.distVertices = mesh.vertices;
-        fm.distColors = mesh.colors;
-
         //// Reset timer
         //fm.timer = ProjectConstants.intFlightDuration * 60;
 		
@@ -51,7 +52,7 @@ public class StartOverPattern : MonoBehaviour {
 		
 		// Enable those buttons
         GameObject.Find("btnStart").GetComponent<UIButton>().isEnabled = true;
-        //fm.fly = false;
+        fm.fly = false;
 
         // reset score
         GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore = 0f;
@@ -62,5 +63,8 @@ public class StartOverPattern : MonoBehaviour {
         int second = fm.timer % 60;
         int minute = fm.timer / 60;
         GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
+
+        // Disable fly button
+        GameObject.Find("btnFly").GetComponent<UIButton>().isEnabled = false;
 	}
 }
