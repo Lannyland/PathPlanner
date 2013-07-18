@@ -86,7 +86,6 @@ public class FlyPattern : MonoBehaviour {
 		
         flightDuration = ProjectConstants.intFlightDuration * 60;
         timer = flightDuration;
-		// path.Add(ProjectConstants.originalStart);		
 
         UAVPos = this.gameObject.transform.position;
 		
@@ -377,7 +376,7 @@ public class FlyPattern : MonoBehaviour {
         Vector2[] screenPath = new Vector2[ProjectConstants.intFlightDuration * 60 / 2 + 1];
         // Add start point to path
         int counter = 0;
-		if(UAVStates.Count == 0)
+		if(UAVStates.Count == 1)
 		{
 			screenPath[0] = linePoints[0];
 			counter = 1;
@@ -731,7 +730,8 @@ public class FlyPattern : MonoBehaviour {
 	// Method to vacuum the point visited on path.
 	float PointVacuum(int i, float p)
 	{
-		if(i>ProjectConstants.intMapWidth*ProjectConstants.intMapWidth-1)
+        float diff = 0f;
+        if(i>ProjectConstants.intMapWidth*ProjectConstants.intMapWidth-1)
 		{
 			// UAV flew outside of map.
 			return 0f;
@@ -742,14 +742,14 @@ public class FlyPattern : MonoBehaviour {
         }
 		if(maxDiff == 0f)
 		{
-			diffVertices[i].y = 1;
+			diff = 1;
 		}
 		else
 		{
-	        diffVertices[i].y = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
+	        diff = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
 		}
 		
-		float v = distVertices[i].y * diffVertices[i].y * p;
+		float v = distVertices[i].y * diff * p;
 		distVertices[i].y -= v;
 		
 		distColors[i] = MISCLib.HeightToDistColor(distVertices[i].y, 4f);

@@ -45,75 +45,76 @@ public class FlyPathPattern : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
-	
-	void FixedUpdate() {
+
+    void FixedUpdate()
+    {
         if (fly)
         {
-                // Deal with rounding errors
+            // Deal with rounding errors
             while (path.Count < ProjectConstants.intFlightDuration * 60 / 2 + 1)
             {
                 Vector2 newPoint = path[path.Count - 1];
                 path.Add(newPoint);
             }
-                // Do this only once. Vacuum starting point
-                Vector3 UAVPos;
-                if (currentWayPoint == 0)
-                {
-                    UAVPos = this.transform.position;
-                    Debug.Log("UAVPos = " + UAVPos);
-                    GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
-                    // Debug.Log("First visit score: " + Camera.main.GetComponent<IncreasingScoreEffect>().curScore);
-                    currentWayPoint = 1;
-                }
+            // Do this only once. Vacuum starting point
+            Vector3 UAVPos;
+            if (currentWayPoint == 0)
+            {
+                UAVPos = this.transform.position;
+                Debug.Log("UAVPos = " + GameObject.Find("UAV").transform.position);
+                GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore += VacuumCells(UAVPos);
+                // Debug.Log("First visit score: " + Camera.main.GetComponent<IncreasingScoreEffect>().curScore);
+                currentWayPoint = 1;
+            }
 
-                if (currentWayPoint < path.Count)
-                {
-                    // Keep checking those waypoints
-                    Vector3 target = new Vector3(path[currentWayPoint].x, 4.0f, path[currentWayPoint].y);
-                    Vector3 moveDirection = target - this.gameObject.transform.position;
-                    this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, target, speed * Time.deltaTime);
+            if (currentWayPoint < path.Count)
+            {
+                // Keep checking those waypoints
+                Vector3 target = new Vector3(path[currentWayPoint].x, 4.0f, path[currentWayPoint].y);
+                Vector3 moveDirection = target - this.gameObject.transform.position;
+                this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, target, speed * Time.deltaTime);
 
-                    if (moveDirection.magnitude < 0.01)
+                if (moveDirection.magnitude < 0.01)
+                {
+                    // Debug.Log("Waypoint " + currentWayPoint + " checked.");
+                    // Change the vertex height of the waypoint to simulate vacuum effect
+                    // Vacuum probability and change score
+                    UAVPos = target;
+                    // Debug.Log("UAVPos = " + UAVPos);
+                    // Give yourself some game points!
+                    IncreasingScoreEffect effect = GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>();
+                    effect.style = IncreasingScoreEffect.EffectStyle.MileStone;
+                    effect.curScore += VacuumCells(UAVPos);
+
+                    distMesh.vertices = distVertices;
+                    distMesh.colors = distColors;
+
+                    // Change timer remaining time
+                    if (timer > 0)
                     {
-                        // Debug.Log("Waypoint " + currentWayPoint + " checked.");
-                        // Change the vertex height of the waypoint to simulate vacuum effect
-                        // Vacuum probability and change score
-                        UAVPos = target;
-                        // Debug.Log("UAVPos = " + UAVPos);
-                        // Give yourself some game points!
-                        IncreasingScoreEffect effect = GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>();
-                        effect.style = IncreasingScoreEffect.EffectStyle.MileStone;
-                        effect.curScore += VacuumCells(UAVPos);
-
-                        distMesh.vertices = distVertices;
-                        distMesh.colors = distColors;
-
-                        // Change timer remaining time
-                        if (timer > 0)
-                        {
-                            timer -= 2;
-                        }
-                        int second = timer % 60;
-                        int minute = timer / 60;
-                        GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
-
-                        // Debug.Log("curWaypoint = " + curWaypoint);
-                        currentWayPoint++;
+                        timer -= 2;
                     }
-                }
-                else
-                {
-                    fly = false;
-                    // Deal with rounding errors.
-                    timer = 0;
                     int second = timer % 60;
                     int minute = timer / 60;
                     GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
+
+                    // Debug.Log("curWaypoint = " + curWaypoint);
+                    currentWayPoint++;
                 }
+            }
+            else
+            {
+                fly = false;
+                // Deal with rounding errors.
+                timer = 0;
+                int second = timer % 60;
+                int minute = timer / 60;
+                GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
+            }
             //    TimeStep = 0f;
             //}
         }
-	}
+    }
 
     // Method to do partial Vacuum
     float VacuumCells(Vector3 UAVPos)
@@ -280,6 +281,7 @@ public class FlyPathPattern : MonoBehaviour {
     // Method to vacuum the point visited on path.
     float PointVacuum(int i, float p)
     {
+        float diff = 0f;
         if (i > ProjectConstants.intMapWidth * ProjectConstants.intMapWidth - 1)
         {
             // UAV flew outside of map.
@@ -291,14 +293,14 @@ public class FlyPathPattern : MonoBehaviour {
         }
         if (maxDiff == 0f)
         {
-            diffVertices[i].y = 1;
+            diff = 1;
         }
         else
         {
-            diffVertices[i].y = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
+            diff = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
         }
 
-        float v = distVertices[i].y * diffVertices[i].y * p;
+        float v = distVertices[i].y * diff * p;
         distVertices[i].y -= v;
 
         distColors[i] = MISCLib.HeightToDistColor(distVertices[i].y, 4f);

@@ -26,6 +26,9 @@ public class FlyPathClickedPattern : MonoBehaviour {
 
         //// Fly plane following path and then vacuum up as the plane goes and also up the score
         GameObject.Find("UAV").GetComponent<FlyPathPattern>().path = GameObject.Find("UAV").GetComponent<FlyPattern>().path;
+        GameObject.Find("UAV").transform.position = new Vector3(ProjectConstants.originalStart.x, 4.0f, ProjectConstants.originalStart.y);
+        Debug.Log("originalStart = " + ProjectConstants.originalStart);
+        Debug.Log("UAVPos after fly path is clicked = " + GameObject.Find("UAV").transform.position);
         GameObject.Find("UAV").GetComponent<FlyPathPattern>().fly = true;
     }
 }

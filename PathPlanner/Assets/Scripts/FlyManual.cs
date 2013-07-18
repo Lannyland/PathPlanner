@@ -302,28 +302,29 @@ public class FlyManual : MonoBehaviour {
 	// Method to vacuum the point visited on path.
 	float PointVacuum(int i, float p)
 	{
-		if(i>ProjectConstants.intMapWidth*ProjectConstants.intMapWidth-1)
-		{
-			// UAV flew outside of map.
-			return 0f;
-		}
+        float diff = 0f;
+        if (i > ProjectConstants.intMapWidth * ProjectConstants.intMapWidth - 1)
+        {
+            // UAV flew outside of map.
+            return 0f;
+        }
         if (i > diffVertices.Length)
         {
             Debug.Log("Stop!");
         }
-		if(maxDiff == 0f)
-		{
-			diffVertices[i].y = 1;
-		}
-		else
-		{
-	        diffVertices[i].y = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
-		}
-		
-		float v = distVertices[i].y * diffVertices[i].y * p;
-		distVertices[i].y -= v;
-		
-		distColors[i] = MISCLib.HeightToDistColor(distVertices[i].y, 4f);
-		return v;
-	}	
+        if (maxDiff == 0f)
+        {
+            diff = 1;
+        }
+        else
+        {
+            diff = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
+        }
+
+        float v = distVertices[i].y * diff * p;
+        distVertices[i].y -= v;
+
+        distColors[i] = MISCLib.HeightToDistColor(distVertices[i].y, 4f);
+        return v;
+    }	
 }

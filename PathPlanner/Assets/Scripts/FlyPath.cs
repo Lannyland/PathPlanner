@@ -80,16 +80,17 @@ public class FlyPath : MonoBehaviour {
 	// Method to vacuum the point visited on path.
 	float PointVacuum(int i)
 	{
-		if(maxDiff == 0f)
+        float diff = 0f;		
+        if(maxDiff == 0f)
 		{
-			diffVertices[i].y = 1;
+			diff = 1;
 		}
 		else
 		{
-	        diffVertices[i].y = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
+	        diff = (maxDiff + 1 - diffVertices[i].y) * (1.0f / (maxDiff + 1));
 		}
 		
-		float v = distVertices[i].y * diffVertices[i].y;
+		float v = distVertices[i].y * diff;
 		distVertices[i].y -= v;
 		
 		distColors[i] = MISCLib.HeightToDistColor(distVertices[i].y, 4f);
