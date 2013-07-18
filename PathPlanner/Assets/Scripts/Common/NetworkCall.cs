@@ -79,7 +79,7 @@ namespace TCPIPTest
 	        try
 	        {
 	            TcpClient clientSocket = new TcpClient();
-	            clientSocket.Connect("127.0.0.1", 8888);
+	            clientSocket.Connect("127.0.0.1", 80);
 	
 	            NetworkStream serverStream = clientSocket.GetStream();
 	

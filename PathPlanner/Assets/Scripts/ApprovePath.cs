@@ -109,6 +109,7 @@ public class ApprovePath : MonoBehaviour {
             Camera.main.GetComponent<PlanPath>().workerThread.Abort();
         }
 		Camera.main.GetComponent<PlanPath>().ClearLists();
+		Debug.Log("path count = " + Camera.main.GetComponent<PlanPath>().lstPaths.Count);
 				
 		if(ProjectConstants.durationLeft == 0)
 		{

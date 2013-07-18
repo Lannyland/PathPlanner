@@ -4,6 +4,7 @@ using System.Collections;
 using Assets.Scripts;
 using Assets.Scripts.Common;
 using rtwmatrix;
+using Vectrosity;
 
 public class StartOver : MonoBehaviour {
 
@@ -34,6 +35,11 @@ public class StartOver : MonoBehaviour {
 			GameObject go = GameObject.Find("EndPoint" + i);
 			Destroy (go);
 		}
+		
+		// Erase line
+		VectorLine curLine = Camera.main.GetComponent<PlanPath>().curLine;
+		curLine.ZeroPoints();
+		curLine.Draw3D();
 		
 		// Move UAV back to center and make it movable
 		GameObject.Find("UAV").transform.position = new Vector3(0f, 4f, 0f);

@@ -89,6 +89,17 @@ public class FlyPattern : MonoBehaviour {
 		// path.Add(ProjectConstants.originalStart);		
 
         UAVPos = this.gameObject.transform.position;
+		
+		// Save first Undo State
+		UAVState curState = new UAVState();
+		curState.lastSegLeft = lastSegLeft;
+		curState.path = ClonePath(path);
+		curState.distVertices = (Vector3[])distVertices.Clone();
+		curState.distColors = (Color[])distColors.Clone();
+		curState.timer = timer;
+		curState.UAVPos = UAVPos;
+		curState.Score = GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore;
+		UAVStates.Add (curState);
     }
 
     void SetLine()
@@ -439,17 +450,6 @@ public class FlyPattern : MonoBehaviour {
 			// Debug.Log(point);
         }
 		
-		// Save Undo States
-		UAVState curState = new UAVState();
-		curState.lastSegLeft = lastSegLeft;
-		curState.path = path;
-		curState.distVertices = (Vector3[])distVertices.Clone();
-		curState.distColors = (Color[])distColors.Clone();
-		curState.timer = timer;
-		curState.UAVPos = oldUAVPos;
-		curState.Score = GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore;
-		UAVStates.Add (curState);
-
         // Vacuum following line
 		UAVPos = this.gameObject.transform.position;
 		for(int i=0; i<realPath.Count; i++)
@@ -482,7 +482,20 @@ public class FlyPattern : MonoBehaviour {
         {
             GameObject.Find("btnFly").GetComponent<UIButton>().isEnabled = true;
             fly = false;
-        }		
+        }
+		
+		// Debug.Log("path count = " + path.Count);
+		
+		// Save Undo States
+		UAVState curState = new UAVState();
+		curState.lastSegLeft = lastSegLeft;
+		curState.path = ClonePath(path);
+		curState.distVertices = (Vector3[])distVertices.Clone();
+		curState.distColors = (Color[])distColors.Clone();
+		curState.timer = timer;
+		curState.UAVPos = UAVPos;
+		curState.Score = GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore;
+		UAVStates.Add (curState);
 	}
 
     // Compute 0.1 world unit length in screen space
@@ -520,17 +533,17 @@ public class FlyPattern : MonoBehaviour {
 	// Undo and set things back
 	public void Undo()
 	{
-        int last = UAVStates.Count - 1;
-        if (last < 0)
+		int last = UAVStates.Count - 1;
+        if (last < 1)
         {
             // Already back at the very beginning. Cannot undo anymore.
             return;
         }
-        UAVState lastState = UAVStates[last];
         UAVStates.RemoveAt(last);
-
+		UAVState lastState = UAVStates[last-1];
 	    lastSegLeft = lastState.lastSegLeft;
-        path = lastState.path;
+        path = ClonePath(lastState.path);
+		// Debug.Log("Undo path count = " + path.Count);
         distVertices = (Vector3[])lastState.distVertices.Clone();
         distColors = (Color[])lastState.distColors.Clone();
         timer = lastState.timer;
@@ -539,6 +552,18 @@ public class FlyPattern : MonoBehaviour {
         distMesh.vertices = distVertices;
         distMesh.colors = distColors;
         this.gameObject.transform.position = UAVPos;		
+	}
+	
+	// Clone a path
+	List<Vector2> ClonePath(List<Vector2> path)
+	{
+		List<Vector2> pathCopy = new List<Vector2>();
+		for(int i=0; i<path.Count; i++)
+		{
+			Vector2 v = new Vector2(path[i].x ,path[i].y);
+			pathCopy.Add(v);
+		}
+		return pathCopy;
 	}
 	
 	// Method to do partial Vacuum

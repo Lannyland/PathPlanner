@@ -20,3 +20,5 @@ PathPlanner_Data
 
 /PathPlanner/*.pdb
 PathPlanner_Web
+
+/PathPlanner/PathPlanner_StandAlone_App.zip

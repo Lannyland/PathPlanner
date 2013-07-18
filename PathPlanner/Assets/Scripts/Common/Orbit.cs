@@ -87,7 +87,7 @@ public class Orbit : MonoBehaviour
                     result = GameObject.Find("Plane").GetComponent<MyScale>().gestureInput;
                     if (result != 0)
                     {
-                        GameObject.Find("GUIText2").GetComponent<UILabel>().text = result.ToString();
+                        //GameObject.Find("GUIText2").GetComponent<UILabel>().text = result.ToString();
                     }
                 }
                 else if (s == "Horizontal" && GameObject.Find("Plane").GetComponent<MyTwoFingerPan>().pan)

@@ -24,6 +24,12 @@ public class SetEndPoint : MonoBehaviour {
 		// Make sure last segment has already been approved
 		if(Assets.Scripts.ProjectConstants.lastPathApproved)
 		{
+			// Make sure no path is planned for current stage yet
+			if(ProjectConstants.readyToPlanPath)
+			{
+				return;
+			}			
+			
             // Create new sphere game object as end point
 			GameObject newEndPoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 			ProjectConstants.endPointCounter++;
