@@ -37,7 +37,21 @@ public class FlyPathPattern : MonoBehaviour {
         diffVertices = diffMesh.vertices;
         distVertices = (Vector3[])distMesh.vertices.Clone();
         distColors = (Color[])distMesh.colors.Clone();
-
+		
+        for (int i = 0; i < diffVertices.Length; i++)
+        {
+            if (maxDiff < diffVertices[i].y)
+            {
+                maxDiff = diffVertices[i].y;
+            }
+        }
+        if (maxDiff < 0.001f)
+        {
+            // No Diff map is used
+            maxDiff = 0f;
+            Debug.Log("No diff map is used based on maxDiff.");
+        }
+		
         flightDuration = ProjectConstants.intFlightDuration * 60;
         timer = flightDuration;
     }

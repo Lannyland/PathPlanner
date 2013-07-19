@@ -30,7 +30,21 @@ public class FlyPath : MonoBehaviour {
 		distMesh = GameObject.Find("Plane").GetComponent<MeshFilter>().mesh;			
 		diffVertices = diffMesh.vertices;
 		distVertices = distMesh.vertices;
-		distColors = distMesh.colors;				
+		distColors = distMesh.colors;
+		
+        for (int i = 0; i < diffVertices.Length; i++)
+        {
+            if (maxDiff < diffVertices[i].y)
+            {
+                maxDiff = diffVertices[i].y;
+            }
+        }
+        if (maxDiff < 0.001f)
+        {
+            // No Diff map is used
+            maxDiff = 0f;
+            Debug.Log("No diff map is used based on maxDiff.");
+        }
 	}
 	
 	// Update is called once per frame
