@@ -89,6 +89,18 @@ namespace Assets.Scripts
 		public static Mesh mesh = null;
 
         #endregion
-		
+
+        #region User Study Parameters
+
+        public static int pageIndex = 0;
+        public static List<string> instructions = new List<string>();
+        public static List<int> durations = new List<int>();
+        public static List<string> nextScene = new List<string>();
+        public static List<string> diffMaps = new List<string>();
+        public static List<string> distMaps = new List<string>();
+
+
+        #endregion
+
     }
 }
