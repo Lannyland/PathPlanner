@@ -2,30 +2,30 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
+using Assets.Scripts.Common;
 
 public class ChatHandler : MonoBehaviour
 {
     public UITextList textList;
-    public bool fillWithDummyData = false;
 	public string chatTextFile;
+	private float timeElapsed;
 
     UIInput mInput;
     bool mIgnoreNextEnter = false;
-	private 
+	private List<string> chatLines = new List<string>();
+	private List<int> timeStamps = new List<int>();
+	private int counter = 0;
 
-    // Load text file to memory.
     void Start()
-    {
-        mInput = GetComponent<UIInput>();
-
-        if (fillWithDummyData && textList != null)
-        {
-            for (int i = 0; i < 30; ++i)
-            {
-                textList.Add(((i % 2 == 0) ? "[FFFFFF]" : "[AAAAAA]") +
-                    "This is an example paragraph for the text list, testing line " + i + "[-]");
-            }
-        }
+    {		
+		mInput = GameObject.Find ("Input").GetComponent<UIInput>();
+		
+		// Initialize timeElapased
+		timeElapsed = 0;
+		
+        // Load chat text file to memory
+		MISCLib.LoadChatFile(ProjectConstants.chatFiles[ProjectConstants.pageIndex], ref chatLines, ref timeStamps);
     }
 
     /// <summary>
@@ -34,6 +34,17 @@ public class ChatHandler : MonoBehaviour
 
     void Update()
     {
+		// Display chat text file based on time stamp
+		timeElapsed = timeElapsed + Time.deltaTime;
+        if(counter<timeStamps.Count)
+		{
+			if ((int)timeElapsed > timeStamps[counter])
+	        {
+	            textList.Add(chatLines[counter]);
+				counter++;
+	        }
+		}
+		
         if (Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp("enter"))
         {
 			// Give focus to input field

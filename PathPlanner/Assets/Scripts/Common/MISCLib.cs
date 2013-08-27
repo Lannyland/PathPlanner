@@ -295,5 +295,38 @@ namespace Assets.Scripts.Common
             float distance = Math.Abs(v1.x - v2.x) + Math.Abs(v1.y - v2.y) + Math.Abs(v1.z - v2.z);
             return distance;
         }
+		
+		// Load chat text files
+		public static void LoadChatFile(string FileInName, ref List<string> lstChatLines, ref List<int> lstTimeStamps)
+		{
+            // Read file one line at a time and store to list.
+            FileStream file = new FileStream(FileInName, FileMode.Open, FileAccess.Read);
+            StreamReader sr = new StreamReader(file);
+            string strLine;
+            // Loop through lines
+            while (sr.Peek() >= 0)
+            {
+                strLine = sr.ReadLine().Trim();
+				if (strLine.Length > 1)
+                {
+                    string timeStamp = strLine.Substring(0, 5);
+					int time = ConvertTimeStampToInt(timeStamp);
+					string text = strLine.Substring(5, strLine.Length-5);
+					lstTimeStamps.Add(time);
+                    lstChatLines.Add(text);
+                }
+            }
+            sr.Close();
+            file.Close();			
+		}
+		
+		// Convert time stamp to seconds
+		public static int ConvertTimeStampToInt(string timeStamp)
+		{
+			string[] line = timeStamp.Split(':');
+			int minute = Convert.ToInt16(line[0]);
+			int second = Convert.ToInt16(line[1]);
+			return minute * 60 + second;
+		}
 	}
 }

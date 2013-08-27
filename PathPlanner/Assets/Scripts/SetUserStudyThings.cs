@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
@@ -22,6 +23,8 @@ public class SetUserStudyThings : MonoBehaviour {
 
     void SetUserStudyParameters()
     {
+		string strAppDir = Application.dataPath + @"\..\" + @"\UserStudyData";
+		Debug.Log("strAppDir = " + strAppDir);
         UIInput uiGroupID = GameObject.Find("txtGroupID").GetComponent<UIInput>();
 
         // Do this once for screen 1 and once for screen 2
@@ -44,6 +47,7 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> nextM = new List<string>();
             List<string> diffM = new List<string>();
             List<string> distM = new List<string>();
+			List<string> chatM = new List<string>();
 
             string strM1 = "Screnario 1 Manual Flight";
             instM.Add(strM1);
@@ -51,13 +55,15 @@ public class SetUserStudyThings : MonoBehaviour {
             nextM.Add("UserStudyManualFlight");
             diffM.Add("");
             distM.Add("");
-
+			chatM.Add("");
+			
             string strM2 = "";
             instM.Add(strM2);
             durM.Add(5);
             nextM.Add("UserStudy");
             diffM.Add("");
             distM.Add("TestDistMap1");
+			chatM.Add(strAppDir + @"\ChatBoxManual1.txt");
 
             // The following two screens are for real test pattern flight
             List<string> instP = new List<string>();
@@ -65,6 +71,7 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> nextP = new List<string>();
             List<string> diffP = new List<string>();
             List<string> distP = new List<string>();
+			List<string> chatP = new List<string>();
 
             string strP1 = "Screnario 1 Pattern Flight";
             instP.Add(strP1);
@@ -72,6 +79,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextP.Add("UserStudyPatternFlight");
             diffP.Add("");
             distP.Add("");
+			chatP.Add("");
 
             string strP2 = "";
             instP.Add(strP2);
@@ -79,6 +87,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextP.Add("UserStudy");
             diffP.Add("");
             distP.Add("TestDistMap1");
+			chatP.Add(strAppDir + @"\ChatBoxPattern1.txt");
 
             // The following two screens are for real test sliding autonomy flight
             List<string> instS = new List<string>();
@@ -86,6 +95,7 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> nextS = new List<string>();
             List<string> diffS = new List<string>();
             List<string> distS = new List<string>();
+			List<string> chatS = new List<string>();
 
             string strS1 = "Screnario 1 Sliding Autonomy Flight";
             instS.Add(strS1);
@@ -93,6 +103,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextS.Add("UserStudySlidingAutonomy");
             diffS.Add("");
             distS.Add("");
+			chatS.Add("");		
 
             string strS2 = "";
             instS.Add(strS2);
@@ -100,6 +111,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextS.Add("UserStudy");
             diffS.Add("");
             distS.Add("TestDistMap1");
+			chatS.Add(strAppDir + @"\ChatBoxSliding1.txt");
 
             // The following two screens are for real test manual flight with difficulty map
             List<string> instMD = new List<string>();
@@ -107,6 +119,7 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> nextMD = new List<string>();
             List<string> diffMD = new List<string>();
             List<string> distMD = new List<string>();
+			List<string> chatMD = new List<string>();
 
             string strMD1 = "Screnario 2 Manual Flight";
             instMD.Add(strMD1);
@@ -114,13 +127,15 @@ public class SetUserStudyThings : MonoBehaviour {
             nextMD.Add("UserStudyManualFlight");
             diffMD.Add("");
             distMD.Add("");
-
+			chatMD.Add("");
+			
             string strMD2 = "";
             instMD.Add(strMD2);
             durMD.Add(5);
             nextMD.Add("UserStudy");
             diffMD.Add("TestDiffMap2");
             distMD.Add("TestDistMap2");
+			chatMD.Add(strAppDir + @"\ChatBoxManual2.txt");
 
             // The following two screens are for real test pattern flight with difficulty map
             List<string> instPD = new List<string>();
@@ -128,6 +143,7 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> nextPD = new List<string>();
             List<string> diffPD = new List<string>();
             List<string> distPD = new List<string>();
+			List<string> chatPD = new List<string>();
 
             string strPD1 = "Screnario 2 Pattern Flight";
             instPD.Add(strPD1);
@@ -135,6 +151,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextPD.Add("UserStudyPatternFlight");
             diffPD.Add("");
             distPD.Add("");
+			chatPD.Add("");
 
             string strPD2 = "";
             instPD.Add(strPD2);
@@ -142,6 +159,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextPD.Add("UserStudy");
             diffPD.Add("TestDiffMap2");
             distPD.Add("TestDistMap2");
+			chatPD.Add(strAppDir + @"\ChatBoxPattern2.txt");
 
             // The following two screens are for real test sliding autonomy flight with difficulty map
             List<string> instSD = new List<string>();
@@ -149,6 +167,7 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> nextSD = new List<string>();
             List<string> diffSD = new List<string>();
             List<string> distSD = new List<string>();
+			List<string> chatSD = new List<string>();
 
             string strSD1 = "Screnario 2 Sliding Autonomy Flight";
             instSD.Add(strSD1);
@@ -156,6 +175,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextSD.Add("UserStudySlidingAutonomy");
             diffSD.Add("");
             distSD.Add("");
+			chatSD.Add("");		
 
             string strSD2 = "";
             instSD.Add(strSD2);
@@ -163,6 +183,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextSD.Add("UserStudy");
             diffSD.Add("TestDiffMap2");
             distSD.Add("TestDistMap2");
+			chatSD.Add(strAppDir + @"\ChatBoxSliding2.txt");
 
             #endregion
 
@@ -175,6 +196,7 @@ public class SetUserStudyThings : MonoBehaviour {
                     ProjectConstants.nextScene.AddRange(nextM);
                     ProjectConstants.diffMaps.AddRange(diffM);
                     ProjectConstants.distMaps.AddRange(distM);
+					ProjectConstants.chatFiles.AddRange(chatM);
 
                     // Pattern No Diff
                     ProjectConstants.instructions.AddRange(instP);
@@ -182,6 +204,7 @@ public class SetUserStudyThings : MonoBehaviour {
                     ProjectConstants.nextScene.AddRange(nextP);
                     ProjectConstants.diffMaps.AddRange(diffP);
                     ProjectConstants.distMaps.AddRange(distP);
+					ProjectConstants.chatFiles.AddRange(chatP);
 
                     // Sliding Autonomy No Diff
                     ProjectConstants.instructions.AddRange(instS);
@@ -189,6 +212,7 @@ public class SetUserStudyThings : MonoBehaviour {
                     ProjectConstants.nextScene.AddRange(nextS);
                     ProjectConstants.diffMaps.AddRange(diffS);
                     ProjectConstants.distMaps.AddRange(distS);
+					ProjectConstants.chatFiles.AddRange(chatS);
 
                     // Manual with Diff
                     ProjectConstants.instructions.AddRange(instMD);
@@ -196,6 +220,7 @@ public class SetUserStudyThings : MonoBehaviour {
                     ProjectConstants.nextScene.AddRange(nextMD);
                     ProjectConstants.diffMaps.AddRange(diffMD);
                     ProjectConstants.distMaps.AddRange(distMD);
+					ProjectConstants.chatFiles.AddRange(chatMD);
 
                     // Pattern with Diff
                     ProjectConstants.instructions.AddRange(instPD);
@@ -203,6 +228,7 @@ public class SetUserStudyThings : MonoBehaviour {
                     ProjectConstants.nextScene.AddRange(nextPD);
                     ProjectConstants.diffMaps.AddRange(diffPD);
                     ProjectConstants.distMaps.AddRange(distPD);
+					ProjectConstants.chatFiles.AddRange(chatPD);
 
                     // Sliding Autonomy with Diff
                     ProjectConstants.instructions.AddRange(instSD);
@@ -210,6 +236,7 @@ public class SetUserStudyThings : MonoBehaviour {
                     ProjectConstants.nextScene.AddRange(nextSD);
                     ProjectConstants.diffMaps.AddRange(diffSD);
                     ProjectConstants.distMaps.AddRange(distSD);
+					ProjectConstants.chatFiles.AddRange(chatSD);
 
                     break;
                 case 2:
@@ -232,6 +259,7 @@ public class SetUserStudyThings : MonoBehaviour {
             ProjectConstants.nextScene.Add("");
             ProjectConstants.diffMaps.Add("");
             ProjectConstants.distMaps.Add("");
+			ProjectConstants.chatFiles.Add("");
 
             return;
         }
@@ -243,6 +271,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
+		ProjectConstants.chatFiles.Add("");
 
         // Second screen welcomes user and explains
         // -- Purpose of user study
@@ -260,6 +289,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
+		ProjectConstants.chatFiles.Add("");
         
         // Third screen training manual flight insturctions
         string str3 = "Manual Flight Training";
@@ -268,6 +298,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudyManualFlight");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
+		ProjectConstants.chatFiles.Add("");
 
         // Fourth screen training manual flight
         string str4 = "";
@@ -276,6 +307,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("TrainingDistMap0");
+		ProjectConstants.chatFiles.Add(strAppDir+@"\ChatBoxTraining1.txt");
 
         // Fifth screen training pattern flight insturctions
         string str5 = "Pattern Flight Training";
@@ -284,6 +316,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudyPatternFlight");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
+		ProjectConstants.chatFiles.Add("");
 
         // Sixth screen training pattern flight
         string str6 = "";
@@ -292,6 +325,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("TrainingDistMap0");
+		ProjectConstants.chatFiles.Add(strAppDir+@"\ChatBoxTraining2.txt");
 
         // Seventh screen training sliding autonomy flight insturctions
         string str7 = "Sliding Autonomy Flight Training";
@@ -300,7 +334,8 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudySlidingAutonomy");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
-
+		ProjectConstants.chatFiles.Add("");
+		
         // Eighth screen training sliding autonomy flight
         string str8 = "";
         ProjectConstants.instructions.Add(str8);
@@ -308,6 +343,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("TrainingDistMap0");
+		ProjectConstants.chatFiles.Add(strAppDir+@"\ChatBoxTraining3.txt");
 
         // Nineth screen training pattern flight with difficulty map insturctions
         string str9 = "Pattern Flight With Difficulty Map Training";
@@ -316,6 +352,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudyPatternFlight");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
+		ProjectConstants.chatFiles.Add("");
 
         // Tenth screen training pattern flight with difficulty map
         string str10 = "";
@@ -324,5 +361,6 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("TrainingDiffMap0");
         ProjectConstants.distMaps.Add("TrainingDistMap0");
+		ProjectConstants.chatFiles.Add(strAppDir+@"\ChatBoxTraining4.txt");
     }
 }
