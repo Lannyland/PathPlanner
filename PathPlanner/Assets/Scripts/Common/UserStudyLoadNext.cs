@@ -20,13 +20,14 @@ public class UserStudyLoadNext : MonoBehaviour {
     // When button is clicked load a scene
     void OnClick()
     {
+        // Save Group ID on first screen
         if (ProjectConstants.pageIndex == 0)
         {
-            // Save Group ID
             UIInput uiGroupID = GameObject.Find("txtGroupID").GetComponent<UIInput>();
             ProjectConstants.GroupID = Convert.ToInt16(uiGroupID.text);
         }
 
+        // Set what scene to load (or quit application) when Next button is clicked
         string nextScene = ProjectConstants.nextScene[ProjectConstants.pageIndex];
         if (nextScene == "")
         {
@@ -36,8 +37,37 @@ public class UserStudyLoadNext : MonoBehaviour {
         {
             Application.LoadLevel(nextScene);
         }
+
         // Increase page index counter
         ProjectConstants.pageIndex++;
+
+        // Set dist and diff maps before related scenes are loaded
+        List<int> indexes = new List<int>();
+        // These are scene indexes of real path planning scenes
+        indexes.Add(3);
+        indexes.Add(5);
+        indexes.Add(7);
+        indexes.Add(9);
+        indexes.Add(11);
+        indexes.Add(13);
+        indexes.Add(15);
+        indexes.Add(17);
+        indexes.Add(19);
+        indexes.Add(21);
+        if (indexes.Contains(ProjectConstants.pageIndex))
+        {
+            ProjectConstants.strDistFileLoad = ProjectConstants.distMaps[ProjectConstants.pageIndex];
+            ProjectConstants.strDiffFileLoad = ProjectConstants.diffMaps[ProjectConstants.pageIndex];
+            if (ProjectConstants.diffMaps[ProjectConstants.pageIndex] == "")
+            {
+                ProjectConstants.boolUseDiffMap = false;
+            }
+            else
+            {
+                ProjectConstants.boolUseDiffMap = true;
+            }
+
+        }
     }
 
 }

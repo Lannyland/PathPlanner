@@ -23,7 +23,7 @@ public class SetUserStudyThings : MonoBehaviour {
 
     void SetUserStudyParameters()
     {
-		string strAppDir = Application.dataPath + @"\..\" + @"\UserStudyData";
+		string strAppDir = Application.dataPath + @"\..\" + "UserStudyData";
 		Debug.Log("strAppDir = " + strAppDir);
         UIInput uiGroupID = GameObject.Find("txtGroupID").GetComponent<UIInput>();
 
@@ -62,7 +62,7 @@ public class SetUserStudyThings : MonoBehaviour {
             durM.Add(5);
             nextM.Add("UserStudy");
             diffM.Add("");
-            distM.Add("TestDistMap1");
+            distM.Add(strAppDir + @"\TestDistMap1.csv");
 			chatM.Add(strAppDir + @"\ChatBoxManual1.txt");
 
             // The following two screens are for real test pattern flight
@@ -86,7 +86,7 @@ public class SetUserStudyThings : MonoBehaviour {
             durP.Add(5);
             nextP.Add("UserStudy");
             diffP.Add("");
-            distP.Add("TestDistMap1");
+            distP.Add(strAppDir + @"\TestDistMap1.csv");
 			chatP.Add(strAppDir + @"\ChatBoxPattern1.txt");
 
             // The following two screens are for real test sliding autonomy flight
@@ -110,7 +110,7 @@ public class SetUserStudyThings : MonoBehaviour {
             durS.Add(5);
             nextS.Add("UserStudy");
             diffS.Add("");
-            distS.Add("TestDistMap1");
+            distS.Add(strAppDir + @"\TestDistMap1.csv");
 			chatS.Add(strAppDir + @"\ChatBoxSliding1.txt");
 
             // The following two screens are for real test manual flight with difficulty map
@@ -133,8 +133,8 @@ public class SetUserStudyThings : MonoBehaviour {
             instMD.Add(strMD2);
             durMD.Add(5);
             nextMD.Add("UserStudy");
-            diffMD.Add("TestDiffMap2");
-            distMD.Add("TestDistMap2");
+            diffMD.Add(strAppDir + @"\TestDiffMap2.csv");
+            distMD.Add(strAppDir + @"\TestDistMap2.csv");
 			chatMD.Add(strAppDir + @"\ChatBoxManual2.txt");
 
             // The following two screens are for real test pattern flight with difficulty map
@@ -157,8 +157,8 @@ public class SetUserStudyThings : MonoBehaviour {
             instPD.Add(strPD2);
             durPD.Add(5);
             nextPD.Add("UserStudy");
-            diffPD.Add("TestDiffMap2");
-            distPD.Add("TestDistMap2");
+            diffPD.Add(strAppDir + @"\TestDiffMap2.csv");
+            distPD.Add(strAppDir + @"\TestDistMap2.csv");
 			chatPD.Add(strAppDir + @"\ChatBoxPattern2.txt");
 
             // The following two screens are for real test sliding autonomy flight with difficulty map
@@ -181,8 +181,8 @@ public class SetUserStudyThings : MonoBehaviour {
             instSD.Add(strSD2);
             durSD.Add(5);
             nextSD.Add("UserStudy");
-            diffSD.Add("TestDiffMap2");
-            distSD.Add("TestDistMap2");
+            diffSD.Add(strAppDir + @"\TestDiffMap2.csv");
+            distSD.Add(strAppDir + @"\TestDistMap2.csv");
 			chatSD.Add(strAppDir + @"\ChatBoxSliding2.txt");
 
             #endregion
@@ -306,8 +306,8 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.durations.Add(3);
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("");
-        ProjectConstants.distMaps.Add("TrainingDistMap0");
-		ProjectConstants.chatFiles.Add(strAppDir+@"\ChatBoxTraining1.txt");
+        ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
+		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining1.txt");
 
         // Fifth screen training pattern flight insturctions
         string str5 = "Pattern Flight Training";
@@ -324,8 +324,8 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.durations.Add(3);
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("");
-        ProjectConstants.distMaps.Add("TrainingDistMap0");
-		ProjectConstants.chatFiles.Add(strAppDir+@"\ChatBoxTraining2.txt");
+        ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
+		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining2.txt");
 
         // Seventh screen training sliding autonomy flight insturctions
         string str7 = "Sliding Autonomy Flight Training";
@@ -342,8 +342,8 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.durations.Add(3);
         ProjectConstants.nextScene.Add("UserStudy");
         ProjectConstants.diffMaps.Add("");
-        ProjectConstants.distMaps.Add("TrainingDistMap0");
-		ProjectConstants.chatFiles.Add(strAppDir+@"\ChatBoxTraining3.txt");
+        ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
+		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining3.txt");
 
         // Nineth screen training pattern flight with difficulty map insturctions
         string str9 = "Pattern Flight With Difficulty Map Training";
@@ -359,8 +359,8 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.instructions.Add(str10);
         ProjectConstants.durations.Add(3);
         ProjectConstants.nextScene.Add("UserStudy");
-        ProjectConstants.diffMaps.Add("TrainingDiffMap0");
-        ProjectConstants.distMaps.Add("TrainingDistMap0");
-		ProjectConstants.chatFiles.Add(strAppDir+@"\ChatBoxTraining4.txt");
+        ProjectConstants.diffMaps.Add(strAppDir + @"\TrainingDiffMap0.csv");
+        ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
+		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining4.txt");
     }
 }
