@@ -141,7 +141,7 @@ public class SetUserStudyThings : MonoBehaviour {
             nextMD.Add("UserStudyCompare");
             diffMD.Add(strAppDir + @"\TestDiffMap2.csv");
             distMD.Add(strAppDir + @"\TestDistMap2.csv");
-			chatMD.Add(strAppDir + @"\ChatBoManual2.txt");
+			chatMD.Add(strAppDir + @"\ChatBoxManual2.txt");
 
             AddComparisonScreen(instMD, durMD, nextMD, diffMD, distMD, chatMD, "UserStudy");
 
@@ -390,7 +390,9 @@ public class SetUserStudyThings : MonoBehaviour {
 
     private static void AddComparisonScreen(List<string> instM, List<int> durM, List<string> nextM, List<string> diffM, List<string> distM, List<string> chatM, string t)
     {
-        instM.Add("");
+        string str = "Please take the survey on the other computer screen and then answer the question below:\n\n"
+			+ "Comparing to the previous task, is this task you just completed more or less difficult than the one before it?";
+		instM.Add(str);
         durM.Add(0);
         nextM.Add(t);
         diffM.Add("");
