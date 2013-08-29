@@ -9,7 +9,7 @@ public class SetUserStudyThings : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        Debug.Log("pageIndex = " + ProjectConstants.pageIndex);
+        // Debug.Log("pageIndex = " + ProjectConstants.pageIndex);
         // Set everything ready for User Study
         SetUserStudyParameters();
         UILabel label = GameObject.Find("GUIText").GetComponent<UILabel>();
@@ -24,7 +24,7 @@ public class SetUserStudyThings : MonoBehaviour {
     void SetUserStudyParameters()
     {
 		string strAppDir = Application.dataPath + @"\..\" + "UserStudyData";
-		Debug.Log("strAppDir = " + strAppDir);
+		// Debug.Log("strAppDir = " + strAppDir);
         UIInput uiGroupID = GameObject.Find("txtGroupID").GetComponent<UIInput>();
 
         // Do this once for screen 1 and once for screen 2
@@ -39,9 +39,9 @@ public class SetUserStudyThings : MonoBehaviour {
             // Hide Group ID field
             uiGroupID.transform.position = new Vector3(-10000f, -10000f, -10000f);
 
-            #region screen pairs that will be rearranged based on Group ID selection
+            #region Screen pairs that will be rearranged based on Group ID selection
 
-            // The following two screens are for real test manual flight
+            // The following three screens are for real test manual flight
             List<string> instM = new List<string>();
             List<int> durM = new List<int>();
             List<string> nextM = new List<string>();
@@ -60,12 +60,14 @@ public class SetUserStudyThings : MonoBehaviour {
             string strM2 = "";
             instM.Add(strM2);
             durM.Add(5);
-            nextM.Add("UserStudy");
+            nextM.Add("UserStudyCompare");
             diffM.Add("");
             distM.Add(strAppDir + @"\TestDistMap1.csv");
 			chatM.Add(strAppDir + @"\ChatBoxManual1.txt");
 
-            // The following two screens are for real test pattern flight
+            AddComparisonScreen(instM, durM, nextM, diffM, distM, chatM, "UserStudy");
+
+            // The following three screens are for real test pattern flight
             List<string> instP = new List<string>();
             List<int> durP = new List<int>();
             List<string> nextP = new List<string>();
@@ -84,10 +86,12 @@ public class SetUserStudyThings : MonoBehaviour {
             string strP2 = "";
             instP.Add(strP2);
             durP.Add(5);
-            nextP.Add("UserStudy");
+            nextP.Add("UserStudyCompare");
             diffP.Add("");
             distP.Add(strAppDir + @"\TestDistMap1.csv");
 			chatP.Add(strAppDir + @"\ChatBoxPattern1.txt");
+
+            AddComparisonScreen(instP, durP, nextP, diffP, distP, chatP, "UserStudy");
 
             // The following two screens are for real test sliding autonomy flight
             List<string> instS = new List<string>();
@@ -108,10 +112,12 @@ public class SetUserStudyThings : MonoBehaviour {
             string strS2 = "";
             instS.Add(strS2);
             durS.Add(5);
-            nextS.Add("UserStudy");
+            nextS.Add("UserStudyCompare");
             diffS.Add("");
             distS.Add(strAppDir + @"\TestDistMap1.csv");
 			chatS.Add(strAppDir + @"\ChatBoxSliding1.txt");
+
+            AddComparisonScreen(instS, durS, nextS, diffS, distS, chatS, "UserStudy");
 
             // The following two screens are for real test manual flight with difficulty map
             List<string> instMD = new List<string>();
@@ -132,10 +138,12 @@ public class SetUserStudyThings : MonoBehaviour {
             string strMD2 = "";
             instMD.Add(strMD2);
             durMD.Add(5);
-            nextMD.Add("UserStudy");
+            nextMD.Add("UserStudyCompare");
             diffMD.Add(strAppDir + @"\TestDiffMap2.csv");
             distMD.Add(strAppDir + @"\TestDistMap2.csv");
-			chatMD.Add(strAppDir + @"\ChatBoxManual2.txt");
+			chatMD.Add(strAppDir + @"\ChatBoManual2.txt");
+
+            AddComparisonScreen(instMD, durMD, nextMD, diffMD, distMD, chatMD, "UserStudy");
 
             // The following two screens are for real test pattern flight with difficulty map
             List<string> instPD = new List<string>();
@@ -156,10 +164,12 @@ public class SetUserStudyThings : MonoBehaviour {
             string strPD2 = "";
             instPD.Add(strPD2);
             durPD.Add(5);
-            nextPD.Add("UserStudy");
+            nextPD.Add("UserStudyCompare");
             diffPD.Add(strAppDir + @"\TestDiffMap2.csv");
             distPD.Add(strAppDir + @"\TestDistMap2.csv");
 			chatPD.Add(strAppDir + @"\ChatBoxPattern2.txt");
+
+            AddComparisonScreen(instPD, durPD, nextPD, diffPD, distPD, chatPD, "UserStudy");
 
             // The following two screens are for real test sliding autonomy flight with difficulty map
             List<string> instSD = new List<string>();
@@ -180,72 +190,84 @@ public class SetUserStudyThings : MonoBehaviour {
             string strSD2 = "";
             instSD.Add(strSD2);
             durSD.Add(5);
-            nextSD.Add("UserStudy");
+            nextSD.Add("UserStudyCompare");
             diffSD.Add(strAppDir + @"\TestDiffMap2.csv");
             distSD.Add(strAppDir + @"\TestDistMap2.csv");
 			chatSD.Add(strAppDir + @"\ChatBoxSliding2.txt");
 
+            AddComparisonScreen(instSD, durSD, nextSD, diffSD, distSD, chatSD, "UserStudy");
+
             #endregion
 
+            #region Different sequences based on Group ID
+
+            int i = ProjectConstants.nextScene.Count + 3;
             switch (ProjectConstants.GroupID)
             {
-                case 1:
-                    // Manual No Diff
-                    ProjectConstants.instructions.AddRange(instM);
-                    ProjectConstants.durations.AddRange(durM);
-                    ProjectConstants.nextScene.AddRange(nextM);
-                    ProjectConstants.diffMaps.AddRange(diffM);
-                    ProjectConstants.distMaps.AddRange(distM);
-					ProjectConstants.chatFiles.AddRange(chatM);
+                case 1:  // Scenario 1 first. Manual first.
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    NoCompareScreen(i);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
 
-                    // Pattern No Diff
-                    ProjectConstants.instructions.AddRange(instP);
-                    ProjectConstants.durations.AddRange(durP);
-                    ProjectConstants.nextScene.AddRange(nextP);
-                    ProjectConstants.diffMaps.AddRange(diffP);
-                    ProjectConstants.distMaps.AddRange(distP);
-					ProjectConstants.chatFiles.AddRange(chatP);
-
-                    // Sliding Autonomy No Diff
-                    ProjectConstants.instructions.AddRange(instS);
-                    ProjectConstants.durations.AddRange(durS);
-                    ProjectConstants.nextScene.AddRange(nextS);
-                    ProjectConstants.diffMaps.AddRange(diffS);
-                    ProjectConstants.distMaps.AddRange(distS);
-					ProjectConstants.chatFiles.AddRange(chatS);
-
-                    // Manual with Diff
-                    ProjectConstants.instructions.AddRange(instMD);
-                    ProjectConstants.durations.AddRange(durMD);
-                    ProjectConstants.nextScene.AddRange(nextMD);
-                    ProjectConstants.diffMaps.AddRange(diffMD);
-                    ProjectConstants.distMaps.AddRange(distMD);
-					ProjectConstants.chatFiles.AddRange(chatMD);
-
-                    // Pattern with Diff
-                    ProjectConstants.instructions.AddRange(instPD);
-                    ProjectConstants.durations.AddRange(durPD);
-                    ProjectConstants.nextScene.AddRange(nextPD);
-                    ProjectConstants.diffMaps.AddRange(diffPD);
-                    ProjectConstants.distMaps.AddRange(distPD);
-					ProjectConstants.chatFiles.AddRange(chatPD);
-
-                    // Sliding Autonomy with Diff
-                    ProjectConstants.instructions.AddRange(instSD);
-                    ProjectConstants.durations.AddRange(durSD);
-                    ProjectConstants.nextScene.AddRange(nextSD);
-                    ProjectConstants.diffMaps.AddRange(diffSD);
-                    ProjectConstants.distMaps.AddRange(distSD);
-					ProjectConstants.chatFiles.AddRange(chatSD);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
 
                     break;
-                case 2:
+                case 2: // Scenario 1 first. Pattern first.
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+                    NoCompareScreen(i);
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
 
                     break;
-                case 3:
+                case 3: // Scenario 1 first. Sliding first.
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    NoCompareScreen(i);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
 
                     break;
-                case 4:
+                case 4: // Scenario 2 first. Manual first.
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    NoCompareScreen(i);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+
+                    break;
+                case 5: // Scenario 2 first. Pattern first.
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+                    NoCompareScreen(i);
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+
+                    break;
+                case 6: // Scenario 2 first. Sliding first.
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    NoCompareScreen(i);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
 
                     break;
                 default:
@@ -253,7 +275,9 @@ public class SetUserStudyThings : MonoBehaviour {
                     break;
             }
 
-            string str17 = "Thank you for doing the user study. Now please take the survey.";
+            #endregion
+
+            string str17 = "Thank you for doing the user study. Now please take the final survey.";
             ProjectConstants.instructions.Add(str17);
             ProjectConstants.durations.Add(0);
             ProjectConstants.nextScene.Add("");
@@ -295,7 +319,7 @@ public class SetUserStudyThings : MonoBehaviour {
         string str3 = "Manual Flight Training";
         ProjectConstants.instructions.Add(str3);
         ProjectConstants.durations.Add(0);
-        ProjectConstants.nextScene.Add("UserStudyManualFlight");
+        ProjectConstants.nextScene.Add("UserStudyManualFlightTraining");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
@@ -313,7 +337,7 @@ public class SetUserStudyThings : MonoBehaviour {
         string str5 = "Pattern Flight Training";
         ProjectConstants.instructions.Add(str5);
         ProjectConstants.durations.Add(0);
-        ProjectConstants.nextScene.Add("UserStudyPatternFlight");
+        ProjectConstants.nextScene.Add("UserStudyPatternFlightTraining");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
@@ -331,7 +355,7 @@ public class SetUserStudyThings : MonoBehaviour {
         string str7 = "Sliding Autonomy Flight Training";
         ProjectConstants.instructions.Add(str7);
         ProjectConstants.durations.Add(0);
-        ProjectConstants.nextScene.Add("UserStudySlidingAutonomy");
+        ProjectConstants.nextScene.Add("UserStudySlidingAutonomyTraining");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
@@ -349,7 +373,7 @@ public class SetUserStudyThings : MonoBehaviour {
         string str9 = "Pattern Flight With Difficulty Map Training";
         ProjectConstants.instructions.Add(str9);
         ProjectConstants.durations.Add(0);
-        ProjectConstants.nextScene.Add("UserStudyPatternFlight");
+        ProjectConstants.nextScene.Add("UserStudyPatternFlightTraining");
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
@@ -363,4 +387,93 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining4.txt");
     }
+
+    private static void AddComparisonScreen(List<string> instM, List<int> durM, List<string> nextM, List<string> diffM, List<string> distM, List<string> chatM, string t)
+    {
+        instM.Add("");
+        durM.Add(0);
+        nextM.Add(t);
+        diffM.Add("");
+        distM.Add("");
+        chatM.Add("");
+    }
+
+    private static void SlideWithDiff(List<string> instSD, List<int> durSD, List<string> nextSD, List<string> diffSD, List<string> distSD, List<string> chatSD)
+    {
+        // Sliding Autonomy with Diff
+        ProjectConstants.instructions.AddRange(instSD);
+        ProjectConstants.durations.AddRange(durSD);
+        ProjectConstants.nextScene.AddRange(nextSD);
+        ProjectConstants.diffMaps.AddRange(diffSD);
+        ProjectConstants.distMaps.AddRange(distSD);
+        ProjectConstants.chatFiles.AddRange(chatSD);
+    }
+
+    private static void PatternWithDiff(List<string> instPD, List<int> durPD, List<string> nextPD, List<string> diffPD, List<string> distPD, List<string> chatPD)
+    {
+        // Pattern with Diff
+        ProjectConstants.instructions.AddRange(instPD);
+        ProjectConstants.durations.AddRange(durPD);
+        ProjectConstants.nextScene.AddRange(nextPD);
+        ProjectConstants.diffMaps.AddRange(diffPD);
+        ProjectConstants.distMaps.AddRange(distPD);
+        ProjectConstants.chatFiles.AddRange(chatPD);
+    }
+
+    private static void ManualWithDiff(List<string> instMD, List<int> durMD, List<string> nextMD, List<string> diffMD, List<string> distMD, List<string> chatMD)
+    {
+        // Manual with Diff
+        ProjectConstants.instructions.AddRange(instMD);
+        ProjectConstants.durations.AddRange(durMD);
+        ProjectConstants.nextScene.AddRange(nextMD);
+        ProjectConstants.diffMaps.AddRange(diffMD);
+        ProjectConstants.distMaps.AddRange(distMD);
+        ProjectConstants.chatFiles.AddRange(chatMD);
+    }
+
+    private static void SlideNoDiff(List<string> instS, List<int> durS, List<string> nextS, List<string> diffS, List<string> distS, List<string> chatS)
+    {
+        // Sliding Autonomy No Diff
+        ProjectConstants.instructions.AddRange(instS);
+        ProjectConstants.durations.AddRange(durS);
+        ProjectConstants.nextScene.AddRange(nextS);
+        ProjectConstants.diffMaps.AddRange(diffS);
+        ProjectConstants.distMaps.AddRange(distS);
+        ProjectConstants.chatFiles.AddRange(chatS);
+    }
+
+    private static void PatternNoDiff(List<string> instP, List<int> durP, List<string> nextP, List<string> diffP, List<string> distP, List<string> chatP)
+    {
+        // Pattern No Diff
+        ProjectConstants.instructions.AddRange(instP);
+        ProjectConstants.durations.AddRange(durP);
+        ProjectConstants.nextScene.AddRange(nextP);
+        ProjectConstants.diffMaps.AddRange(diffP);
+        ProjectConstants.distMaps.AddRange(distP);
+        ProjectConstants.chatFiles.AddRange(chatP);
+    }
+
+    private static void ManualNoDiff(List<string> instM, List<int> durM, List<string> nextM, List<string> diffM, List<string> distM, List<string> chatM)
+    {
+        // Manual No Diff
+        ProjectConstants.instructions.AddRange(instM);
+        ProjectConstants.durations.AddRange(durM);
+        ProjectConstants.nextScene.AddRange(nextM);
+        ProjectConstants.diffMaps.AddRange(diffM);
+        ProjectConstants.distMaps.AddRange(distM);
+        ProjectConstants.chatFiles.AddRange(chatM);
+    }
+
+    private static void NoCompareScreen(int i)
+    {
+        // No need to compare for first one
+        ProjectConstants.nextScene[i - 2] = ProjectConstants.nextScene[i - 1];
+        ProjectConstants.instructions.RemoveAt(i - 1);
+        ProjectConstants.durations.RemoveAt(i - 1);
+        ProjectConstants.nextScene.RemoveAt(i - 1);
+        ProjectConstants.diffMaps.RemoveAt(i - 1);
+        ProjectConstants.distMaps.RemoveAt(i - 1);
+        ProjectConstants.chatFiles.RemoveAt(i - 1);
+    }
+
 }

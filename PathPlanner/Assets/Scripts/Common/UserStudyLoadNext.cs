@@ -24,6 +24,7 @@ public class UserStudyLoadNext : MonoBehaviour {
         if (ProjectConstants.pageIndex == 0)
         {
             UIInput uiGroupID = GameObject.Find("txtGroupID").GetComponent<UIInput>();
+            Debug.Log("uiGroupID.text = " + uiGroupID.text);
             ProjectConstants.GroupID = Convert.ToInt16(uiGroupID.text);
         }
 
@@ -50,10 +51,10 @@ public class UserStudyLoadNext : MonoBehaviour {
         indexes.Add(9);
         indexes.Add(11);
         indexes.Add(13);
-        indexes.Add(15);
-        indexes.Add(17);
+        indexes.Add(16);
         indexes.Add(19);
-        indexes.Add(21);
+        indexes.Add(22);
+        indexes.Add(25);
         if (indexes.Contains(ProjectConstants.pageIndex))
         {
             ProjectConstants.strDistFileLoad = ProjectConstants.distMaps[ProjectConstants.pageIndex];
