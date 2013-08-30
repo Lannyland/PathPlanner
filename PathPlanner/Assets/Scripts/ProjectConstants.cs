@@ -100,6 +100,8 @@ namespace Assets.Scripts
         public static List<string> diffMaps = new List<string>();
         public static List<string> distMaps = new List<string>();
 		public static List<string> chatFiles = new List<string>();
+        public static List<string> tutorialFiles = new List<string>();
+        public static bool UAVMovable = false;
 
         #endregion
 

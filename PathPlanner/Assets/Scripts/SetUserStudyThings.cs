@@ -329,6 +329,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
+        ProjectConstants.tutorialFiles.Add("");
 
         // Second screen welcomes user and explains
         // -- Purpose of user study
@@ -348,6 +349,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
+        ProjectConstants.tutorialFiles.Add("");
         
         // Third screen training manual flight insturctions
         string str3 = "Manual Flight Training\n\n";
@@ -361,6 +363,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
+        ProjectConstants.tutorialFiles.Add("");
 
         // Fourth screen training manual flight
         string str4 = "";
@@ -370,6 +373,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining1.txt");
+        ProjectConstants.tutorialFiles.Add(strAppDir + @"\Tutorial1.txt");
 
         // Fifth screen training pattern flight insturctions
         string str5 = "Pattern Flight Training\n\n";
@@ -383,6 +387,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
+        ProjectConstants.tutorialFiles.Add("");
 
         // Sixth screen training pattern flight
         string str6 = "";
@@ -392,6 +397,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining2.txt");
+        ProjectConstants.tutorialFiles.Add(strAppDir + @"\Tutorial2.txt");
 
         // Seventh screen training sliding autonomy flight insturctions
         string str7 = "Sliding Autonomy Flight Training\n\n";
@@ -405,6 +411,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
+        ProjectConstants.tutorialFiles.Add("");
 		
         // Eighth screen training sliding autonomy flight
         string str8 = "";
@@ -414,6 +421,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining3.txt");
+        ProjectConstants.tutorialFiles.Add(strAppDir + @"\Tutorial3.txt");
 
         // Nineth screen training pattern flight with difficulty map insturctions
         string str9 = "Pattern Flight With Difficulty Map Training\n\n";
@@ -426,6 +434,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add("");
         ProjectConstants.distMaps.Add("");
 		ProjectConstants.chatFiles.Add("");
+        ProjectConstants.tutorialFiles.Add("");
 
         // Tenth screen training pattern flight with difficulty map
         string str10 = "";
@@ -435,6 +444,7 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add(strAppDir + @"\TrainingDiffMap0.csv");
         ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining4.txt");
+        ProjectConstants.tutorialFiles.Add(strAppDir + @"\Tutorial4.txt");
 
         // Eleventh screen indicating the real exercises are starting
         string str11 = "Training Session Completed\n\n";

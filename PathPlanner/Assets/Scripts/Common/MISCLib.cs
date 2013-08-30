@@ -320,6 +320,34 @@ namespace Assets.Scripts.Common
             sr.Close();
             file.Close();			
 		}
+
+        // Load tutorial text files
+        public static void LoadTutorialFile(string FileInName, ref List<string> lstTutorialLines, ref List<int> lstTimeStamps, ref List<string> lstLocations)
+        {
+            // Read file one line at a time and store to list.
+            FileStream file = new FileStream(FileInName, FileMode.Open, FileAccess.Read);
+            StreamReader sr = new StreamReader(file);
+            string strLine;
+            // Loop through lines
+            while (sr.Peek() >= 0)
+            {
+                strLine = sr.ReadLine().Trim();
+                if (strLine.Length > 1)
+                {
+                    string[] segments = strLine.Split('|');
+                    string timeStamp = segments[0];
+                    int time = ConvertTimeStampToInt(timeStamp);
+                    string text = segments[1];
+                    string location = segments[2];
+                    lstTimeStamps.Add(time);
+                    lstTutorialLines.Add(text);
+                    lstLocations.Add(location);
+                }
+            }
+            sr.Close();
+            file.Close();
+        }
+
 		
 		// Convert time stamp to seconds
 		public static int ConvertTimeStampToInt(string timeStamp)

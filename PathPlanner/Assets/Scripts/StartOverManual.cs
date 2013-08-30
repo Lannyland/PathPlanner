@@ -27,7 +27,7 @@ public class StartOverManual : MonoBehaviour {
 		// Move UAV back to center and make it movable
         transform.position = new Vector3(0f, 4f, 0f);
         transform.rotation = Quaternion.identity;
-        UAV.GetComponent<MoveUFO>().movable = true;
+        UAV.GetComponent<MoveUFO>().movable = ProjectConstants.UAVMovable;
 				
 		// Reload distMap to mesh
 		RtwMatrix distMapIn = ProjectConstants.mOriginalDistMap.Clone();

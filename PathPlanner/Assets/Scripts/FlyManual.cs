@@ -31,7 +31,7 @@ public class FlyManual : MonoBehaviour {
 	void Start () {	
 		flightDuration = ProjectConstants.intFlightDuration * 60;
 		timer = flightDuration;
-		path = new Vector2[flightDuration+1];
+		path = new Vector2[flightDuration/2+1];
 		path[0] = ProjectConstants.originalStart;
 		
         // Get diff map max
@@ -123,6 +123,7 @@ public class FlyManual : MonoBehaviour {
 					// Debug.Log("curWaypoint = " + curWaypoint);
 					path[curWaypoint] = new Vector2(UAVPos.x, UAVPos.z);
 					curWaypoint++;
+                    ProjectConstants.curWayPoint = curWaypoint;
 				}
 				if(curWaypoint == flightDuration + 1)
 				{

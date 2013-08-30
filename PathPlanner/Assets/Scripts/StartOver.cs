@@ -50,7 +50,7 @@ public class StartOver : MonoBehaviour {
 		
 		// Move UAV back to center and make it movable
 		GameObject.Find("UAV").transform.position = new Vector3(0f, 4f, 0f);
-		GameObject.Find("UAV").GetComponent<MoveUFO>().movable = true;
+		GameObject.Find("UAV").GetComponent<MoveUFO>().movable = ProjectConstants.UAVMovable;
 				
 		// Reload distMap to mesh
 		RtwMatrix distMapIn = ProjectConstants.mOriginalDistMap.Clone();

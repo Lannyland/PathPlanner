@@ -96,7 +96,17 @@ public class ChatHandler : MonoBehaviour
                 mInput.text = "";
                 mInput.selected = false;
             }
+
+            // Save user entry with time stamp
+            string timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
+            int timeElapsed = ProjectConstants.durations[ProjectConstants.pageIndex] * 60 - Convert.ToInt16(timeLeft);
+            string minute = (timeElapsed / 60).ToString();
+            string second = (timeElapsed % 60).ToString();
+            string timeStamp = minute + ":" + second;
+            ProjectConstants.replies.Add(timeStamp + "|" + text);
         }
         mIgnoreNextEnter = true;
+
+
     }
 }

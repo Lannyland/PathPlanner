@@ -82,7 +82,6 @@ public class FlyPath : MonoBehaviour {
 					
 				// Ready for next waypoint
 				currentWayPoint++;
-				ProjectConstants.curWayPoint = currentWayPoint;
 			}
 			UAV.transform.position = Vector3.MoveTowards(UAV.transform.position, target, speed*Time.deltaTime);
 		}
