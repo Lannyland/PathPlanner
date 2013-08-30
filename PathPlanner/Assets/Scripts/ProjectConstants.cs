@@ -101,8 +101,40 @@ namespace Assets.Scripts
         public static List<string> distMaps = new List<string>();
 		public static List<string> chatFiles = new List<string>();
 
-
         #endregion
 
+		#region Saving things to log
+		public static string strLogFileName = "";
+		// year-month-date-hour-minute-second.txt (24hour)
+		public static List<string> logs = new List<string>();
+		// Things to save in logs for each exercise:
+		// - group|1
+		// - name|Scenario 1 Manual Flight
+		// - timeleft|28
+		// - score|2640
+		// - mouseclicks|264
+		// - complete|yes
+		// - path|bla...bla...bla...
+		// The following are temporary variables
+		public static string timeLeft = "";
+		public static string score = "";
+		public static int mouseclicks = 0;
+		public static int curWayPoint = 0;
+		public static bool boolFlyPath = false;		
+
+		public static List<string> replies = new List<string>();
+		// User replies in chat box for each exercise:
+		// - timestamp|reply
+		public static List<string> comparisons = new List<string>();
+		// User feedback for all exercieses:
+		// - more
+		// - more
+		// - less
+		// - more
+		// - more
+		
+
+
+		#endregion
     }
 }

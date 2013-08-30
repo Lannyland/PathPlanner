@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
+using Assets.Scripts.Common;
 
 public class SetUserStudyThings : MonoBehaviour {
 
@@ -36,6 +37,11 @@ public class SetUserStudyThings : MonoBehaviour {
         }
         else if(ProjectConstants.pageIndex == 1)
         {
+			// Remember log file name
+			ProjectConstants.strLogFileName = MISCLib.GetLogFileName();
+			// Write group id in log file
+			MISCLib.SaveToLogFile("group|"+ProjectConstants.GroupID);
+			
             // Hide Group ID field
             uiGroupID.transform.position = new Vector3(-10000f, -10000f, -10000f);
 

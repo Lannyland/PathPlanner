@@ -121,7 +121,7 @@ public class FlyManual : MonoBehaviour {
 					
 					// Remember Path
 					// Debug.Log("curWaypoint = " + curWaypoint);
-					path[curWaypoint] = UAVPos;
+					path[curWaypoint] = new Vector2(UAVPos.x, UAVPos.z);
 					curWaypoint++;
 				}
 				if(curWaypoint == flightDuration + 1)

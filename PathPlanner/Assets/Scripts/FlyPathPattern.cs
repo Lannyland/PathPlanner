@@ -114,6 +114,7 @@ public class FlyPathPattern : MonoBehaviour {
 
                     // Debug.Log("curWaypoint = " + curWaypoint);
                     currentWayPoint++;
+					ProjectConstants.curWayPoint = currentWayPoint;
                 }
             }
             else

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
-
+using Assets.Scripts.Common;
 
 public class UserStudyLoadNext : MonoBehaviour {
 
@@ -38,7 +38,24 @@ public class UserStudyLoadNext : MonoBehaviour {
         {
             Application.LoadLevel(nextScene);
         }
-
+		
+		// Save things to log file
+		List<int> needToSave = new List<int>();
+		needToSave.Add (12);
+		needToSave.Add (14);
+		needToSave.Add (17);
+		needToSave.Add (20);
+		needToSave.Add (23);
+		needToSave.Add (26);
+		if(needToSave.Contains(ProjectConstants.pageIndex))
+		{
+			SaveEverythingToLog();
+		}
+		else
+		{
+			ResetLogVariables();
+		}
+		
         // Increase page index counter
         ProjectConstants.pageIndex++;
 
@@ -49,7 +66,7 @@ public class UserStudyLoadNext : MonoBehaviour {
         indexes.Add(5);
         indexes.Add(7);
         indexes.Add(9);
-        indexes.Add(11);
+        indexes.Add(12);
         indexes.Add(14);
         indexes.Add(17);
         indexes.Add(20);
@@ -67,8 +84,103 @@ public class UserStudyLoadNext : MonoBehaviour {
             {
                 ProjectConstants.boolUseDiffMap = true;
             }
-
         }
     }
+	
+	private void SaveEverythingToLog()
+	{
+		// If user never clicked Fly Path, or if user clicked Fly Path and then clicked Start Over
+		if(!ProjectConstants.boolFlyPath)
+		{
+			// Debug.Log ("Inside SaveEverythingToLog method.");
+			// Debug.Log("boolFlyPath=" + ProjectConstants.boolFlyPath);			
+			ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
+			// Debug.Log ("timeleft=" + ProjectConstants.timeLeft);
+			ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
+			// Debug.Log("score=" + ProjectConstants.score);
+		}
+		// If user clicked Fly Path and not Start Over, then use stored numbers directly		
+		string [] temp = ProjectConstants.instructions[ProjectConstants.pageIndex-1].Split('\n');
+		string name = temp[0];
+		ProjectConstants.logs.Add("name|"+name);
+		ProjectConstants.logs.Add("timeleft|"+ProjectConstants.timeLeft);
+		ProjectConstants.logs.Add("score|"+ProjectConstants.score);
+		ProjectConstants.logs.Add("mouseclicks|"+ProjectConstants.mouseclicks);
+		MISCLib.SaveToLogFile(ProjectConstants.logs);
+		// Store path
+		string path = "";
+		int pathLength = 0;
+		if(name == "Scenario 1 Manual Flight" || name == "Scenario 2 Manual Flight")
+		{
+			FlyManual fm = GameObject.Find("UAV").GetComponent<FlyManual>();
+			for(int i=0; i<fm.path.Length; i++)
+			{
+				if(i<=ProjectConstants.curWayPoint)
+				{
+					path += fm.path[i].x + " " + fm.path[i].y + ",";
+					pathLength++;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}		
+		else if (name =="Scenario 1 Pattern Flight" || name =="Scenario 2 Pattern Flight")
+		{
+			FlyPattern fp = GameObject.Find("UAV").GetComponent<FlyPattern>();
+			for(int i=0; i<fp.path.Count; i++)
+			{
+				path += fp.path[i].x + " " + fp.path[i].y + ",";				
+			}
+			pathLength = fp.path.Count;
+		}
+		else if (name == "Scenario 1 Sliding Autonomy Flight" || name == "Scenario 2 Sliding Autonomy Flight")
+		{
+			Vector2[] SAPath = new Vector2[ProjectConstants.intFlightDuration * 30 + 1];
+			int index = 0;
+			for (int i = 0; i < ProjectConstants.AllPathSegments.Count; i++)
+			{
+				Array.Copy(ProjectConstants.AllPathSegments[i], 0, SAPath, index, ProjectConstants.AllPathSegments[i].Length);
+				index += ProjectConstants.AllPathSegments[i].Length;
+				index--;
+			}
+			for(int i=0; i<SAPath.Length; i++)
+			{
+				if(i<=ProjectConstants.curWayPoint)
+				{
+					path += SAPath[i].x + " " + SAPath[i].y + ",";				
+					pathLength++;
+				}
+				else
+				{
+					break;
+				}				
+			}
+		}
+		if(pathLength < 1801)
+		{
+			MISCLib.SaveToLogFile("pathcomplete|No");
+		}
+		else
+		{
+			MISCLib.SaveToLogFile("pathcomplete|Yes");			
+		}
+		MISCLib.SaveToLogFile("path|"+path);		
+		MISCLib.SaveToLogFile(ProjectConstants.replies);
 
+		ResetLogVariables();
+	}
+	
+	private void ResetLogVariables()
+	{
+		// Debug.Log("Reseting save log variables...");
+		ProjectConstants.logs.Clear();
+		ProjectConstants.timeLeft = "";
+		ProjectConstants.score = "";
+		ProjectConstants.mouseclicks = 0;
+		ProjectConstants.boolFlyPath = false;
+		ProjectConstants.curWayPoint = 0;
+		ProjectConstants.replies.Clear();
+	}
 }

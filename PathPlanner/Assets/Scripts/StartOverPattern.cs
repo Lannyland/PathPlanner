@@ -20,6 +20,13 @@ public class StartOverPattern : MonoBehaviour {
 	// When button is clicked
 	public void OnClick()
 	{
+		// For user study
+		ProjectConstants.boolFlyPath = false;		
+		
+		// If flying path, stop
+		GameObject.Find("UAV").GetComponent<FlyPathPattern>().fly = false;
+		GameObject.Find("UAV").GetComponent<FlyPathPattern>().currentWayPoint = 20000;
+		
 		GameObject UAV = GameObject.Find("UAV");
         Transform transform = UAV.transform;
         FlyPattern fm = UAV.GetComponent<FlyPattern>();

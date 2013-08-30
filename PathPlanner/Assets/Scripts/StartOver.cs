@@ -21,6 +21,13 @@ public class StartOver : MonoBehaviour {
 	// When button is clicked
 	void OnClick()
 	{
+		// For user study
+		ProjectConstants.boolFlyPath = false;
+		
+		// If flying path, stop
+		Camera.main.GetComponent<FlyPath>().currentWayPoint = 20000;
+		Camera.main.GetComponent<FlyPath>().fly = false;
+		
 		// Tell workerThread to stop
 		if(Camera.main.GetComponent<PlanPath>().workerThread != null)
 		{

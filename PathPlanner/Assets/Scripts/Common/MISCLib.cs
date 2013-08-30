@@ -5,6 +5,7 @@ using rtwmatrix;
 using System;
 using System.Text;
 using System.IO;
+using Assets.Scripts;
 
 namespace Assets.Scripts.Common
 {
@@ -328,5 +329,59 @@ namespace Assets.Scripts.Common
 			int second = Convert.ToInt16(line[1]);
 			return minute * 60 + second;
 		}
+		
+		// Generate log file name
+		public static string GetLogFileName()
+		{
+			string fileName = "";
+			fileName = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+			fileName += ".txt";
+			return fileName;
+		}
+		
+		// Save things to log file
+		public static void SaveToLogFile(string strToWrite)			
+		{
+			// Find app folder
+			string TargetDirectory = Application.dataPath + @"\..\" + "UserStudyLogs";
+			
+			// Check if log folder already exists. Create folder if it doesn't exist
+            if (!Directory.Exists(TargetDirectory))
+            {
+                Directory.CreateDirectory(TargetDirectory);
+            }
+
+			// Check if file already exists
+			string TargetFile = TargetDirectory + "\\" + ProjectConstants.strLogFileName;
+			
+			// Create file if it doesn't exists
+            StreamWriter file = new StreamWriter(TargetFile, true);
+			file.WriteLine(strToWrite);
+			file.Close();
+		}		
+
+		// Save things to log file
+		public static void SaveToLogFile(List<string> lstToWrite)			
+		{
+			// Find app folder
+			string TargetDirectory = Application.dataPath + @"\..\" + "UserStudyLogs";
+			
+			// Check if log folder already exists. Create folder if it doesn't exist
+            if (!Directory.Exists(TargetDirectory))
+            {
+                Directory.CreateDirectory(TargetDirectory);
+            }
+
+			// Check if file already exists
+			string TargetFile = TargetDirectory + "\\" + ProjectConstants.strLogFileName;
+			
+			// Create file if it doesn't exists
+            StreamWriter file = new StreamWriter(TargetFile, true);
+			for(int i=0; i<lstToWrite.Count; i++)
+			{
+				file.WriteLine(lstToWrite[i]);
+			}			
+			file.Close();
+		}			
 	}
 }
