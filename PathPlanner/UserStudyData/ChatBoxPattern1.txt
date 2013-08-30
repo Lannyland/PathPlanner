@@ -1,9 +1,100 @@
-00:01 Chat Box Pattern 1
-00:03 aaaaaaaaaaaaaaaaaaaaaaaaaaa
-00:06 bbbbbbbbbbbbbbbbbbbbbbbbbbb
-00:09 ccccccccccccccccccccccccccc
-00:12 ddddddddddddddddddddddddddd
-00:15 eeeeeeeeeeeeeeeeeeeeeeeeeee
-00:20 fffffffffffffffffffffffffff
-00:21 ggggggggggggggggggggggggggg
-00:22 hhhhhhhhhhhhhhhhhhhhhhhhhhh
+00:04 This is the command center.
+00:07 The command center is in full operation now.
+00:10 All units please acknowledge when you code name is called with an [9696FB]@[FFFFFF] sign.
+00:14 [9696FB]@Eagle[FFFFFF] please acknowledge with your code name.
+00:17 [9696FB]@Base[FFFFFF] Ferret1 is coming back.
+00:18 [9696FB]@Ferret2[FFFFFF] please report your position.
+00:23 I am almost at the peak now. Haven't found anything interesting.
+00:26 [9696FB]@Ferret2[FFFFFF] Continue your search along the trail.
+00:29 Roger that.
+00:34 [9696FB]@Eagle[FFFFFF] please report your current score.
+00:35 All units, a snow storm is likely to hit us tonight.
+00:37 [9696FB]@Ferret1[FFFFFF] please report your position.
+00:41 I am at the end of the valley.
+00:44 [9696FB]@Eagle[FFFFFF] please report time left.
+00:47 [9696FB]@Base[FFFFFF] Ferret4 here. We ran into a black bear.
+00:50 [9696FB]@Ferret4[FFFFFF] please be very cautious.
+00:53 Roger that.
+00:57 [9696FB]@Eagle[FFFFFF] FYI: Eagle is going through pre-flight check. Please acknowledge with your code name.
+00:58 [9696FB]@Base[FFFFFF] Ferret1 here. There's a very steep cliff here. Probably better to wait for the Eagle to check out the top.
+01:00 [9696FB]@Base[FFFFFF] Ferret1 is coming back.
+01:04 Roger that.
+01:05 [9696FB]@Eagle[FFFFFF] Which building are you in?
+01:10 [9696FB]@Ferret2[FFFFFF] we are sending three guys your way.
+01:11 Roger that.
+01:16 [9696FB]@Base[FFFFFF] Ferret4 here. The bear left. We will continue our search.
+01:20 [9696FB]@Base[FFFFFF] Ferret3 here. My cell phone signals are much better now.
+01:22 [9696FB]@Eagle[FFFFFF] FYI: Eagle is doing a test flight. Please acknowledge with your code name.
+01:23 [9696FB]@Base[FFFFFF] K9 here. We are turning toward northeast.
+01:28 Roger that.
+01:29 [9696FB]@Ferret1[FFFFFF] Why don't you join Ferret2 and K9.
+01:31 Roger that. On my way back.
+01:33 [9696FB]@Eagle[FFFFFF] please report the UAV flight duration for the current plan.
+01:37 All units, latest update, the missing person is an experienced hiker.
+01:41 All units please report your GPS location together with your call sign.
+01:46 Ferret3 42.39831, -72.88675
+01:47 Ferret4 42.39831, -72.88675
+01:49 [9696FB]@Eagle[FFFFFF] FYI: Eagle has safely landed and is ready for flight. Please acknowledge with your code name.
+01:50 Ferret1 42.39854, -72.88622
+01:51 Ferret2 42.39851, -72.88695
+01:56 [9696FB]@Captain[FFFFFF] please acknowledge with your code name.
+01:57 Captain
+02:02 All ground units please acknowledge with  your code name .
+02:03 Ferret1
+02:06 Ferret2
+02:10 Ferret3
+02:14 Ferret4
+02:17 [9696FB]@Eagle[FFFFFF] is the UAV planner working?
+02:19 [9696FB]@Ferret2[FFFFFF] Follow the trail north and start search along the trail.
+02:24 Roger that.
+02:27 [9696FB]@Eagle[FFFFFF] please report the UAV flight duration for the current plan.
+02:30 [9696FB]@Ferret1[FFFFFF] Please head to the LKP and head east and cover the bushes.
+02:31 Roger that.
+02:32 [9696FB]@Ferret3[FFFFFF] please go down the west end of the cliff and look for clues.
+02:35 Roger that.
+02:36 [9696FB]@Eagle[FFFFFF] please acknowledge with your code name.
+02:40 [9696FB]@Ferret4[FFFFFF] please team up with Ferret3 and make sure he is doing okay.
+02:43 Roger that.
+02:44 [9696FB]@Eagle[FFFFFF] please report your current score.
+02:45 [9696FB]@Base[FFFFFF] Ferret2 found some candy wraps along the trail. Will continue north.
+02:47 [9696FB]@Ferret2[FFFFFF] That information is recorded.
+02:50 [9696FB]@Base[FFFFFF] Ferret1 didn't find anything useful. Will continue east.
+02:55 [9696FB]@Ferret1[FFFFFF] Roger that.
+02:59 [9696FB]@Eagle[FFFFFF] what planning mode are you in? Manual, pattern, or sliding autonomy?
+03:04 [9696FB]@Base[FFFFFF] Ferret3's cell phone is losing signal. I will switch to walkie-talkie.
+03:06 [9696FB]@Ferret3[FFFFFF] please go ahead and switch.
+03:10 [9696FB]@Base[FFFFFF] Ferret1 found a piece of fabric matching the jacket of the reported missing person.
+03:15 [9696FB]@Base[FFFFFF] Ferret1 requesting K-9 support.
+03:16 [9696FB]@Ferret1[FFFFFF] We will send K-9 unit over right away.
+03:20 [9696FB]@Eagle[FFFFFF] are you using a task difficulty map?
+03:23 [9696FB]@K9[FFFFFF] please acknowledge with your code name.
+03:27 K9
+03:29 [9696FB]@K9[FFFFFF] please follow the trail north to find Ferret1 and provide K-9 support.
+03:32 Roger that.
+03:36 [9696FB]@Eagle[FFFFFF] what UAV icon do you see on the screen? UFO or fixed-wing?
+03:40 [9696FB]@Ferret4[FFFFFF] please report your status.
+03:41 Ferret3 is still climbing down, we found some broken branches indicating a possible fall.
+03:45 [9696FB]@Ferret4[FFFFFF] Let us know immediately if you find any clues.
+03:48 Roger that.
+03:51 [9696FB]@Eagle[FFFFFF] please acknowledge with your code name.
+03:52 This is the command center. We are sending out more ground units.
+03:54 [9696FB]@Ferret2[FFFFFF] please report your position.
+03:57 I am almost at the peak now. Haven't found anything interesting.
+03:58 [9696FB]@Ferret2[FFFFFF] Continue your search along the trail.
+03:59 Roger that.
+04:01 [9696FB]@Eagle[FFFFFF] please report your current score.
+04:06 All units, a snow storm is likely to hit us tonight.
+04:11 [9696FB]@Ferret1[FFFFFF] please report your position.
+04:13 I am at the end of the valley.
+04:15 [9696FB]@Eagle[FFFFFF] please report time left.
+04:18 [9696FB]@Base[FFFFFF] Ferret4 here. We ran into a black bear.
+04:23 [9696FB]@Ferret4[FFFFFF] please be very cautious.
+04:25 Roger that.
+04:26 [9696FB]@Eagle[FFFFFF] FYI: Eagle is going through pre-flight check. Please acknowledge with your code name.
+04:30 [9696FB]@Base[FFFFFF] Ferret1 here. There's a very steep cliff here. Probably better to wait for the Eagle to check out the top.
+04:33 [9696FB]@Base[FFFFFF] Ferret1 is coming back.
+04:37 Roger that.
+04:39 [9696FB]@Eagle[FFFFFF] Which building are you in?
+04:40 [9696FB]@Ferret2[FFFFFF] we are sending three guys your way.
+04:44 Roger that.
+04:45 [9696FB]@Base[FFFFFF] Ferret4 here. The bear left. We will continue our search.

@@ -1,9 +1,65 @@
-00:01 Chat Box Training 1
-00:03 aaaaaaaaaaaaaaaaaaaaaaaaaaa
-00:06 bbbbbbbbbbbbbbbbbbbbbbbbbbb
-00:09 ccccccccccccccccccccccccccc
-00:12 ddddddddddddddddddddddddddd
-00:15 eeeeeeeeeeeeeeeeeeeeeeeeeee
-00:20 fffffffffffffffffffffffffff
-00:21 ggggggggggggggggggggggggggg
-00:22 hhhhhhhhhhhhhhhhhhhhhhhhhhh
+00:02 This is the training session.
+00:05 Text will automatically roll in the chat window.
+00:06 Your code name is Eagle and when you see [9696FB]@Eagle[FFFFFF], you reply.
+00:08 [9696FB]@Eagle[FFFFFF] please acknowledge with your code name.
+00:12 But focus on your main path planning task.
+00:17 Try to score as high as you can.
+00:22 Again, your code name is Eagle.
+00:25 You can ignore communications to other call signs.
+00:28 Or information updates from the base.
+00:30 When you are called, answer the question as simple as you can.
+00:31 You can reply yes or no when asked, like the one below.
+00:32 [9696FB]@Eagle[FFFFFF] is the UAV planner working?
+00:35 Message like this one can be safely ignored.
+00:39 You might be asked to report things on your screen like the one below.
+00:41 [9696FB]@Eagle[FFFFFF] please report the UAV flight duration for the current plan.
+00:46 Press the Enter key to get into chat mode so you can reply.
+00:48 Once done with your reply, press the Enter key again to exit chat mode.
+00:52 [9696FB]@otherpeople[FFFFFF] can be safely ignored.
+00:57 Just reply with your code name Eagle with questions like the one below.
+01:00 [9696FB]@Eagle[FFFFFF] please acknowledge with your code name.
+01:05 Bla¡­bla¡­bla¡­
+01:07 You might be asked to report things on your screen like the one below.
+01:08 [9696FB]@Eagle[FFFFFF] please report your current score.
+01:10 Press the Enter key to get into chat mode so you can reply.
+01:14 Once done with your reply, press the Enter key again to exit chat mode.
+01:18 Message like this one can be safely ignored.
+01:19 With the next question, just reply with one of the three terms.
+01:23 [9696FB]@Eagle[FFFFFF] what planning mode are you in? Manual, pattern, or sliding autonomy?
+01:24 Message like this one can be safely ignored.
+01:25 Press the Enter key to get into chat mode so you can reply.
+01:27 Once done with your reply, press the Enter key again to exit chat mode.
+01:31 [9696FB]@otherpeople[FFFFFF] can be safely ignored.
+01:35 You can reply yes or no when asked, like the one below.
+01:36 [9696FB]@Eagle[FFFFFF] are you using a task difficulty map?
+01:39 Press the Enter key to get into chat mode so you can reply.
+01:40 Once done with your reply, press the Enter key again to exit chat mode.
+01:41 Message like this one can be safely ignored.
+01:46 With the next question, just reply with one of the two terms.
+01:48 [9696FB]@Eagle[FFFFFF] what UAV icon do you see on the screen? UFO or fixed-wing?
+01:50 Message like this one can be safely ignored.
+01:51 Press the Enter key to get into chat mode so you can reply.
+01:55 Once done with your reply, press the Enter key again to exit chat mode.
+01:57 Just reply with your code name Eagle with questions like the one below.
+02:02 [9696FB]@Eagle[FFFFFF] please acknowledge with your code name.
+02:04 Press the Enter key to get into chat mode so you can reply.
+02:07 Once done with your reply, press the Enter key again to exit chat mode.
+02:10 But focus on your main path planning task.
+02:15 Message like this one can be safely ignored.
+02:18 You might be asked to report things on your screen like the one below.
+02:23 [9696FB]@Eagle[FFFFFF] please report your current score.
+02:24 But focus on your main path planning task.
+02:25 Message like this one can be safely ignored.
+02:27 You might be asked to report things on your screen like the one below.
+02:29 [9696FB]@Eagle[FFFFFF] please report time left.
+02:33 Press the Enter key to get into chat mode so you can reply.
+02:34 Once done with your reply, press the Enter key again to exit chat mode.
+02:37 Just reply with your code name Eagle with questions like the one below.
+02:40 [9696FB]@Eagle[FFFFFF] FYI: Eagle is going through pre-flight check. Please acknowledge with your code name.
+02:45 But focus on your main path planning task.
+02:47 Press the Enter key to get into chat mode so you can reply.
+02:49 Once done with your reply, press the Enter key again to exit chat mode.
+02:53 [9696FB]@Eagle[FFFFFF] Which building are you in?
+02:56 [9696FB]@otherpeople[FFFFFF] can be safely ignored.
+02:59 But focus on your main path planning task.
+03:00 But focus on your main path planning task.

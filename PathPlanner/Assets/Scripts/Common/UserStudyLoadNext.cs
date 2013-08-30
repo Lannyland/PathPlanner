@@ -50,11 +50,11 @@ public class UserStudyLoadNext : MonoBehaviour {
         indexes.Add(7);
         indexes.Add(9);
         indexes.Add(11);
-        indexes.Add(13);
-        indexes.Add(16);
-        indexes.Add(19);
-        indexes.Add(22);
-        indexes.Add(25);
+        indexes.Add(14);
+        indexes.Add(17);
+        indexes.Add(20);
+        indexes.Add(23);
+        indexes.Add(26);
         if (indexes.Contains(ProjectConstants.pageIndex))
         {
             ProjectConstants.strDistFileLoad = ProjectConstants.distMaps[ProjectConstants.pageIndex];

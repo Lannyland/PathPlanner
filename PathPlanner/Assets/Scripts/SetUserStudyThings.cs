@@ -49,7 +49,11 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> distM = new List<string>();
 			List<string> chatM = new List<string>();
 
-            string strM1 = "Screnario 1 Manual Flight";
+            string strM1 = "Scenario 1 Manual Flight\n\n";
+            strM1 = strM1 + "In this scenario, you will use the [9696FB]manual planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight. [9696FB]No task difficulty map is used[FFFFFF] in this exercise.\n\n";
+            strM1 = strM1 + "You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n";
+            strM1 = strM1 + "While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n";
+            strM1 = strM1 + "You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.";
             instM.Add(strM1);
             durM.Add(0);
             nextM.Add("UserStudyManualFlight");
@@ -75,7 +79,11 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> distP = new List<string>();
 			List<string> chatP = new List<string>();
 
-            string strP1 = "Screnario 1 Pattern Flight";
+            string strP1 = "Scenario 1 Pattern Flight\n\n";
+            strP1 = strP1 + "In this scenario, you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight. [9696FB]No task difficulty map is used[FFFFFF] in this exercise.\n\n";
+            strP1 = strP1 + "You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n";
+            strP1 = strP1 + "While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n";
+            strP1 = strP1 + "You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.";
             instP.Add(strP1);
             durP.Add(0);
             nextP.Add("UserStudyPatternFlight");
@@ -101,7 +109,11 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> distS = new List<string>();
 			List<string> chatS = new List<string>();
 
-            string strS1 = "Screnario 1 Sliding Autonomy Flight";
+            string strS1 = "Scenario 1 Sliding Autonomy Flight\n\n";
+            strS1 = strS1 + "In this scenario, you will use the [9696FB]sliding autonomy planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight. [9696FB]No task difficulty map is used[FFFFFF] in this exercise.\n\n";
+            strS1 = strS1 + "You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n";
+            strS1 = strS1 + "While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n";
+            strS1 = strS1 + "You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.";
             instS.Add(strS1);
             durS.Add(0);
             nextS.Add("UserStudySlidingAutonomy");
@@ -127,7 +139,12 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> distMD = new List<string>();
 			List<string> chatMD = new List<string>();
 
-            string strMD1 = "Screnario 2 Manual Flight";
+            string strMD1 = "Scenario 2 Manual Flight\n\n";
+            strMD1 = strMD1 + "In this scenario, you will use the [9696FB]manual planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight.\n\n";
+            strMD1 = strMD1 + "Note that [9696FB]a task difficulty is used[FFFFFF] in this exercise.\n\n";
+            strMD1 = strMD1 + "You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n";
+            strMD1 = strMD1 + "While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n";
+            strMD1 = strMD1 + "You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.";
             instMD.Add(strMD1);
             durMD.Add(0);
             nextMD.Add("UserStudyManualFlight");
@@ -153,7 +170,12 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> distPD = new List<string>();
 			List<string> chatPD = new List<string>();
 
-            string strPD1 = "Screnario 2 Pattern Flight";
+            string strPD1 = "Scenario 2 Pattern Flight\n\n";
+            strPD1 = strPD1 + "In this scenario, you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight.\n\n";
+            strPD1 = strPD1 + "Note that [9696FB]a task difficulty is used[FFFFFF] in this exercise.\n\n";
+            strPD1 = strPD1 + "You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n";
+            strPD1 = strPD1 + "While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n";
+            strPD1 = strPD1 + "You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.";
             instPD.Add(strPD1);
             durPD.Add(0);
             nextPD.Add("UserStudyPatternFlight");
@@ -179,7 +201,12 @@ public class SetUserStudyThings : MonoBehaviour {
             List<string> distSD = new List<string>();
 			List<string> chatSD = new List<string>();
 
-            string strSD1 = "Screnario 2 Sliding Autonomy Flight";
+            string strSD1 = "Scenario 2 Sliding Autonomy Flight\n\n";
+            strSD1 = strSD1 + "In this scenario, you will use the [9696FB]sliding autonomy planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight.\n\n";
+            strSD1 = strSD1 + "Note that [9696FB]a task difficulty is used[FFFFFF] in this exercise.\n\nYou objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n";
+            strSD1 = strSD1 + "You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n"; 
+            strSD1 = strSD1 + "While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n";
+            strSD1 = strSD1 + "You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.";
             instSD.Add(strSD1);
             durSD.Add(0);
             nextSD.Add("UserStudySlidingAutonomy");
@@ -277,8 +304,8 @@ public class SetUserStudyThings : MonoBehaviour {
 
             #endregion
 
-            string str17 = "Thank you for doing the user study. Now please take the final survey.";
-            ProjectConstants.instructions.Add(str17);
+            string str29 = "\n\n\n\n\nThank you for doing the user study. Now please [9696FB]take the final survey[FFFFFF].";
+            ProjectConstants.instructions.Add(str29);
             ProjectConstants.durations.Add(0);
             ProjectConstants.nextScene.Add("");
             ProjectConstants.diffMaps.Add("");
@@ -289,7 +316,7 @@ public class SetUserStudyThings : MonoBehaviour {
         }
 
         // First screen set Group ID
-        string str1 = "Please enter a Group ID (1 to 6) and then click Next to continue.";
+        string str1 = "\n\n\n\n\nPlease enter a Group ID [9696FB](1 to 6)[FFFFFF] and then click Next to continue.";
         ProjectConstants.instructions.Add(str1);
         ProjectConstants.durations.Add(0);
         ProjectConstants.nextScene.Add("UserStudy");
@@ -303,11 +330,12 @@ public class SetUserStudyThings : MonoBehaviour {
         // -- HOw UAV vacuums and the goal of the tasks
         // -- Secondary task
         string str2 = "Welcome to the UAV Path Planning user study.\n\n";
-        str2 = str2 + "In the following simulated Wilderness Search and Rescue operations, a person is "
-        + "reported missing in each scenario, and your help is needed to plan a path for the Unmanned "
-        + "Aerial Vehicle (UAV) in order to search for the missing person. The UAV is a hexacopter, "
-        + "meaning it can fly to any direction without turning or hover in the air.\n";
-        str2 = str2 + "";
+        str2 = str2 + "In the following simulated Wilderness Search and Rescue (WiSAR) operations, a person is reported missing in each \nscenario, and your help is needed to plan a path for the Unmanned Aerial Vehicle (UAV) in order to search for the \nmissing person. The UAV is a hexacopter, meaning it can fly to any direction without turning or hover in the air.\n\n";
+        str2 = str2 + "On the screen you will see a probability distribution map indicating where are likely places of finding the missing \nperson (hills in red). A task difficulty map might be used to incidate how difficult it is for the UAV to detect \nthe missing person (red for very difficult, green for medium difficulty, and blue for easy).\n\n";
+        str2 = str2 + "You can think of the UAV as a vacuum cleaner and as it flies, it vacuums up probability along its way. More \nprobability will be vacuumed up in areas marked easy and few will be vacuumed up in areas marked difficult.\n\n";
+        str2 = str2 + "Your objective is to plan a path for the UAV so it can vacuum up as much probability (indicated by your score) as \npossible for a fixed length flight.\n\n";
+        str2 = str2 + "You will help plan paths for [9696FB]two WiSAR scenarios[FFFFFF] using [9696FB]three different planning \nmodes[FFFFFF]: [9696FB]manual[FFFFFF], [9696FB]pattern[FFFFFF], and [9696FB]sliding autonomy[FFFFFF].\n\n";
+        str2 = str2 + "But first let's practice how to use the three planning modes to plan UAV paths.";
         ProjectConstants.instructions.Add(str2);
         ProjectConstants.durations.Add(0);
         ProjectConstants.nextScene.Add("UserStudy");
@@ -316,7 +344,11 @@ public class SetUserStudyThings : MonoBehaviour {
 		ProjectConstants.chatFiles.Add("");
         
         // Third screen training manual flight insturctions
-        string str3 = "Manual Flight Training";
+        string str3 = "Manual Flight Training\n\n";
+        str3 = str3 + "In the next training exercise you will use the [9696FB]manual planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 minutes[FFFFFF] flight.\n\n";
+        str3 = str3 + "You can move the UAV around using the arrow keys. There are four camera views to choose from, and WASD keys \ncan be used to rotate/pan the view. Mouse scrollwheel can be used to zoom in/out.\n\n";
+        str3 = str3 + "In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire \nsearch area.\n\n";
+        str3 = str3 + "Please follow instructions on screen. You have [9696FB]3 minutes[FFFFFF] to complete the exercise.";
         ProjectConstants.instructions.Add(str3);
         ProjectConstants.durations.Add(0);
         ProjectConstants.nextScene.Add("UserStudyManualFlightTraining");
@@ -334,7 +366,11 @@ public class SetUserStudyThings : MonoBehaviour {
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining1.txt");
 
         // Fifth screen training pattern flight insturctions
-        string str5 = "Pattern Flight Training";
+        string str5 = "Pattern Flight Training\n\n";
+        str5 = str5 + "In the next training exercise you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 minutes[FFFFFF] flight. \n\n";
+        str5 = str5 + "You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, and \nWASD keys can be used to rotate/pan the view. Mouse scrollwheel can be used to zoom in/out.\n\n";
+        str5 = str5 + "In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire \nsearch area.\n\n";
+        str5 = str5 + "Please follow instructions on screen. You have [9696FB]3 minutes[FFFFFF] to complete the exercise.";
         ProjectConstants.instructions.Add(str5);
         ProjectConstants.durations.Add(0);
         ProjectConstants.nextScene.Add("UserStudyPatternFlightTraining");
@@ -352,7 +388,11 @@ public class SetUserStudyThings : MonoBehaviour {
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining2.txt");
 
         // Seventh screen training sliding autonomy flight insturctions
-        string str7 = "Sliding Autonomy Flight Training";
+        string str7 = "Sliding Autonomy Flight Training\n\n";
+        str7 = str7 + "In the next training exercise you will use the [9696FB]sliding autonomy planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 minutes[FFFFFF] \nflight.\n\n";
+        str7 = str7 + "You can set where you want the path segment to end at, and use two sliders to control how much time you want to \nallocate to the current path segment. WASD keys can be used to rotate/pan the view. Mouse scrollwheel can be \nused to zoom in/out.\n\n";
+        str7 = str7 + "In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire \nsearch area.\n\n";
+        str7 = str7 + "Please follow instructions on screen. You have [9696FB]3 minutes[FFFFFF] to complete the exercise.";
         ProjectConstants.instructions.Add(str7);
         ProjectConstants.durations.Add(0);
         ProjectConstants.nextScene.Add("UserStudySlidingAutonomyTraining");
@@ -370,7 +410,10 @@ public class SetUserStudyThings : MonoBehaviour {
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining3.txt");
 
         // Nineth screen training pattern flight with difficulty map insturctions
-        string str9 = "Pattern Flight With Difficulty Map Training";
+        string str9 = "Pattern Flight With Difficulty Map Training\n\n";
+        str9 = str9 + "In the next training exercise you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 minutes[FFFFFF] flight. \nThis time [9696FB]a task difficulty map is used[FFFFFF]. In areas marked easy (blue) the UAV can easily vacuum up \nprobability; in areas marked difficult (red) the UAV can only vacuum up small amount of probability.\n\n";
+        str9 = str9 + "You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, \nand WASD keys can be used to rotate/pan the view. Mouse scrollwheel can be used to zoom in/out.\n\n";
+        str9 = str9 + "Please follow instructions on screen. You have [9696FB]3 minutes[FFFFFF] to complete the exercise.";
         ProjectConstants.instructions.Add(str9);
         ProjectConstants.durations.Add(0);
         ProjectConstants.nextScene.Add("UserStudyPatternFlightTraining");
@@ -386,6 +429,17 @@ public class SetUserStudyThings : MonoBehaviour {
         ProjectConstants.diffMaps.Add(strAppDir + @"\TrainingDiffMap0.csv");
         ProjectConstants.distMaps.Add(strAppDir + @"\TrainingDistMap0.csv");
 		ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining4.txt");
+
+        // Eleventh screen indicating the real exercises are starting
+        string str11 = "Training Session Completed\n\n";
+        str11 = str11 + "This is the end of the training exercises. Please also familiarize yourself with the [9696FB]survey[FFFFFF] form on \nthe other computer screen. Once you feel comfortable with the survey form, click [9696FB]Submit[FFFFFF] and then \ncome back to this program.\n\n";
+        str11 = str11 + "When you are ready to start the user study, click [9696FB]Next[FFFFFF] to continue.";
+        ProjectConstants.instructions.Add(str11);
+        ProjectConstants.durations.Add(0);
+        ProjectConstants.nextScene.Add("UserStudy");
+        ProjectConstants.diffMaps.Add("");
+        ProjectConstants.distMaps.Add("");
+        ProjectConstants.chatFiles.Add("");
     }
 
     private static void AddComparisonScreen(List<string> instM, List<int> durM, List<string> nextM, List<string> diffM, List<string> distM, List<string> chatM, string t)

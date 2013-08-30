@@ -1,0 +1,285 @@
+Screen 1: Group ID Form
+----------------------------------------------------------------------------------
+\n\n\n\n\nPlease enter a Group ID [9696FB](1 to 6)[FFFFFF] and then click Next to continue.
+
+==================================================================================
+
+Screen 2: Welcome Screen
+----------------------------------------------------------------------------------
+Welcome to the UAV Path Planning user study\n\n
+        
+In the following simulated Wilderness Search and Rescue (WiSAR) operations, a person is reported missing in each \nscenario, and your help is needed to plan a path for the Unmanned Aerial Vehicle (UAV) in order to search for the \nmissing person. The UAV is a hexacopter, meaning it can fly to any direction without turning or hover in the air.\n\n
+
+On the screen you will see a probability distribution map indicating where are likely places of finding the missing \nperson (hills in red). A task difficulty map might be used to incidate how difficult it is for the UAV to detect \nthe missing person (red for very difficult, green for medium difficulty, and blue for easy).\n\n
+
+You can think of the UAV as a vacuum cleaner and as it flies, it vacuums up probability along its way. More \nprobability will be vacuumed up in areas marked easy and few will be vacuumed up in areas marked difficult.\n\n
+
+Your objective is to plan a path for the UAV so it can vacuum up as much probability (indicated by your score) as \npossible for a fixed length flight.\n\n
+
+You will help plan paths for [9696FB]two WiSAR scenarios[FFFFFF] using [9696FB]three different planning \nmodes[FFFFFF]: [9696FB]manual[FFFFFF], [9696FB]pattern[FFFFFF], and [9696FB]sliding autonomy[FFFFFF].\n\n
+
+But first let's practice how to use the three planning modes to plan UAV paths.
+
+==================================================================================
+
+Screen 3: Manual Flight Training
+----------------------------------------------------------------------------------
+Manual Flight Training\n\n
+
+In the next training exercise you will use the [9696FB]manual planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 minutes[FFFFFF] flight.\n\n
+
+You can move the UAV around using the arrow keys. There are four camera views to choose from, and WASD keys \ncan be used to rotate/pan the view. Mouse scrollwheel can be used to zoom in/out.\n\n
+
+In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire \nsearch area.\n\n
+
+Please follow instructions on screen. You have [9696FB]3 minutes[FFFFFF] to complete the exercise.
+
+==================================================================================
+
+Screen 4: Manual Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 5: Pattern Flight Training
+----------------------------------------------------------------------------------
+Pattern Flight Training\n\n
+
+In the next training exercise you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 minutes[FFFFFF] flight. \n\n
+
+You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, and \nWASD keys can be used to rotate/pan the view. Mouse scrollwheel can be used to zoom in/out.\n\n
+
+In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire \nsearch area.\n\n
+
+Please follow instructions on screen. You have [9696FB]3 minutes[FFFFFF] to complete the exercise.
+
+==================================================================================
+
+Screen 6: Pattern Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 7: Sliding Autonomy Flight Training
+----------------------------------------------------------------------------------
+Sliding Autonomy Flight Training\n\n
+
+In the next training exercise you will use the [9696FB]sliding autonomy planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 minutes[FFFFFF] \nflight.\n\n
+
+You can set where you want the path segment to end at, and use two sliders to control how much time you want to \nallocate to the current path segment. WASD keys can be used to rotate/pan the view. Mouse scrollwheel can be \nused to zoom in/out.\n\n
+
+In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire ]nsearch area.\n\n
+
+Please follow instructions on screen. You have [9696FB]3 minutes[FFFFFF] to complete the exercise.
+
+==================================================================================
+
+Screen 8: Sliding Autonomy Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 9: Pattern Flight with Difficulty Map Training
+----------------------------------------------------------------------------------
+Pattern Flight with Difficulty Map Training\n\n
+
+In the next training exercise you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 minutes[FFFFFF] flight. \nThis time [9696FB]a task difficulty map is used[FFFFFF]. In areas marked easy (blue) the UAV can easily vacuum up \nprobability; in areas marked difficult (red) the UAV can only vacuum up small amount of probability.\n\n
+
+You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, \nand WASD keys can be used to rotate/pan the view. Mouse scrollwheel can be used to zoom in/out.\n\n
+
+Please follow instructions on screen. You have [9696FB]3 minutes[FFFFFF] to complete the exercise.
+
+==================================================================================
+
+Screen 10: Pattern Flight with Difficulty Map
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 11: End of Training
+----------------------------------------------------------------------------------
+Training Session Completed\n\n
+
+This is the end of the training exercises. Please also familiarize yourself with the [9696FB]survey[FFFFFF] form on \nthe other computer screen. Once you feel comfortable with the survey form, click [9696FB]Submit[FFFFFF] and then \ncome back to this program.\n\n
+
+When you are ready to start the user study, click [9696FB]Next[FFFFFF] to continue.
+
+==================================================================================
+
+Screen 12: Scenario 1 Manual Flight
+----------------------------------------------------------------------------------
+Scenario 1 Manual Flight\n\n
+
+In this scenario, you will use the [9696FB]manual planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight. [9696FB]No task difficulty map is used[FFFFFF] in this exercise.\n\n
+
+You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n
+
+While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name "[9696FB]Eagle[FFFFFF] is called.\n\n
+
+You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.
+
+==================================================================================
+
+Screen 13: Manual Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 14: Scenario 1 Pattern Flight
+----------------------------------------------------------------------------------
+Scenario 1 Pattern Flight\n\n
+
+In this scenario, you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight. [9696FB]No task difficulty map is used[FFFFFF] in this exercise.\n\n
+
+You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n
+
+While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n
+
+You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.
+
+==================================================================================
+
+Screen 15: Pattern Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 16: Comparison Screen
+----------------------------------------------------------------------------------
+Please [9696FB]take the survey[FFFFFF] on the other computer screen and then [9696FB]answer the question[FFFFFF] below:\n\n
+Comparing to the previous task, is this task you just completed more or less difficult than the one before it?
+
+
+==================================================================================
+
+Screen 17: Scenario 1 Sliding Autonomy Flight
+----------------------------------------------------------------------------------
+Scenario 1 Sliding Autonomy Flight\n\n
+
+In this scenario, you will use the [9696FB]sliding autonomy planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight. [9696FB]No task difficulty map is used[FFFFFF] in this exercise.\n\n
+
+You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n
+
+While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n
+
+You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.
+
+==================================================================================
+
+Screen 18: Sliding Autonomy Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 19: Comparison Screen
+----------------------------------------------------------------------------------
+Please [9696FB]take the survey[FFFFFF] on the other computer screen and then [9696FB]answer the question[FFFFFF] below:\n\n
+Comparing to the previous task, is this task you just completed more or less difficult than the one before it?
+
+
+==================================================================================
+
+Screen 20: Scenario 2 Manual Flight
+----------------------------------------------------------------------------------
+Scenario 2 Manual Flight\n\n
+
+In this scenario, you will use the [9696FB]manual planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight.\n\n
+
+Note that [9696FB]a task difficulty is used[FFFFFF] in this exercise.\n\n
+
+You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n
+
+While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n
+
+You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.
+
+==================================================================================
+
+Screen 21: Manual Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 22: Comparison Screen
+----------------------------------------------------------------------------------
+Please [9696FB]take the survey[FFFFFF] on the other computer screen and then [9696FB]answer the question[FFFFFF] below:\n\n
+Comparing to the previous task, is this task you just completed more or less difficult than the one before it?
+
+
+==================================================================================
+
+Screen 23: Scenario 2 Pattern Flight
+----------------------------------------------------------------------------------
+Scenario 2 Pattern Flight\n\n
+
+In this scenario, you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight.\n\n
+
+Note that [9696FB]a task difficulty is used[FFFFFF] in this exercise.\n\n
+
+You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n
+
+While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n
+
+You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.
+
+==================================================================================
+
+Screen 24: Pattern Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 25: Comparison Screen
+----------------------------------------------------------------------------------
+Please [9696FB]take the survey[FFFFFF] on the other computer screen and then [9696FB]answer the question[FFFFFF] below:\n\n
+Comparing to the previous task, is this task you just completed more or less difficult than the one before it?
+
+
+==================================================================================
+
+Screen 26: Scenario 2 Sliding Autonomy Flight
+----------------------------------------------------------------------------------
+Scenario 2 Sliding Autonomy Flight\n\n
+
+In this scenario, you will use the [9696FB]sliding autonomy planning mode[FFFFFF] to plan a UAV path for a [9696FB]60 \nminutes[FFFFFF] flight.\n\n
+
+Note that [9696FB]a task difficulty is used[FFFFFF] in this exercise.\n\n
+
+You objective is to score as high as possible within a [9696FB]5-minute[FFFFFF] time window. Once you are satisfied \nwith the path you created, you can end the exercise early by clicking the [9696FB]Next[FFFFFF] button.\n\n
+
+While your main task is to plan the UAV path, try your best to [9696FB]answer questions[FFFFFF] in the [9696FB]chat \nbox[FFFFFF] when your code name [9696FB]Eagle[FFFFFF] is called.\n\n
+
+You have [9696FB]5 minutes[FFFFFF] to complete the exercise. Once time is up, please stop and click \n[9696FB]Next[FFFFFF] to continue.
+
+
+==================================================================================
+
+
+Screen 27: Sliding Autonomy Flight
+----------------------------------------------------------------------------------
+
+
+==================================================================================
+
+Screen 28: Comparison Screen
+----------------------------------------------------------------------------------
+Please [9696FB]take the survey[FFFFFF] on the other computer screen and then [9696FB]answer the question[FFFFFF] below:\n\n
+Comparing to the previous task, is this task you just completed more or less difficult than the one before it?
+
+
+==================================================================================
+
+Screen 29: Final Screen
+----------------------------------------------------------------------------------
+\n\n\n\n\nThank you for doing the user study. Now please [9696FB]take the final survey[FFFFFF].
+
+==================================================================================
