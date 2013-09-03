@@ -18,11 +18,14 @@ public class TutorialHandler : MonoBehaviour {
     private int counter = 0;
 
     private VectorLine myRec;
-    private Material lineMaterial;
-
+	private Material lineMaterial;
+	
 	// Use this for initialization
 	void Start () {
-        // Set textList to use
+        // Get rectangle ready
+		myRec = new VectorLine("Rec", new Vector2[8], lineMaterial, 4.0f);
+		
+		// Set textList to use
         textList = GameObject.Find("TutorialTextList").GetComponent<UITextList>();
 
         // Initialize timeElapased
@@ -30,16 +33,17 @@ public class TutorialHandler : MonoBehaviour {
 
         // Load tutorial text file to memory
         MISCLib.LoadTutorialFile(ProjectConstants.tutorialFiles[ProjectConstants.pageIndex], ref lstTutorialLines, ref timeStamps, ref lstLocations);
-
-        // Get recline ready
-        myRec = new VectorLine("Rec", new Vector2[8], lineMaterial, 4.0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
         // Display tutorial text file based on time stamp
         timeElapsed = timeElapsed + Time.deltaTime;
-        if (counter < timeStamps.Count)
+        if(lstTutorialLines.Count < 1)
+		{
+			return;
+		}
+		if (counter < timeStamps.Count)
         {
             if ((int)timeElapsed > timeStamps[counter])
             {
@@ -54,7 +58,7 @@ public class TutorialHandler : MonoBehaviour {
                 ints.Add(Convert.ToInt16(strings[1]));
                 ints.Add(Convert.ToInt16(strings[2]));
                 ints.Add(Convert.ToInt16(strings[3]));
-                myRec.MakeRect(new Rect(ints[0], ints[1], ints[2], ints[3]));
+				myRec.MakeRect(new Rect(ints[0], ints[1], ints[2], ints[3]));
                 myRec.Draw();
 
                 counter++;

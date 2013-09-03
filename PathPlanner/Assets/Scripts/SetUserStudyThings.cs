@@ -303,6 +303,71 @@ public class SetUserStudyThings : MonoBehaviour {
                     PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
 
                     break;
+                case 7: 
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    NoCompareScreen(i);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+					ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+
+                    break;
+                case 8:
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    NoCompareScreen(i);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+
+                    break;
+                case 9: 
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    NoCompareScreen(i);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+
+                    break;
+                case 10: 
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    NoCompareScreen(i);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+
+                    break;
+                case 11: 
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    NoCompareScreen(i);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+
+                    break;
+                case 12: 
+                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                    NoCompareScreen(i);
+                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+
+                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+
+                    break;
                 default:
 
                     break;
@@ -538,14 +603,16 @@ public class SetUserStudyThings : MonoBehaviour {
 
     private static void NoCompareScreen(int i)
     {
-        // No need to compare for first one
-        ProjectConstants.nextScene[i - 2] = ProjectConstants.nextScene[i - 1];
-        ProjectConstants.instructions.RemoveAt(i - 1);
-        ProjectConstants.durations.RemoveAt(i - 1);
-        ProjectConstants.nextScene.RemoveAt(i - 1);
-        ProjectConstants.diffMaps.RemoveAt(i - 1);
-        ProjectConstants.distMaps.RemoveAt(i - 1);
-        ProjectConstants.chatFiles.RemoveAt(i - 1);
+        // No need to compare for first one, but there's still the survey part
+//        ProjectConstants.nextScene[i - 2] = ProjectConstants.nextScene[i - 1];
+//        ProjectConstants.instructions.RemoveAt(i - 1);
+//        ProjectConstants.durations.RemoveAt(i - 1);
+//        ProjectConstants.nextScene.RemoveAt(i - 1);
+//        ProjectConstants.diffMaps.RemoveAt(i - 1);
+//        ProjectConstants.distMaps.RemoveAt(i - 1);
+//        ProjectConstants.chatFiles.RemoveAt(i - 1);
+		ProjectConstants.nextScene[i - 2] = "UserStudy";
+		ProjectConstants.instructions[i - 1] = "Please take the survey on the other computer screen and then click Next to continue.";
     }
 
 }

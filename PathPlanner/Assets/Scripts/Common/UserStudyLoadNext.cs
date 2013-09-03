@@ -42,14 +42,25 @@ public class UserStudyLoadNext : MonoBehaviour {
 		// Save things to log file
 		List<int> needToSave = new List<int>();
 		needToSave.Add (12);
-		needToSave.Add (14);
-		needToSave.Add (17);
-		needToSave.Add (20);
-		needToSave.Add (23);
-		needToSave.Add (26);
+		needToSave.Add (15);
+		needToSave.Add (18);
+		needToSave.Add (21);
+		needToSave.Add (24);
+		needToSave.Add (27);
 		if(needToSave.Contains(ProjectConstants.pageIndex))
 		{
+			// Saves everything
             SaveEverythingToLog();
+			// Load browser for survey
+			string strURL = "http://tanglefoot.cs.byu.edu/~lannyl/survey/nasatlx.html?userid=";
+			strURL += ProjectConstants.strLogFileName.Substring(0, ProjectConstants.strLogFileName.Length-4);
+			strURL += "&label=";
+			strURL += ProjectConstants.nextScene[ProjectConstants.pageIndex-1];
+			if(ProjectConstants.diffMaps[ProjectConstants.pageIndex]!="")
+			{
+				strURL += "Diff";
+			}
+			System.Diagnostics.Process.Start(strURL);
         }
 		else
 		{
@@ -71,10 +82,22 @@ public class UserStudyLoadNext : MonoBehaviour {
                 ProjectConstants.comparisons.Add("More");
             }
         }
-        if (ProjectConstants.pageIndex == 27)
+		if (ProjectConstants.pageIndex == 9)
+        {
+			// Load browser for survey
+			string strURL = "http://tanglefoot.cs.byu.edu/~lannyl/survey/nasatlx.html?userid=";
+			strURL += ProjectConstants.strLogFileName.Substring(0, ProjectConstants.strLogFileName.Length-4);
+			strURL += "&label=Training";
+			System.Diagnostics.Process.Start(strURL);        	
+		}
+		if (ProjectConstants.pageIndex == 28)
         {
             MISCLib.SaveToLogFile("comparisons");
             MISCLib.SaveToLogFile(ProjectConstants.comparisons);
+			
+			// Load browser for survey
+			string strURL = "http://tanglefoot.cs.byu.edu/~lannyl/survey/survey.php";
+			System.Diagnostics.Process.Start(strURL);
         }
 		
         // Increase page index counter
@@ -88,11 +111,11 @@ public class UserStudyLoadNext : MonoBehaviour {
         indexes.Add(7);
         indexes.Add(9);
         indexes.Add(12);
-        indexes.Add(14);
-        indexes.Add(17);
-        indexes.Add(20);
-        indexes.Add(23);
-        indexes.Add(26);
+        indexes.Add(15);
+        indexes.Add(18);
+        indexes.Add(21);
+        indexes.Add(24);
+        indexes.Add(27);
         if (indexes.Contains(ProjectConstants.pageIndex))
         {
             ProjectConstants.strDistFileLoad = ProjectConstants.distMaps[ProjectConstants.pageIndex];

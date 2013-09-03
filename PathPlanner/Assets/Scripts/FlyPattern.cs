@@ -365,12 +365,6 @@ public class FlyPattern : MonoBehaviour {
         // Debug.Log("angle = " + curCam.transform.eulerAngles.x + " = " + curCam.transform.eulerAngles.x * Math.PI / 180f);
         // Debug.Log("sin(angle) = " + (Math.Sin(curCam.transform.eulerAngles.x * Math.PI / 180f)));
 		float z = Convert.ToSingle((curCam.transform.position.y - 4f) / Math.Sin(curCam.transform.eulerAngles.x * Math.PI / 180f));
-        Vector3 oldUAVPos = this.gameObject.transform.position;
-		Vector3 newUAVPos = Vector3.zero;
-		
-        newUAVPos = curCam.ScreenToWorldPoint(new Vector3(linePoints[line.maxDrawIndex].x, linePoints[line.maxDrawIndex].y, z));
-        this.gameObject.transform.position = newUAVPos;
-        UAVPos = this.gameObject.transform.position;
 
         // First find all points along line based on fixed speeed. This path is in screen space
         Vector2[] screenPath = new Vector2[ProjectConstants.intFlightDuration * 60 / 2 + 1];
@@ -440,17 +434,28 @@ public class FlyPattern : MonoBehaviour {
 //      myPoints.Draw();
 		
 		// Convert screen path to real path
+        Vector3 oldUAVPos = this.gameObject.transform.position;
+		Vector3 newUAVPos = Vector3.zero;
+
+		Vector3 firstPoint = curCam.ScreenToWorldPoint(new Vector3(screenPath[0].x, screenPath[0].y, z));		
+		Vector2 OffSet2 = new Vector2(firstPoint.x - oldUAVPos.x, firstPoint.z - oldUAVPos.z);
+		Vector3 Offset3 = new Vector3(OffSet2.x, 0, OffSet2.y);
+		
+        newUAVPos = curCam.ScreenToWorldPoint(new Vector3(linePoints[line.maxDrawIndex].x, linePoints[line.maxDrawIndex].y, z));
+		newUAVPos = newUAVPos - Offset3;
+        this.gameObject.transform.position = newUAVPos;
+        UAVPos = this.gameObject.transform.position;
+
 		List<Vector3> realPath = new List<Vector3>();
 		for(int i=0; i<counter; i++)
 		{
 			Vector3 point = curCam.ScreenToWorldPoint(new Vector3(screenPath[i].x, screenPath[i].y, z));
-			realPath.Add(point);
-            path.Add(new Vector2(point.x, point.z));
+			realPath.Add(point - Offset3);
+            path.Add(new Vector2(point.x, point.z) - OffSet2);
 			// Debug.Log(point);
         }
 		
         // Vacuum following line
-		UAVPos = this.gameObject.transform.position;
 		for(int i=0; i<realPath.Count; i++)
 		{
 			this.gameObject.transform.position = realPath[i];
@@ -551,6 +556,12 @@ public class FlyPattern : MonoBehaviour {
         distMesh.vertices = distVertices;
         distMesh.colors = distColors;
         this.gameObject.transform.position = UAVPos;		
+	}
+	
+	// When start over button is clicked, no more undos.
+	public void StartOver()
+	{
+		UAVStates.Clear();
 	}
 	
 	// Clone a path

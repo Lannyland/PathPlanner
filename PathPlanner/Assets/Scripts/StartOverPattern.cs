@@ -73,5 +73,8 @@ public class StartOverPattern : MonoBehaviour {
 
         // Disable fly button
         GameObject.Find("btnFly").GetComponent<UIButton>().isEnabled = false;
+		
+		// Clear all undos
+		GameObject.Find("UAV").GetComponent<FlyPattern>().StartOver();		
 	}
 }
