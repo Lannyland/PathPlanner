@@ -52,7 +52,7 @@ public class UserStudyLoadNext : MonoBehaviour {
 			// Saves everything
             SaveEverythingToLog();
 			// Load browser for survey
-			string strURL = "http://tanglefoot.cs.byu.edu/~lannyl/survey/nasatlx.html?userid=";
+			string strURL = "--app=http://tanglefoot.cs.byu.edu/~lannyl/survey/nasatlx.html?userid=";
 			strURL += ProjectConstants.strLogFileName.Substring(0, ProjectConstants.strLogFileName.Length-4);
 			strURL += "&label=";
 			strURL += ProjectConstants.nextScene[ProjectConstants.pageIndex-1];
@@ -60,7 +60,7 @@ public class UserStudyLoadNext : MonoBehaviour {
 			{
 				strURL += "Diff";
 			}
-			System.Diagnostics.Process.Start(strURL);
+			System.Diagnostics.Process.Start("chrome.exe", strURL);
         }
 		else
 		{
@@ -82,13 +82,21 @@ public class UserStudyLoadNext : MonoBehaviour {
                 ProjectConstants.comparisons.Add("More");
             }
         }
+		// Demographic pre survey
+		if (ProjectConstants.pageIndex == 0)
+        {
+			// Load browser for survey
+			string strURL = "--app=http://tanglefoot.cs.byu.edu/~lannyl/survey/survey.php?userid=";
+			strURL += ProjectConstants.strLogFileName.Substring(0, ProjectConstants.strLogFileName.Length-4);
+			System.Diagnostics.Process.Start("chrome.exe", strURL);        	
+		}
 		if (ProjectConstants.pageIndex == 9)
         {
 			// Load browser for survey
-			string strURL = "http://tanglefoot.cs.byu.edu/~lannyl/survey/nasatlx.html?userid=";
+			string strURL = "--app=http://tanglefoot.cs.byu.edu/~lannyl/survey/nasatlx.html?userid=";
 			strURL += ProjectConstants.strLogFileName.Substring(0, ProjectConstants.strLogFileName.Length-4);
 			strURL += "&label=Training";
-			System.Diagnostics.Process.Start(strURL);        	
+			System.Diagnostics.Process.Start("chrome.exe", strURL);        	
 		}
 		if (ProjectConstants.pageIndex == 28)
         {
@@ -96,8 +104,9 @@ public class UserStudyLoadNext : MonoBehaviour {
             MISCLib.SaveToLogFile(ProjectConstants.comparisons);
 			
 			// Load browser for survey
-			string strURL = "http://tanglefoot.cs.byu.edu/~lannyl/survey/survey.php";
-			System.Diagnostics.Process.Start(strURL);
+			string strURL = "--app=http://tanglefoot.cs.byu.edu/~lannyl/survey/survey.php?survey=post&userid=";
+			strURL += ProjectConstants.strLogFileName.Substring(0, ProjectConstants.strLogFileName.Length-4);
+			System.Diagnostics.Process.Start("chrome.exe", strURL);
         }
 		
         // Increase page index counter

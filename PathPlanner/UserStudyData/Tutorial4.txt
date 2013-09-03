@@ -1,12 +1,12 @@
-00:00|You are in pattern planning mode. But this time a task difficulty map is used. Go ahead and click the Show Difficulty button and check out the task difficulty map. Click the Hide Difficulty button will switch back to the main screen.|1400,300,100,100
-00:15|Now click the Line button to use a line pattern and click the Start button to start path planning. Click somewhere near the northwest corner of the search area to send the UAV over there.|-200,0,-200,0
-00:25|Click the Lawnmover button and try to cover as much of the northeast quad section of the search area and click to approve it.|-200,0,-200,0
-00:35|Notice that because of the task difficulty map, although you have covered the area pretty well, the resulting shape looks like a staircase.|1700,100,100,100
-00:45|There are two camera modes to choose from. In Free Form view, you can use the W, A, S, D keys to rotate the view and use mouse scroll wheel to zoom in or out. Go ahead and try it.|-300,-100,-300,-100
-01:00|You can click the Pan button to switch to panning with the WASD keys and click the Rotate button to switch back to rotate mode. Go ahead and try it.|-400,-200,-400,-200
-01:15|You can click the Undo button to undo the last pattern used. Note that there is no Redo, so use this function with caution.|1700,100,100,100
-01:30|Clicking the Start Over button will restart the path planning task from the very beginning.  Go ahead and try it.|-100,100,-100,100
-01:45|Your main task is to score as high as possible with path planning, a second task is to answer questions when your code name Eagle is called in the chat window. Make your answer brief. Hit the Enter key to chat and hit Enter when you are done. Go ahead and try it.|-100,100,-100,100
-02:00|Try different things so you are comfortable with the controls. Fly the UAV around and try to score as high as you can while replying questions in the chat window when your code name Eagle is called. Go ahead and try it.|-100,100,-100,100
-02:15|Once you finish with the path planning, you can click the Fly Path button to see a simulated flight. As long as you don't start over, you completion time will be recorded at the time when you click the Fly Path button. Go ahead and try it.|-100,100,-100,100
-02:45|In the real exercise, if you are happy with the path created, you can click the Next button to complete the exercise early. Otherwise, when time runs out, you will be prompted to stop.|-100,100,-100,100
+00:00|You are in pattern planning mode. But this time a task difficulty map is used. Go ahead and click the Show Difficulty button and check out the task difficulty map. Click the Hide Difficulty button will switch back to the main screen.|1710,1000,200,50
+00:15|Now click the Line button to use a line pattern and click the Start button to start path planning. Click somewhere near the northwest corner of the search area to send the UAV over there.|1710,603,200,45
+00:25|Click the Lawnmover button and try to cover as much of the northeast quad section of the search area and click to approve it.|1710,703,200,45
+00:35|Notice that because of the task difficulty map, although you have covered the area pretty well, the resulting shape looks like a staircase.|-100,-100,0,0
+00:45|There are two camera modes to choose from. In Free Form view, you can use the W, A, S, D keys to rotate the view and use mouse scroll wheel to zoom in or out. Go ahead and try it.|1710,955,200,112
+01:00|You can click the Pan button to switch to panning with the WASD keys and click the Rotate button to switch back to rotate mode. Go ahead and try it.|1710,555,200,60
+01:15|You can click the Undo button to undo the last pattern used. Note that there is no Redo, so use this function with caution.|1710,500,200,67
+01:30|Clicking the Start Over button will restart the path planning task from the very beginning.  Go ahead and try it.|1710,433,200,43
+01:45|Your main task is to score as high as possible with path planning, a second task is to answer questions when your code name Eagle is called in the chat window. Make your answer brief. Hit the Enter key to chat and hit Enter when you are done. Go ahead and try it.|0,450,400,395
+02:00|Try different things so you are comfortable with the controls. Fly the UAV around and try to score as high as you can while replying questions in the chat window when your code name Eagle is called. Go ahead and try it.|-100,-100,0,0
+02:15|Once you finish with the path planning, you can click the Fly Path button to see a simulated flight. As long as you don't start over, you completion time will be recorded at the time when you click the Fly Path button. Go ahead and try it.|1710,396,200,64
+02:45|In the real exercise, if you are happy with the path created, you can click the Next button to complete the exercise early. Otherwise, when time runs out, you will be prompted to stop.|1710,85,200,75

@@ -24,6 +24,9 @@ public class SetUserStudyThings : MonoBehaviour {
 
     void SetUserStudyParameters()
     {
+		// Remember log file name
+		ProjectConstants.strLogFileName = MISCLib.GetLogFileName();
+
 		string strAppDir = Application.dataPath + @"\..\" + "UserStudyData";
 		// Debug.Log("strAppDir = " + strAppDir);
         UIInput uiGroupID = GameObject.Find("txtGroupID").GetComponent<UIInput>();
@@ -37,8 +40,6 @@ public class SetUserStudyThings : MonoBehaviour {
         }
         else if(ProjectConstants.pageIndex == 1)
         {
-			// Remember log file name
-			ProjectConstants.strLogFileName = MISCLib.GetLogFileName();
 			// Write group id in log file
 			MISCLib.SaveToLogFile("group|"+ProjectConstants.GroupID);
 			

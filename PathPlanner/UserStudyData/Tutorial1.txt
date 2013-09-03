@@ -1,10 +1,10 @@
-00:00|You are in manual planning mode. Go ahead and click the Start button and see that the flight duration left indicator starts counting down. Now use the arrow keys to move the UAV around. You can use multiple keys at the same time.|1700,700,220,100
-00:15|You can click the Strafe button to switch to strafe mode and click the Turn button to switch back to turning mode. Go ahead and try it out.|1700,600,200,50
-00:30|There are four camera modes to choose from. Click each one to try them out.|1700,900,220,300
-00:45|In Free Form view You can use the W, A, S, D keys to rotate the view and use mouse scroll wheel to zoom in or out. Go ahead and try it.|1700,600,220,50
-01:00|You can click the Pan button to switch to panning with the WASD keys and click the Rotate button to switch back to rotate mode. Go ahead and try it.|1700,650,220,100
-01:15|Clicking the Start Over button will restart the path planning task from the very beginning.  Go ahead and try it.|1700,300,220,50
-01:30|You can click the Pause button to pause the path planning. Clicking the Start button again will continue from where it was left at. Go ahead and try it.|1700,700,220,100
-01:45|Your main task is to score as high as possible with path planning, but there's also a gruop chat window. Your code name is Eagle, and when you are called with @Eagle, try your best to answer the question. Make your answer brief. To type a chat message, just hit the Enter key. Once done with your answer, hit the Enter key again to exit the chat window. Go ahead and try it.|0,500,220,400
+00:00|You are in manual planning mode. Go ahead and click the Start button and see that the flight duration left indicator starts counting down. Now use the arrow keys to move the UAV around. You can use multiple keys at the same time.|1710,785,200,150
+00:15|You can click the Strafe button to switch to strafe mode and click the Turn button to switch back to turning mode. Go ahead and try it out.|1710,580,200,65
+00:30|There are four camera modes to choose from. Click each one to try them out.|1710,950,200,175
+00:45|In Free Form view You can use the W, A, S, D keys to rotate the view and use mouse scroll wheel to zoom in or out. Go ahead and try it.|1710,825,200,40
+01:00|You can click the Pan button to switch to panning with the WASD keys and click the Rotate button to switch back to rotate mode. Go ahead and try it.|1710,638,200,55
+01:15|Clicking the Start Over button will restart the path planning task from the very beginning.  Go ahead and try it.|1710,525,200,75
+01:30|You can click the Pause button to pause the path planning. Clicking the Start button again will continue from where it was left at. Go ahead and try it.|1710,785,200,150
+01:45|Your main task is to score as high as possible with path planning, but there's also a gruop chat window. Your code name is Eagle, and when you are called with @Eagle, try your best to answer the question. Make your answer brief. To type a chat message, just hit the Enter key. Once done with your answer, hit the Enter key again to exit the chat window. Go ahead and try it.|0,450,400,395
 02:00|Try different things so you are comfortable with the controls. Fly the UAV around and try to score as high as you can while replying questions in the chat window when your code name Eagle is called. Go ahead and try it.|-100,-100,0,0
-02:45|In the real exercise, if you are happy with the path created, you can click the Next button to complete the exercise early. Otherwise, when time runs out, you will be prompted to stop.|1700,100,220,100
+02:45|In the real exercise, if you are happy with the path created, you can click the Next button to complete the exercise early. Otherwise, when time runs out, you will be prompted to stop.|1710,85,200,75
