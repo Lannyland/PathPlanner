@@ -103,7 +103,7 @@ public class FlyManual : MonoBehaviour {
 					// Debug.Log("First visit score: " + Camera.main.GetComponent<IncreasingScoreEffect>().curScore);
 				}
 				
-				if(curWaypoint < flightDuration + 1)
+				if(curWaypoint < flightDuration / 2 + 1)
 				{
 					// Vacuum probability and change score
 					UAVPos = this.transform.position;
@@ -125,7 +125,7 @@ public class FlyManual : MonoBehaviour {
 					curWaypoint++;
                     ProjectConstants.curWayPoint = curWaypoint;
 				}
-				if(curWaypoint == flightDuration + 1)
+				if(curWaypoint == flightDuration / 2 + 1)
 				{
 					// Manual flight is over!
                     // Debug.Log("Setting UAV movable to false.");

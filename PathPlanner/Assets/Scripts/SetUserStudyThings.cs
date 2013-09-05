@@ -403,10 +403,10 @@ public class SetUserStudyThings : MonoBehaviour {
         // -- HOw UAV vacuums and the goal of the tasks
         // -- Secondary task
         string str2 = "Welcome to the UAV Path Planning user study.\n\n";
-        str2 = str2 + "In the following simulated Wilderness Search and Rescue (WiSAR) operations, a person is reported missing in each \nscenario, and your help is needed to plan a path for the Unmanned Aerial Vehicle (UAV) in order to search for the \nmissing person. The UAV is a hexacopter, meaning it can fly to any direction without turning or hover in the air.\n\n";
+        str2 = str2 + "In the following simulated Wilderness Search and Rescue (WiSAR) operations, a person is reported missing in each \nscenario, and your help is needed to plan a path for the Unmanned Aerial Vehicle (UAV) in order to search for the \nmissing person. The UAV is a hexacopter, meaning it can fly in any direction without turning, or it can hover in the air.\n\n";
         str2 = str2 + "On the screen you will see a probability distribution map indicating where are likely places of finding the missing \nperson (hills in red). A task difficulty map might be used to incidate how difficult it is for the UAV to detect \nthe missing person (red for very difficult, green for medium difficulty, and blue for easy).\n\n";
         str2 = str2 + "You can think of the UAV as a vacuum cleaner and as it flies, it vacuums up probability along its way. More \nprobability will be vacuumed up in areas marked easy and few will be vacuumed up in areas marked difficult.\n\n";
-        str2 = str2 + "Your objective is to plan a path for the UAV so it can vacuum up as much probability (indicated by your score) as \npossible for a fixed length flight.\n\n";
+        str2 = str2 + "Your objective is to plan a path for the UAV so it can vacuum up as much probability (indicated by your score) as \npossible for a fixed flying time.\n\n";
         str2 = str2 + "You will help plan paths for [9696FB]two WiSAR scenarios[FFFFFF] using [9696FB]three different planning \nmodes[FFFFFF]: [9696FB]manual[FFFFFF], [9696FB]pattern[FFFFFF], and [9696FB]sliding autonomy[FFFFFF].\n\n";
         str2 = str2 + "But first let's practice how to use the three planning modes to plan UAV paths.";
         ProjectConstants.instructions.Add(str2);
