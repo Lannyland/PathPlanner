@@ -63,3 +63,21 @@
 02:56 [9696FB]@otherpeople[FFFFFF] can be safely ignored.
 02:59 But focus on your main path planning task.
 03:00 But focus on your main path planning task.
+03:01 Press the Enter key to get into chat mode so you can reply.
+03:05 Once done with your reply, press the Enter key again to exit chat mode.
+03:06 You can reply yes or no when asked, like the one below.
+03:08 [9696FB]@Eagle[FFFFFF] is the UAV planner still working?
+03:10 You might be asked to report things on your screen like the one below.
+03:14 [9696FB]@Eagle[FFFFFF] please report time left.
+03:18 Just reply with your code name Eagle with questions like the one below.
+03:23 [9696FB]@Eagle[FFFFFF] FYI: Eagle is doing a test flight. Please acknowledge with your code name.
+03:24 Message like this one can be safely ignored.
+03:29 But focus on your main path planning task.
+03:30 But focus on your main path planning task.
+03:35 Once done with your reply, press the Enter key again to exit chat mode.
+03:36 You can reply yes or no when asked, like the one below.
+03:38 [9696FB]@Eagle[FFFFFF] is the UAV planner still working?
+03:50 Press the Enter key to get into chat mode so you can reply.
+03:52 Once done with your reply, press the Enter key again to exit chat mode.
+03:58 You are running out of time.
+04:00 This is the end.

@@ -10,7 +10,7 @@ public class FlyManual : MonoBehaviour {
 
     public enum FlyMode { Turn, Strafe };
 
-    public float moveSpeed = 10f;
+    public float moveSpeed = 1.67f;
     public float turnSpeed = 50f;
 	public Vector2[] path;
 	public bool fly = false;
@@ -28,8 +28,9 @@ public class FlyManual : MonoBehaviour {
 	private float TimeStep = 0f;
 	
 	// Use this for initialization
-	void Start () {	
-		flightDuration = ProjectConstants.intFlightDuration * 60;
+	void Start () {
+        moveSpeed = 1.67f;
+        flightDuration = ProjectConstants.intFlightDuration * 60;
 		timer = flightDuration;
 		path = new Vector2[flightDuration/2+1];
 		path[0] = ProjectConstants.originalStart;
@@ -113,7 +114,7 @@ public class FlyManual : MonoBehaviour {
 					// Change timer remaining time
 					if(timer>0)
 					{
-						timer--;
+                        timer -= 2;
 					}
 					
 					int second = timer % 60;
@@ -125,6 +126,7 @@ public class FlyManual : MonoBehaviour {
 					path[curWaypoint] = new Vector2(UAVPos.x, UAVPos.z);
 					curWaypoint++;
                     ProjectConstants.curWayPoint = curWaypoint;
+                    Debug.Log("curwaypoint=" + curWaypoint);
 				}
 				if(curWaypoint == flightDuration / 2 + 1)
 				{
