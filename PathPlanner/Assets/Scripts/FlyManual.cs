@@ -11,7 +11,7 @@ public class FlyManual : MonoBehaviour {
     public enum FlyMode { Turn, Strafe };
 
     public float moveSpeed = 1.67f;
-    public float turnSpeed = 50f;
+    public float turnSpeed = 200f;
 	public Vector2[] path;
 	public bool fly = false;
     public FlyMode flyMode = FlyMode.Turn;
@@ -30,6 +30,7 @@ public class FlyManual : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         moveSpeed = 1.67f;
+        turnSpeed = 400f;
         flightDuration = ProjectConstants.intFlightDuration * 60;
 		timer = flightDuration;
 		path = new Vector2[flightDuration/2+1];
