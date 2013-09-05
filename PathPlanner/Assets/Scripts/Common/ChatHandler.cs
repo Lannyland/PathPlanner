@@ -59,12 +59,18 @@ public class ChatHandler : MonoBehaviour
 		if(mInput.selected)
 		{
 			// Disable orbit
-			Camera.main.GetComponent<Orbit>().enabled = false;
+			if(Camera.main.GetComponent<Orbit>() != null)
+			{
+				Camera.main.GetComponent<Orbit>().enabled = false;
+			}
 		}
 		else
 		{
 			// Enable orbit
-			Camera.main.GetComponent<Orbit>().enabled = true;
+			if(Camera.main.GetComponent<Orbit>() != null)
+			{
+				Camera.main.GetComponent<Orbit>().enabled = true;
+			}
 		}
 		
 		// Deal with user typing too much

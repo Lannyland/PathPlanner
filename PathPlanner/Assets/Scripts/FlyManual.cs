@@ -115,6 +115,7 @@ public class FlyManual : MonoBehaviour {
 					{
 						timer--;
 					}
+					
 					int second = timer % 60;
 					int minute = timer / 60;
 					GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");

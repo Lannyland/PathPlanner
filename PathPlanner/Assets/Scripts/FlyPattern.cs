@@ -551,6 +551,9 @@ public class FlyPattern : MonoBehaviour {
         distVertices = (Vector3[])lastState.distVertices.Clone();
         distColors = (Color[])lastState.distColors.Clone();
         timer = lastState.timer;
+		int second = timer % 60;
+		int minute = timer / 60;
+		GameObject.Find("lblFlightTime").GetComponent<UILabel>().text = minute.ToString() + ":" + second.ToString("00");
         UAVPos = lastState.UAVPos;
         GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore = lastState.Score;
         distMesh.vertices = distVertices;
