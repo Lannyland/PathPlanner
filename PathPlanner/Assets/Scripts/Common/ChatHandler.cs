@@ -63,6 +63,11 @@ public class ChatHandler : MonoBehaviour
 			{
 				Camera.main.GetComponent<Orbit>().enabled = false;
 			}
+			
+			// Pause timer
+			UILabel label = GameObject.Find("lblStartPause").GetComponent<UILabel>();
+			GameObject.Find("UAV").GetComponent<FlyManual>().fly = false;
+            label.text = "Start";
 		}
 		else
 		{

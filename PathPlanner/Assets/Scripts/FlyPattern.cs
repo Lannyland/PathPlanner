@@ -558,7 +558,9 @@ public class FlyPattern : MonoBehaviour {
         GameObject.Find("ControlCenter").GetComponent<IncreasingScoreEffect>().curScore = lastState.Score;
         distMesh.vertices = distVertices;
         distMesh.colors = distColors;
-        this.gameObject.transform.position = UAVPos;		
+        this.gameObject.transform.position = UAVPos;
+		GameObject.Find("btnFly").GetComponent<UIButton>().isEnabled = false;
+        fly = true;
 	}
 	
 	// When start over button is clicked, no more undos.
