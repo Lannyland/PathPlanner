@@ -68,7 +68,7 @@ public class SetUserStudyThings : MonoBehaviour {
 	        // Third screen training manual flight insturctions
 	        string str3 = "Manual Flight Training\n\n";
 	        str3 = str3 + "In the next training exercise you will use the [9696FB]manual planning mode[FFFFFF] to plan a UAV path for a [9696FB]60-minute[FFFFFF] flight.\n\n";
-	        str3 = str3 + "You can move the UAV around using the arrow keys. There are four camera views to choose from, and WASD keys \ncan be used to rotate/pan the view. The mouse scrollwheel can be used to zoom in/out.\n\n";
+	        str3 = str3 + "You can move the UAV around using the arrow keys. There are four camera views to choose from, and W,A,S,D keys \ncan be used to rotate/pan the view. The mouse scrollwheel can be used to zoom in/out.\n\n";
 	        str3 = str3 + "In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire \nsearch area.\n\n";
 	        str3 = str3 + "Please follow instructions on screen. You have [9696FB]5 minutes[FFFFFF] to complete the exercise.";
 	        ProjectConstants.instructions.Add(str3);
@@ -92,7 +92,7 @@ public class SetUserStudyThings : MonoBehaviour {
 	        // Fifth screen training pattern flight insturctions
 	        string str5 = "Pattern Flight Training\n\n";
 	        str5 = str5 + "In the next training exercise you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60-minute[FFFFFF] flight. \n\n";
-	        str5 = str5 + "You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, and \nWASD keys can be used to rotate/pan the view. The mouse scrollwheel can be used to zoom in/out.\n\n";
+	        str5 = str5 + "You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, and \nW,A,S,D keys can be used to rotate/pan the view. The mouse scrollwheel can be used to zoom in/out.\n\n";
 	        str5 = str5 + "In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire \nsearch area.\n\n";
 	        str5 = str5 + "Please follow instructions on screen. You have [9696FB]5 minutes[FFFFFF] to complete the exercise.";
 	        ProjectConstants.instructions.Add(str5);
@@ -116,7 +116,7 @@ public class SetUserStudyThings : MonoBehaviour {
 	        // Seventh screen training sliding autonomy flight insturctions
 	        string str7 = "Sliding Autonomy Flight Training\n\n";
 	        str7 = str7 + "In the next training exercise you will use the [9696FB]sliding autonomy planning mode[FFFFFF] to plan a UAV path for a [9696FB]60-minute[FFFFFF] \nflight.\n\n";
-	        str7 = str7 + "You can set where you want the path segment to end at, and use two sliders to control how much time you want to \nallocate to the current path segment. WASD keys can be used to rotate/pan the view. The mouse scrollwheel can be \nused to zoom in/out.\n\n";
+	        str7 = str7 + "You can set where you want the path segment to end at, and use two sliders to control how much time you want to \nallocate to the current path segment. W,A,S,D keys can be used to rotate/pan the view. The mouse scrollwheel can be \nused to zoom in/out.\n\n";
 	        str7 = str7 + "In this exercise [9696FB]no task difficulty map is used[FFFFFF], meaning the UAV can easily vacuum up probability in the entire \nsearch area.\n\n";
 	        str7 = str7 + "Please follow instructions on screen. You have [9696FB]5 minutes[FFFFFF] to complete the exercise.";
 	        ProjectConstants.instructions.Add(str7);
@@ -140,7 +140,7 @@ public class SetUserStudyThings : MonoBehaviour {
 	        // Nineth screen training pattern flight with difficulty map insturctions
 	        string str9 = "Pattern Flight With Difficulty Map Training\n\n";
 	        str9 = str9 + "In the next training exercise you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60-minute[FFFFFF] flight. \nThis time [9696FB]a task difficulty map is used[FFFFFF]. In areas marked easy (blue) the UAV can easily vacuum up \nprobability; in areas marked difficult (red) the UAV can only vacuum up small amount of probability.\n\n";
-	        str9 = str9 + "You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, \nand WASD keys can be used to rotate/pan the view. The mouse scrollwheel can be used to zoom in/out.\n\n";
+	        str9 = str9 + "You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, \nand W,A,S,D keys can be used to rotate/pan the view. The mouse scrollwheel can be used to zoom in/out.\n\n";
 	        str9 = str9 + "Please follow instructions on screen. You have [9696FB]5 minutes[FFFFFF] to complete the exercise.";
 	        ProjectConstants.instructions.Add(str9);
 	        ProjectConstants.durations.Add(0);
