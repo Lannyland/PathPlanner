@@ -40,10 +40,11 @@ public class ReadyToPlanPath : MonoBehaviour {
                 // End point is used for path planning
                 ProjectConstants.curEnd = new Vector2(curEndPoint.transform.position.x, curEndPoint.transform.position.z);
                 ProjectConstants.boolUseEndPoint = true;
+                Debug.Log("End piont is used, boolUseEndPoint = " + ProjectConstants.boolUseEndPoint);
             }
 			else
 			{
-				// End poin tis not used for path planning
+				// End point is not used for path planning
 				ProjectConstants.boolUseEndPoint = false;
 			}
             curEndPoint.GetComponent<MoveUFO>().movable = false;

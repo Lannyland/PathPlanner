@@ -82,6 +82,7 @@ public class SliderControl : MonoBehaviour {
 
 			// Move sliderD to lowest possible
             // Only enable possible values that allow the UAV to reach the end point
+            Debug.Log("In SliderControl boolUseEndPoint = " + ProjectConstants.boolUseEndPoint);
             if (ProjectConstants.boolUseEndPoint && ProjectConstants.endPointCounter > 0)
             {
                 // Find last endpoint and UAV
@@ -115,15 +116,31 @@ public class SliderControl : MonoBehaviour {
     // Sets up the max value label, the current selected value label for SliderR.
     private void SetSliderR(float value)
     {
-        // Change display text
         int steps = ResolutionSteps();
         slider.numberOfSteps = steps;
         resolution = steps - 1;
         int curResolution = Convert.ToInt16(Math.Round(value * resolution));
+
+        // Only allow sliderR value that's long enough to reach end point
+        if (ProjectConstants.boolUseEndPoint && ProjectConstants.endPointCounter > 0)
+        {
+            // Find last endpoint and UAV
+            GameObject UAV = GameObject.Find("UAV");
+            GameObject curEndPoint = GameObject.Find("EndPoint" + ProjectConstants.endPointCounter);
+            int dist = Convert.ToInt16(MISCLib.ManhattanDistance(curEndPoint.transform.position, UAV.transform.position) * 10);
+            if ( dist > curResolution * 30)
+            {
+                curResolution++;
+            }
+        }
+        
+        // Change display text
         ChangeLabelText("lblRMax", resolution.ToString());
         ChangeLabelText("lblRValue", curResolution.ToString());
         ProjectConstants.resolution = curResolution;
 		resolution = curResolution;
+        UISlider sliderR = GameObject.Find("SliderR").GetComponent<UISlider>();
+        sliderR.sliderValue = Mathf.Clamp01(1f / (slider.numberOfSteps - 1) * curResolution); // This calls OnSliderChange() for SliderD.
     }
 
     // Compute resolution steps for resolution slider

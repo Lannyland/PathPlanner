@@ -69,6 +69,9 @@ public class SetEndPoint : MonoBehaviour {
             newEndPoint.AddComponent("MoveUFO");
             newEndPoint.GetComponent<MoveUFO>().UAV = newEndPoint.transform;
 
+            // Remember
+            ProjectConstants.boolUseEndPoint = true;
+
 			
 			// Set lastPathApproved flag back to false;
 			Assets.Scripts.ProjectConstants.lastPathApproved = false;
