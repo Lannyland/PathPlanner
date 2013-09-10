@@ -22,6 +22,12 @@ public class UserStudyCountDownTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.N))
+        {
+            GameObject.Find("btnNext").GetComponent<UIButton>().isEnabled = true;
+        }
+
+
         timeLeft = timeLeft - Time.deltaTime;
         if ((int)timeLeft < 0)
         {
@@ -36,9 +42,15 @@ public class UserStudyCountDownTimer : MonoBehaviour
     // Something to do with time is up
     void GameOver()
     {
+        // Find score to display
+        if (!ProjectConstants.boolFlyPath)
+        {
+            ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
+        }
         // Load Message Box
         UILabel label = GameObject.Find("lblMessage").GetComponent<UILabel>();
         UISlicedSprite sp = GameObject.Find("spMessage").GetComponent<UISlicedSprite>();
+        label.text = "[FFFFFF]Time is up. Please stop!\n\nYour score is: [00FF3E]" + ProjectConstants.score + "\n\n[FFFFFF]Click Next to continue.";
         label.transform.position = Vector3.zero;
         sp.transform.position = Vector3.zero;
 
@@ -53,5 +65,11 @@ public class UserStudyCountDownTimer : MonoBehaviour
         {
             fp.fly = false;
         }
+
+        // Enable Next Button
+        GameObject.Find("btnNext").GetComponent<UIButton>().isEnabled = true;
+
+
+
     }
 }

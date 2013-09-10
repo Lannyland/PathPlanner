@@ -23,6 +23,18 @@ public class StartUpChores : MonoBehaviour {
         SceneInit();
 		
 		curCam = Camera.main;
+
+        UIButton ub = GameObject.Find("btnNext").GetComponent<UIButton>();
+        if (ub != null)
+        {
+            if (ProjectConstants.pageIndex == 3 ||
+                ProjectConstants.pageIndex == 5 ||
+                ProjectConstants.pageIndex == 7 ||
+                ProjectConstants.pageIndex == 9)
+            {
+                ub.isEnabled = false;
+            }
+        }
     }
 
     // Method to load terrain material into Projector

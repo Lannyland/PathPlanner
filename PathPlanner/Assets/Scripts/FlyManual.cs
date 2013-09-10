@@ -14,7 +14,7 @@ public class FlyManual : MonoBehaviour {
     public float turnSpeed = 200f;
 	public Vector2[] path;
 	public bool fly = false;
-    public FlyMode flyMode = FlyMode.Turn;
+    public FlyMode flyMode = FlyMode.Strafe;
     public Vector3[] distVertices;
     public Color[] distColors;
     public int timer = 0;

@@ -17,7 +17,7 @@ public class StartUpManual : StartUpChores {
         GameObject.Find("CameraFree").GetComponent<Camera>().enabled = true;
         GameObject.Find("CameraBirdEye").GetComponent<Camera>().enabled = false;
         GameObject.Find("CameraBehind").GetComponent<Camera>().enabled = false;
-        
+
         curCam = GameObject.Find("CameraGlobal").GetComponent<Camera>();
     }
 	
