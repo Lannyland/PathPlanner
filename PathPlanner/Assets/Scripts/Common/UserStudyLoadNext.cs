@@ -206,7 +206,7 @@ public class UserStudyLoadNext : MonoBehaviour {
             if (ProjectConstants.boolFlyPath)
             {
                 pathLength = 1801;
-                FlyPath fpp = GameObject.Find("UAV").GetComponent<FlyPath>();
+                FlyPath fpp = Camera.main.GetComponent<FlyPath>();
                 for (int i = 0; i < fpp.path.Length; i++)
                 {
                     path += fpp.path[i].x + " " + fpp.path[i].y + ",";
