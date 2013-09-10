@@ -64,6 +64,8 @@ namespace TCPIPTest
 		// Testing client server call to path planning server IPPA
 		void MakeCall()
 		{
+			Debug.Log("Make Network Call...");
+			
 		    // Generate path planning requests
 	        PathPlanningRequest newRequest = new PathPlanningRequest();
 			BuildRequest(ref newRequest);

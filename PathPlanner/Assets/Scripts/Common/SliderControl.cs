@@ -51,7 +51,15 @@ public class SliderControl : MonoBehaviour {
 		// Not allow slider value to be 0		
         if (value == 0)
         {
-            float v = 1.0f / (slider.numberOfSteps - 1);
+            float v = 0f;
+			if(slider.numberOfSteps > 1)
+			{
+				v = 1.0f / (slider.numberOfSteps - 1);
+			}
+			else
+			{
+				v = 1.0f;
+			}			
 			slider.sliderValue = v;
 			return;
         }
@@ -100,7 +108,14 @@ public class SliderControl : MonoBehaviour {
             }
             else
             {
-				sliderD.sliderValue = Mathf.Clamp01(1f / (slider.numberOfSteps - 1)); // This calls OnSliderChange() for SliderD.
+				if(slider.numberOfSteps > 1)
+				{					
+					sliderD.sliderValue = Mathf.Clamp01(1f / (slider.numberOfSteps - 1)); // This calls OnSliderChange() for SliderD.
+				}
+				else
+				{
+					sliderD.sliderValue = 1.0f;
+				}
 //                float newV = 1 / (sliderD.numberOfSteps - 1);
 //                float oldV = sliderD.sliderValue;
 //                Debug.Log("Setting sliderD value to same. And numberOfSteps = " + sliderD.numberOfSteps);
@@ -140,7 +155,14 @@ public class SliderControl : MonoBehaviour {
         ProjectConstants.resolution = curResolution;
 		resolution = curResolution;
         UISlider sliderR = GameObject.Find("SliderR").GetComponent<UISlider>();
-        sliderR.sliderValue = Mathf.Clamp01(1f / (slider.numberOfSteps - 1) * curResolution); // This calls OnSliderChange() for SliderD.
+        if(slider.numberOfSteps > 1)
+		{
+			sliderR.sliderValue = Mathf.Clamp01(1f / (slider.numberOfSteps - 1) * curResolution); // This calls OnSliderChange() for SliderD.
+		}
+		else
+		{
+			sliderR.sliderValue = 1.0f;
+		}
     }
 
     // Compute resolution steps for resolution slider

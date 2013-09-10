@@ -2,7 +2,7 @@
 00:15|Now click the Line button to use a line pattern and click the Start button to start path planning. Click somewhere near the northwest corner of the search area to send the UAV over there.|1710,606,200,45
 00:30|Click the Lawnmover button and try to cover as much of the northeast quad section of the entire search area and click to approve it.|1710,703,200,50
 00:45|In Free Form view, look at the area you just covered from different angles. You can use the W, A, S, D keys to rotate the view and use mouse scrollwheel to zoom in or out. Notice that because of the task difficulty map, although you have covered the area pretty well, part of the resulting shape looks like a staircase.|1710,958,200,112
-01:15|In Free Form view, you can click the Pan button to switch to panning with the WASD keys and click the Rotate button to switch back to rotate mode. Go ahead and try it.|1710,558,200,60
+01:15|In Free Form view, you can click the Pan button to switch to panning with the W, A, S, D keys and click the Rotate button to switch back to rotate mode. Go ahead and try it.|1710,558,200,60
 01:30|You can click the Undo button to undo the last pattern used. Note that there is no Redo, so use this function with caution.|1710,500,200,67
 01:45|Clicking the Start Over button will restart the path planning task from the very beginning.  Go ahead and try it.|1710,435,200,43
 02:00|Your main task is to score as high as possible with path planning, a secondary task is to answer questions when your code name Eagle is called in the chat window. Make your answer brief (1-2 words). Hit the Enter key to chat and hit Enter when you are done. Go ahead and try it.|0,450,400,395

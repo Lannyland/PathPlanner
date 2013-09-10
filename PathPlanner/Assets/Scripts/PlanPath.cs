@@ -72,6 +72,10 @@ public class PlanPath : MonoBehaviour
 	        {
 	            // Debug.Log("Doing current path planning");
 				// Debug.Log("ProjectConstants.boolUseEndPoint = " + ProjectConstants.boolUseEndPoint);
+	
+				// Fill list with something so we know the path planning has started.
+				lstPaths[duration - 1] = new Vector2[2]; 
+					
 	            NetworkCall call = new NetworkCall(
                     ProjectConstants.mDistMapCurStepUndo.Clone(),
 	                ProjectConstants.mDiffMap,
@@ -202,6 +206,8 @@ public class PlanPath : MonoBehaviour
 	    	    else
 	    	    {
 					Debug.Log("Duration: " + i + ". Doing additional path planning.");
+					// Fill list with something so we know the path planning has started.
+					lstPaths[i-1] = new Vector2[2]; 
 					NetworkCall call = new NetworkCall(
 	    	            ProjectConstants.mDistMapCurStepUndo.Clone(),
 	    	            ProjectConstants.mDiffMap,
