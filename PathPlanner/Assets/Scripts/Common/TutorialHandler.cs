@@ -16,6 +16,8 @@ public class TutorialHandler : MonoBehaviour {
     private List<int> timeStamps = new List<int>();
     private List<string> lstLocations = new List<string>();
     private int counter = 0;
+    private float flashLength = 0f;
+    private float sign = 1f;
 
     private VectorLine myRec;
 	private Material lineMaterial;
@@ -58,10 +60,40 @@ public class TutorialHandler : MonoBehaviour {
                 ints.Add(Convert.ToInt16(strings[1]));
                 ints.Add(Convert.ToInt16(strings[2]));
                 ints.Add(Convert.ToInt16(strings[3]));
-				myRec.MakeRect(new Rect(ints[0], ints[1], ints[2], ints[3]));
+
+                myRec.MakeRect(new Rect(ints[0], ints[1], ints[2], ints[3]));
                 myRec.Draw();
 
                 counter++;
+            }
+        }
+        // Every half second flash the box
+        if (sign > 0.9f)
+        {
+            if (flashLength < 0.5f)
+            {
+                flashLength += Time.deltaTime;
+                Debug.Log("Clearing rec: " + flashLength);
+                myRec.lineWidth = 0f;
+                myRec.Draw();
+            }
+            else
+            {
+                sign = 0f;
+            }
+        }
+        else
+        {
+            if (flashLength > 0)
+            {
+                flashLength -= Time.deltaTime;
+                Debug.Log("Drawing rec: " + flashLength);
+                myRec.lineWidth = 4f;
+                myRec.Draw();
+            }
+            else
+            {
+                sign = 1f;
             }
         }
 	}
