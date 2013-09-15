@@ -10,6 +10,8 @@ public class UserStudyCountDownTimer : MonoBehaviour
     public int timeTotal = 300;
     private float timeLeft;
     UILabel timeRemain;
+    private float flashLength = 0f;
+    private float sign = 1f;
 
     // Use this for initialization
     void Start()
@@ -37,6 +39,38 @@ public class UserStudyCountDownTimer : MonoBehaviour
         {
             timeRemain.text = ((int)timeLeft).ToString();
         }
+
+        // Flash time left in last 30 seconds
+        // Every half second flash the box
+        if (timeLeft < 30)
+        {
+            timeRemain.color = Color.red;
+            if (sign > 0.9f)
+            {
+                if (flashLength < 0.5f)
+                {
+                    flashLength += Time.deltaTime;
+                    timeRemain.text = "";
+                }
+                else
+                {
+                    sign = 0f;
+                }
+            }
+            else
+            {
+                if (flashLength > 0)
+                {
+                    flashLength -= Time.deltaTime;
+                    timeRemain.text = ((int)timeLeft).ToString();
+                }
+                else
+                {
+                    sign = 1f;
+                }
+            }
+        }
+
     }
 
     // Something to do with time is up

@@ -73,7 +73,7 @@ public class TutorialHandler : MonoBehaviour {
             if (flashLength < 0.5f)
             {
                 flashLength += Time.deltaTime;
-                Debug.Log("Clearing rec: " + flashLength);
+                // Debug.Log("Clearing rec: " + flashLength);
                 myRec.lineWidth = 0f;
                 myRec.Draw();
             }
@@ -87,7 +87,7 @@ public class TutorialHandler : MonoBehaviour {
             if (flashLength > 0)
             {
                 flashLength -= Time.deltaTime;
-                Debug.Log("Drawing rec: " + flashLength);
+                // Debug.Log("Drawing rec: " + flashLength);
                 myRec.lineWidth = 4f;
                 myRec.Draw();
             }
