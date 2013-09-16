@@ -137,20 +137,20 @@ public class SetUserStudyThings : MonoBehaviour {
 			ProjectConstants.chatFiles.Add(strAppDir + @"\ChatBoxTraining3.txt");
 	        ProjectConstants.tutorialFiles.Add(strAppDir + @"\Tutorial3.txt");
 	
-	        // Nineth screen training pattern flight with difficulty map insturctions
-	        string str9 = "Pattern Flight With Difficulty Map Training\n\n";
-	        str9 = str9 + "In the next training exercise you will use the [9696FB]pattern planning mode[FFFFFF] to plan a UAV path for a [9696FB]60-minute[FFFFFF] flight. \nThis time [9696FB]a task difficulty map is used[FFFFFF]. In areas marked easy (blue) the UAV can easily vacuum up \nprobability; in areas marked difficult (red) the UAV can only vacuum up small amount of probability.\n\n";
-	        str9 = str9 + "You can choose from three patterns: [9696FB]lawnmower[FFFFFF], [9696FB]spiral[FFFFFF], and [9696FB]line[FFFFFF]. There are two camera views to choose from, \nand W,A,S,D keys can be used to rotate/pan the view. The mouse scrollwheel can be used to zoom in/out.\n\n";
+	        // Nineth screen training manual flight with difficulty map insturctions
+	        string str9 = "Manual Flight With Difficulty Map Training\n\n";
+	        str9 = str9 + "In the next training exercise you will use the [9696FB]manual planning mode[FFFFFF] to plan a UAV path for a [9696FB]60-minute[FFFFFF] flight. \nThis time [9696FB]a task difficulty map is used[FFFFFF]. In areas marked easy (blue) the UAV can easily vacuum up \nprobability; in areas marked difficult (red) the UAV can only vacuum up small amount of probability.\n\n";
+	        str9 = str9 + "You can move the UAV around using the arrow keys. There are four camera views to choose from, and W,A,S,D keys \ncan be used to rotate/pan the view. The mouse scrollwheel can be used to zoom in/out.\n\n";
 	        str9 = str9 + "Please follow instructions on screen. You have [9696FB]5 minutes[FFFFFF] to complete the exercise.";
 	        ProjectConstants.instructions.Add(str9);
 	        ProjectConstants.durations.Add(0);
-	        ProjectConstants.nextScene.Add("UserStudyPatternFlightTraining");
+	        ProjectConstants.nextScene.Add("UserStudyManualFlightTraining");
 	        ProjectConstants.diffMaps.Add("");
 	        ProjectConstants.distMaps.Add("");
 			ProjectConstants.chatFiles.Add("");
 	        ProjectConstants.tutorialFiles.Add("");
 	
-	        // Tenth screen training pattern flight with difficulty map
+	        // Tenth screen training manual flight with difficulty map
 	        string str10 = "";
 	        ProjectConstants.instructions.Add(str10);
 	        ProjectConstants.durations.Add(5);

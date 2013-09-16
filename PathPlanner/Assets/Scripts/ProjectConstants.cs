@@ -46,6 +46,7 @@ namespace Assets.Scripts
 		#region Manual Scene constants
 		
 		public static int editMode = 1;		// 1: Fly 2: Draw		
+		public static int cameraMode = 4; 	// 1: Global 2: Behind 3: Bird's Eye 4: Free Form
         
 		#endregion
 			
@@ -123,6 +124,10 @@ namespace Assets.Scripts
 		public static int mouseclicks = 0;
 		public static int curWayPoint = 0;
 		public static bool boolFlyPath = false;		
+		
+		// Record each time when user clicks start over button
+		public static int startOverCount = 0;
+		public static string startOverLog = "";
 
 		public static List<string> replies = new List<string>();
 		// User replies in chat box for each exercise:

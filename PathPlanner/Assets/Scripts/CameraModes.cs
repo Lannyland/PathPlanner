@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 public class CameraModes : MonoBehaviour {
 
@@ -28,25 +29,29 @@ public class CameraModes : MonoBehaviour {
         {
             GameObject.Find("CameraGlobal").GetComponent<Camera>().enabled = true;
 			SetCurCam("CameraGlobal");
-			pr.isEnabled = false;			
+			pr.isEnabled = false;
+			ProjectConstants.cameraMode = 1;
         }
         if (this.gameObject.name == "btnBirdEye")
         {
             GameObject.Find("CameraBirdEye").GetComponent<Camera>().enabled = true;
 			SetCurCam("CameraBirdEye");
 			pr.isEnabled = false;			
+			ProjectConstants.cameraMode = 3;
         }
         if (this.gameObject.name == "btnBehind")
         {
             GameObject.Find("CameraBehind").GetComponent<Camera>().enabled = true;
 			SetCurCam("CameraBehind");
 			pr.isEnabled = false;			
+			ProjectConstants.cameraMode = 2;
         }
         if (this.gameObject.name == "btnFreeForm")
         {
             GameObject.Find("CameraFree").GetComponent<Camera>().enabled = true;
 			SetCurCam("CameraFree");
-			pr.isEnabled = true;			
+			pr.isEnabled = true;		
+			ProjectConstants.cameraMode = 4;
         }
     }
 	

@@ -21,6 +21,8 @@ public class StartOver : MonoBehaviour {
 	// When button is clicked
 	void OnClick()
 	{
+		MISCLib.StartOverLogs();
+		
 		// For user study
 		ProjectConstants.boolFlyPath = false;
 		

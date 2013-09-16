@@ -20,6 +20,8 @@ public class StartOverPattern : MonoBehaviour {
 	// When button is clicked
 	public void OnClick()
 	{
+		MISCLib.StartOverLogs();
+		
 		// For user study
 		ProjectConstants.boolFlyPath = false;		
 		

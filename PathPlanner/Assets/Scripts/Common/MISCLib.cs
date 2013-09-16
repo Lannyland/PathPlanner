@@ -410,6 +410,21 @@ namespace Assets.Scripts.Common
 				file.WriteLine(lstToWrite[i]);
 			}			
 			file.Close();
-		}			
+		}
+		
+		// Start over logs
+		public static void StartOverLogs()
+		{
+			ProjectConstants.startOverCount++;
+			ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
+			ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
+			Debug.Log("timeLeft = " + ProjectConstants.timeLeft + " score = " + ProjectConstants.score);
+			ProjectConstants.startOverLog += "startover|";
+			ProjectConstants.startOverLog += "timeleft|";
+			ProjectConstants.startOverLog += ProjectConstants.timeLeft;
+			ProjectConstants.startOverLog += "|score|";
+			ProjectConstants.startOverLog += ProjectConstants.score;
+			ProjectConstants.startOverLog += "\n";
+		}
 	}
 }

@@ -51,6 +51,11 @@ public class ChatHandler : MonoBehaviour
             if (!mIgnoreNextEnter && !mInput.selected)
             {
                 mInput.selected = true;
+				
+				// Pause timer
+				UILabel label = GameObject.Find("lblStartPause").GetComponent<UILabel>();
+				GameObject.Find("UAV").GetComponent<FlyManual>().fly = false;
+	            label.text = "Start";
             }
             mIgnoreNextEnter = false;
         }
@@ -59,22 +64,23 @@ public class ChatHandler : MonoBehaviour
 		if(mInput.selected)
 		{
 			// Disable orbit
-			if(Camera.main.GetComponent<Orbit>() != null)
+			if(ProjectConstants.cameraMode == 4)
 			{
-				Camera.main.GetComponent<Orbit>().enabled = false;
+				if(Camera.main.GetComponent<Orbit>() != null)
+				{
+					Camera.main.GetComponent<Orbit>().enabled = false;
+				}
 			}
-			
-			// Pause timer
-			UILabel label = GameObject.Find("lblStartPause").GetComponent<UILabel>();
-			GameObject.Find("UAV").GetComponent<FlyManual>().fly = false;
-            label.text = "Start";
 		}
 		else
 		{
 			// Enable orbit
-			if(Camera.main.GetComponent<Orbit>() != null)
+			if(ProjectConstants.cameraMode == 4)
 			{
-				Camera.main.GetComponent<Orbit>().enabled = true;
+				if(Camera.main.GetComponent<Orbit>() != null)
+				{
+					Camera.main.GetComponent<Orbit>().enabled = true;
+				}
 			}
 		}
 		

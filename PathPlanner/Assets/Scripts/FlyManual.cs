@@ -127,7 +127,7 @@ public class FlyManual : MonoBehaviour {
 					path[curWaypoint] = new Vector2(UAVPos.x, UAVPos.z);
 					curWaypoint++;
                     ProjectConstants.curWayPoint = curWaypoint;
-                    Debug.Log("curwaypoint=" + curWaypoint);
+                    // Debug.Log("curwaypoint=" + curWaypoint);
 				}
 				if(curWaypoint == flightDuration / 2 + 1)
 				{

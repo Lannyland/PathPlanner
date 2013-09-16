@@ -34,6 +34,8 @@ public class UserStudyCountDownTimer : MonoBehaviour
         if ((int)timeLeft < 0)
         {
             GameOver();
+			timeRemain.text = "0";
+			return;
         }
         else
         {

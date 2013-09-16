@@ -159,7 +159,11 @@ public class UserStudyLoadNext : MonoBehaviour {
 		ProjectConstants.logs.Add("timeleft|"+ProjectConstants.timeLeft);
 		ProjectConstants.logs.Add("score|"+ProjectConstants.score);
 		ProjectConstants.logs.Add("mouseclicks|"+ProjectConstants.mouseclicks);
+		// Store start over related things
+		ProjectConstants.logs.Add("startovercount|"+ProjectConstants.startOverCount);
+		ProjectConstants.logs.Add(ProjectConstants.startOverLog);
 		MISCLib.SaveToLogFile(ProjectConstants.logs);
+				
 		// Store path
 		string path = "";
 		int pathLength = 0;
@@ -261,6 +265,8 @@ public class UserStudyLoadNext : MonoBehaviour {
 		ProjectConstants.boolFlyPath = false;
 		ProjectConstants.curWayPoint = 0;
 		ProjectConstants.replies.Clear();
+		ProjectConstants.startOverCount = 0;
+		ProjectConstants.startOverLog = "";
 
         // Also reset sliding autonomy stuff
 		ProjectConstants.navMode = 1;		

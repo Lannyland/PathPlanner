@@ -20,6 +20,8 @@ public class StartOverManual : MonoBehaviour {
 	// When button is clicked
 	void OnClick()
 	{
+		MISCLib.StartOverLogs();		
+		
         GameObject UAV = GameObject.Find("UAV");
         Transform transform = UAV.transform;
         FlyManual fm = UAV.GetComponent<FlyManual>();
