@@ -4,7 +4,7 @@
 00:45|Click the Plan Path button to get started and see the path suggested for you by Artificial Intelligence.|1710,853,200,40
 01:00| Click on the left slider to change its value and see different paths suggested by AI. There might be a little bit lag when AI autonomy is computing the path for the current path segment.|1710,813,100,225
 01:30|Click the Approve button when you are happy with the current suggested path segment.|1710,593,200,45
-01:45|Optionally you can set the End Point for the next path segment by clicking the Set End Point button. Then you can drag the sphere marker to place it to your desired location. Then click Plan Path button to plan. Try that a few times.|1710,902,200,50
+01:45|You can set the End Point (optional) for the next path segment by clicking the Set End Point button. Then you can drag the sphere marker to place it to your desired location. Then click Plan Path button to plan. Try that a few times.|1710,902,200,50
 02:00|Once you click Plan Path button, you won't be able to move the End Point.|1710,902,200,50
 02:15|The slider on the right sets the resolution of the slider on the left. Change the value of the right slider to 9 and then drag the left slider handle to see how it works. Note that the sliders will only let you select valid values that makes it possible for the UAV to reach the end point you set.|1810,813,100,225
 02:35|Click Plan Path to create a new path segment and drag the left slider to see paths suggested by AI. Approve the path segment you like the best by clicking the Approve button.|1710,854,200,275
