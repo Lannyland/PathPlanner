@@ -94,6 +94,7 @@ namespace Assets.Scripts
         #region User Study Parameters
 
         public static int GroupID = 0;
+        public static int[,] groups = new int[60, 6];
         public static int pageIndex = 0;
         public static List<string> instructions = new List<string>();
         public static List<int> durations = new List<int>();

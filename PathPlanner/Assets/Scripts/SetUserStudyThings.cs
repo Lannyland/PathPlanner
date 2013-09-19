@@ -12,13 +12,64 @@ public class SetUserStudyThings : MonoBehaviour {
 
         // Debug.Log("pageIndex = " + ProjectConstants.pageIndex);
         // Set everything ready for User Study
+        // Prepare 60 gruops
+        PrepareGroups();
+
         SetUserStudyParameters();
         UILabel label = GameObject.Find("GUIText").GetComponent<UILabel>();
         label.text = ProjectConstants.instructions[ProjectConstants.pageIndex];
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Sets up sequences for 60 groups
+    private void PrepareGroups()
+    {
+        if (ProjectConstants.pageIndex > 0)
+        {
+            return;
+        }
+
+        List<int[]> perms = new List<int[]>();
+        perms.Add(new int[] { 1, 2, 3 });
+        perms.Add(new int[] { 1, 3, 2 });
+        perms.Add(new int[] { 2, 1, 3 });
+        perms.Add(new int[] { 2, 3, 1 });
+        perms.Add(new int[] { 3, 1, 2 });
+        perms.Add(new int[] { 3, 2, 1 });
+
+        int index = 0;
+        for (int j = 0; j < perms.Count; j++)
+        {
+            for(int k = 0; k < perms.Count; k++)
+            {
+                if (j != k)
+                {     
+                    int[] temp = new int[3];
+                    Array.Copy(perms[j], temp, 3);
+                    ProjectConstants.groups[index, 0] = perms[k][0];
+                    ProjectConstants.groups[index, 1] = perms[k][1];
+                    ProjectConstants.groups[index, 2] = perms[k][2];
+                    ProjectConstants.groups[index, 3] = temp[0] + 3;
+                    ProjectConstants.groups[index, 4] = temp[1] + 3;
+                    ProjectConstants.groups[index, 5] = temp[2] + 3;
+                    index++;
+                }
+            }
+        }
+
+        for (int i = 0; i < 30; i++)
+        {
+            ProjectConstants.groups[i + 30, 0] = ProjectConstants.groups[i, 3];
+            ProjectConstants.groups[i + 30, 1] = ProjectConstants.groups[i, 4];
+            ProjectConstants.groups[i + 30, 2] = ProjectConstants.groups[i, 5];
+            ProjectConstants.groups[i + 30, 3] = ProjectConstants.groups[i, 0];
+            ProjectConstants.groups[i + 30, 4] = ProjectConstants.groups[i, 1];
+            ProjectConstants.groups[i + 30, 5] = ProjectConstants.groups[i, 2];
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 	
 	}
 
@@ -37,7 +88,7 @@ public class SetUserStudyThings : MonoBehaviour {
 			#region Set texts and parameters
 			
 	        // First screen set Group ID
-	        string str1 = "\n\n\n\n\nPlease enter a Group ID [9696FB](1 to 12)[FFFFFF] and then click Next to continue.";
+	        string str1 = "\n\n\n\n\nPlease enter a Group ID [9696FB](1 to 60)[FFFFFF] and then click Next to continue.";
 	        ProjectConstants.instructions.Add(str1);
 	        ProjectConstants.durations.Add(0);
 	        ProjectConstants.nextScene.Add("UserStudy");
@@ -376,125 +427,156 @@ public class SetUserStudyThings : MonoBehaviour {
 
             #endregion
 
+            int i = ProjectConstants.nextScene.Count + 3;
+            for (int j = 0; j < 6; j++)
+            {
+                switch (ProjectConstants.groups[ProjectConstants.GroupID - 1, j])
+                {
+                    case 1:
+                        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+                        break;
+                    case 2:
+                        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+                        break;
+                    case 3:
+                        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+                        break;
+                    case 4:
+                        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+                        break;
+                    case 5:
+                        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+                        break;
+                    case 6:
+                        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+                        break;
+                    default:
+                        break;
+                }
+                if (j == 0)
+                {
+                    NoCompareScreen(i);
+                }
+            }
+
             #region Different sequences based on Group ID
 
-            int i = ProjectConstants.nextScene.Count + 3;
-            switch (ProjectConstants.GroupID)
-            {
-				// Group 1-6 Scenario 1 first
-				// Group 7-12 Scenario 2 first
-                case 1:  // 2	1	3	6	4	5
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    NoCompareScreen(i);
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-					SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);                    
-                    break;
-                case 2: // 1	3	2	4	5	6
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    NoCompareScreen(i);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-					ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-					PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-					SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);                    
-                    break;
-                case 3: // 3	2	1	5	4	6
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    NoCompareScreen(i);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-					ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-					ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    break;
-                case 4: // 2	3	1	5	6	4
-					PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);                    
-					NoCompareScreen(i);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-					ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);                    
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-					ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    break;
-                case 5: // 3	1	2	4	6	5
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    NoCompareScreen(i);                    
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-					PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-                    break;
-                case 6: // 1	2	3	6	5	4
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    NoCompareScreen(i);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-					SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    break;
-                case 7: // 6	5	4	2	1	3
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-					ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    NoCompareScreen(i);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    break;
-                case 8: // 6	4	5	2	3	1
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    NoCompareScreen(i);
-                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    break;
-                case 9: // 4	6	5	3	1	2
-                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    NoCompareScreen(i);
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    break;
-                case 10: // 4	5	6	1	2	3
-                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    NoCompareScreen(i);
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    break;
-                case 11: // 5	4	6	1	3	2
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-                    NoCompareScreen(i);
-                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    break;
-                case 12: // 5	6	4	3	2	1
-                    PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
-                    NoCompareScreen(i);
-                    SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
-                    ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
-                    SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
-                    PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
-                    ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
-                    break;
-                default:
+            //switch (ProjectConstants.GroupID)
+            //{
+            //    // Group 1-6 Scenario 1 first
+            //    // Group 7-12 Scenario 2 first
+            //    case 1:  // 2	1	3	6	4	5
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        NoCompareScreen(i);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);                    
+            //        break;
+            //    case 2: // 1	3	2	4	5	6
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        NoCompareScreen(i);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);                    
+            //        break;
+            //    case 3: // 3	2	1	5	4	6
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        NoCompareScreen(i);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        break;
+            //    case 4: // 2	3	1	5	6	4
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);                    
+            //        NoCompareScreen(i);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);                    
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        break;
+            //    case 5: // 3	1	2	4	6	5
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        NoCompareScreen(i);                    
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        break;
+            //    case 6: // 1	2	3	6	5	4
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        NoCompareScreen(i);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        break;
+            //    case 7: // 6	5	4	2	1	3
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        NoCompareScreen(i);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        break;
+            //    case 8: // 6	4	5	2	3	1
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        NoCompareScreen(i);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        break;
+            //    case 9: // 4	6	5	3	1	2
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        NoCompareScreen(i);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        break;
+            //    case 10: // 4	5	6	1	2	3
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        NoCompareScreen(i);
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        break;
+            //    case 11: // 5	4	6	1	3	2
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        NoCompareScreen(i);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        break;
+            //    case 12: // 5	6	4	3	2	1
+            //        PatternWithDiff(instPD, durPD, nextPD, diffPD, distPD, chatPD);
+            //        NoCompareScreen(i);
+            //        SlideWithDiff(instSD, durSD, nextSD, diffSD, distSD, chatSD);
+            //        ManualWithDiff(instMD, durMD, nextMD, diffMD, distMD, chatMD);
+            //        SlideNoDiff(instS, durS, nextS, diffS, distS, chatS);
+            //        PatternNoDiff(instP, durP, nextP, diffP, distP, chatP);
+            //        ManualNoDiff(instM, durM, nextM, diffM, distM, chatM);
+            //        break;
+            //    default:
 
-                    break;
-            }
+            //        break;
+            //}
 
             #endregion
 
