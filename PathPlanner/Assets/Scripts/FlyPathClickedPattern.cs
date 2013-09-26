@@ -21,12 +21,17 @@ public class FlyPathClickedPattern : MonoBehaviour {
 	void OnClick()
 	{
 		// Save things for user study
-		ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
-		// Debug.Log ("timeleft=" + ProjectConstants.timeLeft);		
-		ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
-		// Debug.Log("score=" + ProjectConstants.score);
+        if (!ProjectConstants.boolFlyPath)
+        {
+            ProjectConstants.boolFlyPath = true;
+            Debug.Log("Remembering score and timeleft");
+            ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
+            Debug.Log ("timeleft=" + ProjectConstants.timeLeft);		
+            ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
+            Debug.Log("score=" + ProjectConstants.score);
+        }
 
-		GameObject.Find("btnStartOver").GetComponent<UIButton>().GetComponent<StartOverPattern>().OnClick();
+		GameObject.Find("btnStartOver").GetComponent<UIButton>().GetComponent<StartOverPattern>().ResetThings();
         GameObject.Find("btnFly").GetComponent<UIButton>().isEnabled = true;
         GameObject.Find("btnStart").GetComponent<UIButton>().isEnabled = false;
 

@@ -20,14 +20,17 @@ public class FlyPathClicked : MonoBehaviour {
 	
 	void OnClick()
 	{
-		Debug.Log("Fly Path button is clicked.");	
+		// Debug.Log("Fly Path button is clicked.");	
 		
 		// Save things for user study
-		ProjectConstants.boolFlyPath = true;
-		ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
-		Debug.Log ("timeleft=" + ProjectConstants.timeLeft);
-		ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
-		Debug.Log("score=" + ProjectConstants.score);
+        if (!ProjectConstants.boolFlyPath)
+        {
+            ProjectConstants.boolFlyPath = true;
+            ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
+            Debug.Log("timeleft=" + ProjectConstants.timeLeft);
+            ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
+            Debug.Log("score=" + ProjectConstants.score);
+        }
 		
         // First set things back to starting position
         // Move UAV back to original position

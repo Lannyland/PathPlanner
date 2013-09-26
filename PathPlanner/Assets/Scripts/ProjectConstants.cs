@@ -33,7 +33,7 @@ namespace Assets.Scripts
         public static int intFlightDuration = 60;       // Default flight duration in minutes.
 
         // Max wait time (*10)
-        public static int MaxWaitTime = 1500;            // 15000 milisecond, so 15 seconds.
+        public static int MaxWaitTime = 600000;            // 15000 milisecond, so 15 seconds.
 
         // Also used as a data store
         public static RtwMatrix mOriginalDistMap = null;

@@ -20,16 +20,21 @@ public class StartOverPattern : MonoBehaviour {
 	// When button is clicked
 	public void OnClick()
 	{
+        Debug.Log("Start Over button clicked.");
 		MISCLib.StartOverLogs();
-		
-		// For user study
-		ProjectConstants.boolFlyPath = false;		
-		
-		// If flying path, stop
-		GameObject.Find("UAV").GetComponent<FlyPathPattern>().fly = false;
-		GameObject.Find("UAV").GetComponent<FlyPathPattern>().currentWayPoint = 20000;
-		
-		GameObject UAV = GameObject.Find("UAV");
+        // For user study
+        ProjectConstants.boolFlyPath = false;
+
+        ResetThings();
+	}
+
+    public void ResetThings()
+    {
+        // If flying path, stop
+        GameObject.Find("UAV").GetComponent<FlyPathPattern>().fly = false;
+        GameObject.Find("UAV").GetComponent<FlyPathPattern>().currentWayPoint = 20000;
+
+        GameObject UAV = GameObject.Find("UAV");
         Transform transform = UAV.transform;
         FlyPattern fm = UAV.GetComponent<FlyPattern>();
 
@@ -41,25 +46,25 @@ public class StartOverPattern : MonoBehaviour {
         fm.distColors = mesh.colors;
 
         // Clear line
-		fm.ClearLine();
-		fm.Initialize();
+        fm.ClearLine();
+        fm.Initialize();
         GameObject.Find("UAV").GetComponent<FlyPathPattern>().Initialize();
-		
-		// Move UAV back to center and make it movable
+
+        // Move UAV back to center and make it movable
         transform.position = new Vector3(0f, 4f, 0f);
         transform.rotation = Quaternion.identity;
         UAV.GetComponent<MoveUFO>().movable = ProjectConstants.UAVMovable;
-				
+
         //// Reset timer
         //fm.timer = ProjectConstants.intFlightDuration * 60;
-		
-		// Set everything back to default values
-		ProjectConstants.mDistMapCurStepUndo = ProjectConstants.mOriginalDistMap.Clone();
+
+        // Set everything back to default values
+        ProjectConstants.mDistMapCurStepUndo = ProjectConstants.mOriginalDistMap.Clone();
         Vector3[] copy = new Vector3[mesh.vertices.Length];
         Array.Copy(mesh.vertices, copy, copy.Length);
         ProjectConstants.curVertices = copy;
-		
-		// Enable those buttons
+
+        // Enable those buttons
         GameObject.Find("btnStart").GetComponent<UIButton>().isEnabled = true;
         fm.fly = false;
 
@@ -75,8 +80,8 @@ public class StartOverPattern : MonoBehaviour {
 
         // Disable fly button
         GameObject.Find("btnFly").GetComponent<UIButton>().isEnabled = false;
-		
-		// Clear all undos
-		GameObject.Find("UAV").GetComponent<FlyPattern>().StartOver();		
-	}
+
+        // Clear all undos
+        GameObject.Find("UAV").GetComponent<FlyPattern>().StartOver();
+    }
 }

@@ -14,7 +14,7 @@ public class MouseClickTracker : MonoBehaviour {
         if (Input.GetMouseButtonUp(0))
         {
             ProjectConstants.mouseclicks++;
-            Debug.Log("Mouse click detected.");
+            // Debug.Log("Mouse click detected.");
         }
 	}
 }

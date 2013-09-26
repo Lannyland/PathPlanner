@@ -416,9 +416,12 @@ namespace Assets.Scripts.Common
 		public static void StartOverLogs()
 		{
 			ProjectConstants.startOverCount++;
-			ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
-			ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
-			Debug.Log("timeLeft = " + ProjectConstants.timeLeft + " score = " + ProjectConstants.score);
+            if (ProjectConstants.boolFlyPath != true)
+            {
+                ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
+                ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
+            }
+            Debug.Log("timeLeft = " + ProjectConstants.timeLeft + " score = " + ProjectConstants.score);
 			ProjectConstants.startOverLog += "startover|";
 			ProjectConstants.startOverLog += "timeleft|";
 			ProjectConstants.startOverLog += ProjectConstants.timeLeft;

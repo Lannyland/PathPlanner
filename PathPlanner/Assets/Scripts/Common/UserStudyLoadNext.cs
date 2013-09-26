@@ -146,11 +146,11 @@ public class UserStudyLoadNext : MonoBehaviour {
 		if(!ProjectConstants.boolFlyPath)
 		{
 			// Debug.Log ("Inside SaveEverythingToLog method.");
-			// Debug.Log("boolFlyPath=" + ProjectConstants.boolFlyPath);			
+			 Debug.Log("boolFlyPath=" + ProjectConstants.boolFlyPath);			
 			ProjectConstants.timeLeft = GameObject.Find("lblTime").GetComponent<UILabel>().text;
 			// Debug.Log ("timeleft=" + ProjectConstants.timeLeft);
 			ProjectConstants.score = GameObject.Find("lblScore").GetComponent<UILabel>().text;
-			// Debug.Log("score=" + ProjectConstants.score);
+			Debug.Log("score=" + ProjectConstants.score);
 		}
 		// If user clicked Fly Path and not Start Over, then use stored numbers directly		
 		string [] temp = ProjectConstants.instructions[ProjectConstants.pageIndex-1].Split('\n');

@@ -53,9 +53,14 @@ public class ChatHandler : MonoBehaviour
                 mInput.selected = true;
 				
 				// Pause timer
-				UILabel label = GameObject.Find("lblStartPause").GetComponent<UILabel>();
-				GameObject.Find("UAV").GetComponent<FlyManual>().fly = false;
-	            label.text = "Start";
+                if (ProjectConstants.nextScene[ProjectConstants.pageIndex - 1] == "UserStudyManualFlight" ||
+                    ProjectConstants.nextScene[ProjectConstants.pageIndex - 1] == "UserStudyManualFlightTraining")
+                {
+
+                    UILabel label = GameObject.Find("lblStartPause").GetComponent<UILabel>();
+                    GameObject.Find("UAV").GetComponent<FlyManual>().fly = false;
+                    label.text = "Start";
+                }
             }
             mIgnoreNextEnter = false;
         }

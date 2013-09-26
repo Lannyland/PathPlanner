@@ -29,6 +29,10 @@ public class UserStudyCountDownTimer : MonoBehaviour
             GameObject.Find("btnNext").GetComponent<UIButton>().isEnabled = true;
         }
 
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.L))
+        {
+            GameObject.Find("btnNext").GetComponent<UIButton>().isEnabled = true;
+        }
 
         timeLeft = timeLeft - Time.deltaTime;
         if ((int)timeLeft < 0)
