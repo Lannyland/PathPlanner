@@ -418,7 +418,11 @@ public class FlyPattern : MonoBehaviour {
 			}
 			else
 			{
-				lastSegLeft += curSegLeft;
+                if (line.maxDrawIndex < 2)
+                {
+                    return;
+                }
+                lastSegLeft += curSegLeft;                
 			}
         }
 		unitCount = lastSegLeft / screenUnit;
