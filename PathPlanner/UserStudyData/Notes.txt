@@ -1,0 +1,24 @@
+--------------------------------
+Scenario 1:
+--------------------------------
+No human inputs
+=================
+EA: 5845
+LHC-GW-CONV: 
+=================
+With human input of one end point
+=================
+EA_E: 
+LHC-GW-CONV_E: 
+--------------------------------
+Scenario 2:
+--------------------------------
+No human inputs
+=================
+EA: 1701
+LHC-GW-CONV: 1674
+=================
+With human input of one end point
+=================
+EA_E: 
+LHC-GW-CONV_E: 
