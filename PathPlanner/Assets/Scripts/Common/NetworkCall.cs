@@ -201,7 +201,7 @@ namespace TCPIPTest
             }
 	
 	        // Remember TopN parameter for TopTwo and TopN algorithms
-	        newRequest.TopN = 5;
+	        newRequest.TopN = 15;
 	    }
 	
 		// Construct byte array for Server Queue Item

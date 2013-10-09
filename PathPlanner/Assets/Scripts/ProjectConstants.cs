@@ -14,8 +14,11 @@ namespace Assets.Scripts
         public static int intMapWidth = 100;
         public static int intMapHeight = 100;
         
-        public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TestDiffMap100_012.csv";
-        public static string strDistFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\TestDistMap100.csv";
+        // public static string strDiffFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DiffMaps\TestDiffMap100_012.csv";
+        // public static string strDistFileLoad = @"C:\Lanny\MAMI\IPPA\Maps\DistMaps\TestDistMap100.csv";
+
+        public static string strDiffFileLoad = @"C:\Lanny\MAMI\PathPlanner\PathPlanner\UserStudyData\TestDiffMap1.csv";
+        public static string strDistFileLoad = @"C:\Lanny\MAMI\PathPlanner\PathPlanner\UserStudyData\TestDistMap1.csv";
 
         // public static string strDiffFileLoad = @"http://lannyland.com/Unity/TestDistMap100.csv";
         // public static string strDistFileLoad = @"http://lannyland.com/Unity/TestDiffMap100_012.csv";

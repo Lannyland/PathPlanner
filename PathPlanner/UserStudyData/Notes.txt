@@ -4,21 +4,21 @@ Scenario 1:
 No human inputs
 =================
 EA: 5845
-LHC-GW-CONV: 
+LHC-GW-CONV: 5831
 =================
 With human input of one end point
 =================
 EA_E: 
-LHC-GW-CONV_E: 
+LHC-GW-CONV_E: 6034
 --------------------------------
 Scenario 2:
---------------------------------
+--------------------------------	
 No human inputs
 =================
 EA: 1701
-LHC-GW-CONV: 1674
+LHC-GW-CONV: 1389
 =================
 With human input of one end point
 =================
 EA_E: 
-LHC-GW-CONV_E: 
+LHC-GW-CONV_E: 1737 (1775)
