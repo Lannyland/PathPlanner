@@ -1,0 +1,134 @@
+==========================================================================================
+Hypotheses:
+-- Sliding Autonomy allows the user to plan strategically while autonomy plans tactically.
+Findings:
+-- Yes (This is from observation. How to quantify? I do have videos.)
+Observations:
+-- 
+Reasoning:
+-- Human is just better at planning at higher abstract level while autonomy is much better at accurately covering an area (possibly of irregular shapes).
+
+==========================================================================================
+Hypotheses:
+-- Sliding autonomy reduces human mental workload. 
+Findings:
+-- Secondary task performance shows NO reduced human mental workload across all three flying modes. NASA-TLX, however, does show that test subjects believe there are less mental workload in Pattern and Sliding Autonomy flying modes compared to Manual.
+Observations:
+-- With Pattern and Sliding Autnomy modes, there are more retries.
+-- With Sliding Autonomy, people set more end points and had more segments. (Have to extract data from videos.)
+Reasoning:
+-- Human don't trust autonomy. The truth is that with only one end point, autonomy can score much higher than most people. Maybe in long term this will be better?
+-- Law of stretched systems: every system is stretched operate at its capacity.
+-- When human sees obvious error, they cannot resist the desire to correct it, then turning into a fight with autonomy, at the cost of increased mental workload, even though the error might have very little value, and the cost of overall bad performance when human wins on that one little thing. They get mentally sucked in the fight.
+-- Also when human thinks he/she sees obvious error (when infact autonomy was right).....
+-- Maybe with more complicated scenarios, human would give up because it's not humanly possible to compute things, and just rely on autonomy more?
+-- Test subjects wants immediate feedback when moving the slider even though they were told about possible delays. When slider has delay, they get frustrated and forget about secondary task. Then they click and click and click, ending up with values not desired (which took longer time to correct).
+
+==========================================================================================
+Hypotheses:
+-- Human performs worse with high information scenario (with a task difficulty map) than low information secnario (without a task difficulty map).
+Findings:
+-- Human perform about the same with high information scenario and low information secnario overall. (If only compare manual and pattern, they did perform worse with high information scenario.)
+Observations:
+--
+Reasoning:
+--
+
+==========================================================================================
+Hypotheses:
+-- Sliding autonomy improves the user's performance in both low information and high information scenarios. (Yes.)
+Findings:
+-- Sliding autonomy does improve the user's performance in both low information and high information scenarios compared to manual and pattern.
+Observations:
+--
+Reasoning:
+--
+
+==========================================================================================
+Hypotheses:
+-- Human working together with autonomy outperforms both human working alone and autonomy working alone. (Yes.)
+Findings:
+-- Human working together with autonomy does outperform both human working alone and autonomy working alone.
+Observations:
+--
+Reasoning:
+--
+
+==========================================================================================
+Hypotheses:
+-- [???] Sliding autonomy allows the user to quickly develop mental modals of how autonomy works.
+Findings:
+-- 
+Observations:
+--
+Reasoning:
+--
+
+==========================================================================================
+Hypotheses:
+-- [future] Sliding autonomy allows the user to plan strategically and incorporate information only the user has while autonomy plans tactically.
+Findings:
+-- 
+Observations:
+--
+Reasoning:
+--
+
+==========================================================================================
+Hypotheses:
+-- [future] Sliding autnomy allows users to calibrate trust on autonomy.
+Findings:
+-- 
+Observations:
+--
+Reasoning:
+--
+
+==========================================================================================
+Other Findings: (When P is 0.05 or smaller, result is significant.)
+-- Performance (score) has significant differences across flying modes.
+-- Performance (score) has NO significant differences across scenarios.
+-- Time spent has NO significant differences across flying modes.
+-- Time spent has NO significant differences across scenarios.
+-- Try counts has NO significant differences across flying modes.
+-- Try counts has NO significant differences across scenarios.
+-- Try counts does have significant differences between manual and pattern/sliding autonomy.
+-- Total mouse clicks has significant differences across flying modes.
+-- Total mouse clicks has significant differences across scenarios.
+-- Error rate has NO significant differences across flying modes.
+-- Error rate has NO significant differences across scenarios.
+-- Raw TLX has significant differences across flying modes.
+-- Raw TLX has significant differences across scenarios.
+-- Gender has NO significant effect on performance across flying modes.
+-- Gender has NO significant effect on performance across scenarios.
+-- Videogame experience has NO significant effect on performance across flying modes.
+-- Videogame experience has NO significant effect on performance across scenarios.
+-- Whether subject used full autonomy has NO significant effect on performance across flying modes.
+-- Whether subject used full autonomy has NO significant effect on performance across scenarios.
+-- Scenario starting order has NO significant effect on performance across flying modes.
+-- Scenario starting order has NO significant effect on performance across scenarios.
+
+-- Overall correlation between error rate and Raw TLX is -0.22587, NOT significant.
+-- In Manual mode correlation between error rate and Raw TLX is -0.35021, NOT significant.
+-- In Pattern mode correlation between error rate and Raw TLX is -0.17366, NOT significant.
+-- In Sliding Autonomy mode correlation between error rate and Raw TLX is -0.15145, NOT significant.
+-- In Scenario 1 correlation between error rate and Raw TLX is -0.16471, NOT significant.
+-- In Scenario 2 correlation between error rate and Raw TLX is -0.31409, NOT significant.
+
+-- NASA-TLX says that in Manual mode people think they have higher physical workload, but lower mental workload.
+-- Mis-match in perception about whether outperformed autonomy in post-survey. (19.23% said NO, and 50.00% said Not Sure)
+-- 34.62% people didn't think Sliding Autonomy did the best.
+
+
+Other Observations:
+==========================================================================================
+-- A lot more retries in Pattern and Sliding Autonomy modes.
+-- In scenario 2, after covering the only distinct probability hill, many test subjects switched to task difficulty map flew using that map directly.
+-- Maybe too optimistic about own performance in pattern?
+-- Desire to combine pattern and Sliding Autonomy.
+-- 
+
+
+Paper:
+==========================================================================================
+-- My secondary task has ecological validity
