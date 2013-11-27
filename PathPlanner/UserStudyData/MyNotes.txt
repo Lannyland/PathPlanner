@@ -1,3 +1,11 @@
+Selling points:
+1.	The framework with added dimensions
+2.	Human-Autonomy team outperforms human alone and autonomy alone in both high information workload and low information workload scenarios.
+3.	With equal secondary task performance, primary task performance significantly different.
+4.	
+
+
+
 ==========================================================================================
 Hypotheses:
 -- Sliding Autonomy allows the user to plan strategically while autonomy plans tactically.
@@ -132,3 +140,386 @@ Other Observations:
 Paper:
 ==========================================================================================
 -- My secondary task has ecological validity
+
+
+
+
+
+
+
+==========================================================================================
+best_vs_scenario_highest （significant across methods, not scenarios)
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       scenario              1      25       7.51    0.0112
+                       method                2      50     223.03    <.0001
+                       scenario*method       2      50       7.42    0.0015
+
+                                       Least Squares Means
+
+                                                        Standard
+   Effect             scenario    method    Estimate       Error      DF    t Value    Pr > |t|
+
+   scenario           1                       0.7699     0.01123      25      68.54      <.0001
+   scenario           2                       0.7417     0.01123      25      66.03      <.0001
+   method                         1           0.5940     0.01393      50      42.65      <.0001
+   method                         2           0.7275     0.01393      50      52.23      <.0001
+   method                         3           0.9460     0.01393      50      67.91      <.0001
+
+==========================================================================================					   
+time_spent (not significant across methods or scenarios)
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       scenario              1      25       8.35    0.0079
+                       method                2      50       1.16    0.3226
+                       scenario*method       2      50       2.52    0.0903
+
+                                       Least Squares Means
+
+                                                        Standard
+   Effect             scenario    method    Estimate       Error      DF    t Value    Pr > |t|
+
+   scenario           1                       224.01     12.0632      25      18.57      <.0001
+   scenario           2                       250.47     12.0632      25      20.76      <.0001
+   method                         1           243.35     12.6572      50      19.23      <.0001
+   method                         2           240.02     12.6572      50      18.96      <.0001
+   method                         3           228.37     12.6572      50      18.04      <.0001
+
+==========================================================================================
+try_count (not significant across methods or scenarios)
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       scenario              1      25       3.32    0.0804
+                       method                2      50       9.47    0.0003
+                       scenario*method       2      50       9.39    0.0003
+
+                                       Least Squares Means
+
+                                                        Standard
+   Effect             scenario    method    Estimate       Error      DF    t Value    Pr > |t|
+
+   scenario           1                       3.0769      0.3664      25       8.40      <.0001
+   scenario           2                       2.6667      0.3664      25       7.28      <.0001
+   method                         1           1.7500      0.4349      50       4.02      0.0002
+   method                         2           3.5577      0.4349      50       8.18      <.0001
+   method                         3           3.3077      0.4349      50       7.61      <.0001
+					   
+==========================================================================================
+mouse_clicks (significant across methods and scenarios)
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       scenario              1      25      20.77    0.0001
+                       method                2      50      46.20    <.0001
+                       scenario*method       2      50       1.50    0.2325
+
+                                       Least Squares Means
+
+                                                        Standard
+   Effect             scenario    method    Estimate       Error      DF    t Value    Pr > |t|
+
+   scenario           1                      46.6410      4.6892      25       9.95      <.0001
+   scenario           2                      64.0897      4.6892      25      13.67      <.0001
+   method                         1          20.8269      5.6808      50       3.67      0.0006
+   method                         2          81.1154      5.6808      50      14.28      <.0001
+   method                         3          64.1538      5.6808      50      11.29      <.0001
+					   
+==========================================================================================
+mouse_clicks_per_try (significant across methods and scenarios)
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       scenario              1      25      28.65    <.0001
+                       method                2      50      19.47    <.0001
+                       scenario*method       2      50       9.36    0.0004
+
+                                       Least Squares Means
+
+                                                        Standard
+   Effect             scenario    method    Estimate       Error      DF    t Value    Pr > |t|
+
+   scenario           1                      15.9509      2.5947      25       6.15      <.0001
+   scenario           2                      33.5367      2.5947      25      12.93      <.0001
+   method                         1          13.0096      2.9043      50       4.48      <.0001
+   method                         2          35.6412      2.9043      50      12.27      <.0001
+   method                         3          25.5805      2.9043      50       8.81      <.0001
+					   
+==========================================================================================
+error_rate (not significant across methods or scenarios)
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       scenario              1      25       0.00    0.9941
+                       method                2      50       1.26    0.2915
+                       scenario*method       2      50       0.31    0.7322
+
+                                       Least Squares Means
+
+                                                        Standard
+   Effect             scenario    method    Estimate       Error      DF    t Value    Pr > |t|
+
+   scenario           1                       0.5488     0.05178      25      10.60      <.0001
+   scenario           2                       0.5490     0.05178      25      10.60      <.0001
+   method                         1           0.5294     0.05170      50      10.24      <.0001
+   method                         2           0.5669     0.05170      50      10.97      <.0001
+   method                         3           0.5504     0.05170      50      10.65      <.0001
+					   
+==========================================================================================
+avg_delay (not significant across methods or scenarios)
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       scenario              1      25       0.03    0.8755
+                       method                2      50       0.46    0.6327
+                       scenario*method       2      50       0.04    0.9650
+
+                                       Least Squares Means
+
+                                                        Standard
+   Effect             scenario    method    Estimate       Error      DF    t Value    Pr > |t|
+
+   scenario           1                      10.8796      0.5594      25      19.45      <.0001
+   scenario           2                      10.7733      0.5594      25      19.26      <.0001
+   method                         1          10.3946      0.6524      50      15.93      <.0001
+   method                         2          11.1698      0.6524      50      17.12      <.0001
+   method                         3          10.9150      0.6524      50      16.73      <.0001
+					   
+==========================================================================================
+Raw_TLX (significant across methods and scenarios)
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       scenario              1      25      31.35    <.0001
+                       method                2      50      14.15    <.0001
+                       scenario*method       2      50       1.56    0.2202
+
+                                       Least Squares Means
+
+                                                        Standard
+   Effect             scenario    method    Estimate       Error      DF    t Value    Pr > |t|
+
+   scenario           1                      48.1944      2.5024      25      19.26      <.0001
+   scenario           2                      58.1731      2.5024      25      23.25      <.0001
+   method                         1          61.5064      2.8138      50      21.86      <.0001
+   method                         2          49.1827      2.8138      50      17.48      <.0001
+   method                         3          48.8622      2.8138      50      17.37      <.0001
+
+==========================================================================================
+error_rate and Raw_TLX correlation: (basically no significant correlation)
+                            Pearson Correlation Coefficients, N = 156
+                                    Prob > |r| under H0: Rho=0
+
+                                                error_
+                                                  rate       Raw_TLX
+
+                              error_rate       1.00000      -0.22587
+                              error_rate                      0.0046
+
+                              Raw_TLX         -0.22587       1.00000
+                              Raw_TLX           0.0046
+
+Method 1:
+                             Pearson Correlation Coefficients, N = 52
+                                    Prob > |r| under H0: Rho=0
+
+                                                error_
+                                                  rate       Raw_TLX
+
+                              error_rate       1.00000      -0.35021
+                              error_rate                      0.0109
+
+                              Raw_TLX         -0.35021       1.00000
+                              Raw_TLX           0.0109
+
+Method 2:
+                             Pearson Correlation Coefficients, N = 52
+                                    Prob > |r| under H0: Rho=0
+
+                                                error_
+                                                  rate       Raw_TLX
+
+                              error_rate       1.00000      -0.17366
+                              error_rate                      0.2183
+
+                              Raw_TLX         -0.17366       1.00000
+                              Raw_TLX           0.2183
+
+Method 3:
+                             Pearson Correlation Coefficients, N = 52
+                                    Prob > |r| under H0: Rho=0
+
+                                                error_
+                                                  rate       Raw_TLX
+
+                              error_rate       1.00000      -0.15145
+                              error_rate                      0.2838
+
+                              Raw_TLX         -0.15145       1.00000
+                              Raw_TLX           0.2838
+
+Scenario 1:
+                             Pearson Correlation Coefficients, N = 78
+                                    Prob > |r| under H0: Rho=0
+
+                                                error_
+                                                  rate       Raw_TLX
+
+                              error_rate       1.00000      -0.16471
+                              error_rate                      0.1496
+
+                              Raw_TLX         -0.16471       1.00000
+                              Raw_TLX           0.1496
+
+Scenario 2:
+                             Pearson Correlation Coefficients, N = 78
+                                    Prob > |r| under H0: Rho=0
+
+                                                error_
+                                                  rate       Raw_TLX
+
+                              error_rate       1.00000      -0.31409
+                              error_rate                      0.0051
+
+                              Raw_TLX         -0.31409       1.00000
+                              Raw_TLX           0.0051
+							  
+==========================================================================================
+gender  (no significant difference across methods or scenarios)
+                                  Type 3 Tests of Fixed Effects
+
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       gender                1      24       0.05    0.8292
+                       scenario*gender       1      24       0.76    0.3930
+                       method*gender         2      48       0.59    0.5602
+
+                                       Least Squares Means
+
+                                                            Standard
+ Effect            gender    scenario   method   Estimate      Error     DF   t Value   Pr > |t|
+
+ gender             Female                         0.7582    0.01498     24     50.60     <.0001
+ gender             Male                           0.7538    0.01387     24     54.34     <.0001
+ scenario*gender    Female   1                     0.7772    0.01681     24     46.24     <.0001
+ scenario*gender    Male     1                     0.7637    0.01556     24     49.08     <.0001
+ scenario*gender    Female   2                     0.7392    0.01681     24     43.98     <.0001
+ scenario*gender    Male     2                     0.7438    0.01556     24     47.80     <.0001
+ method*gender      Female              1          0.5972    0.02079     48     28.72     <.0001
+ method*gender      Male                1          0.5913    0.01925     48     30.71     <.0001
+ method*gender      Female              2          0.7394    0.02079     48     35.56     <.0001
+ method*gender      Male                2          0.7173    0.01925     48     37.26     <.0001
+ method*gender      Female              3          0.9381    0.02079     48     45.11     <.0001
+ method*gender      Male                3          0.9527    0.01925     48     49.49     <.0001
+					   
+==========================================================================================
+exp_video_game  (no significant difference across methods or scenarios)      
+                                  Type 3 Tests of Fixed Effects
+
+                                             Num     Den
+                    Effect                    DF      DF    F Value    Pr > F
+
+                    exp_video_game             4      21       0.78    0.5497
+                    scenario*exp_video_g       4      21       1.64    0.2011
+                    method*exp_video_gam       8      42       1.13    0.3650
+
+                                       Least Squares Means
+
+                                                                           Standard
+Effect                exp_video_game           scenario  method  Estimate     Error    DF  t Value
+
+exp_video_game         Extremely experienced                       0.7843   0.05182    21    15.14
+exp_video_game         Moderately experienced                      0.7492   0.01727    21    43.37
+exp_video_game         Not at all experienced                      0.7373   0.02115    21    34.86
+exp_video_game         Slightly experienced                        0.7524   0.02317    21    32.47
+exp_video_game         Very experienced                            0.7877   0.02317    21    33.99
+scenario*exp_video_g   Extremely experienced   1                   0.7714   0.05753    21    13.41
+scenario*exp_video_g   Moderately experienced  1                   0.7641   0.01918    21    39.84
+scenario*exp_video_g   Not at all experienced  1                   0.7636   0.02349    21    32.51
+scenario*exp_video_g   Slightly experienced    1                   0.7760   0.02573    21    30.16
+scenario*exp_video_g   Very experienced        1                   0.7816   0.02573    21    30.38
+scenario*exp_video_g   Extremely experienced   2                   0.7972   0.05753    21    13.86
+scenario*exp_video_g   Moderately experienced  2                   0.7342   0.01918    21    38.28
+scenario*exp_video_g   Not at all experienced  2                   0.7111   0.02349    21    30.27
+scenario*exp_video_g   Slightly experienced    2                   0.7288   0.02573    21    28.33
+scenario*exp_video_g   Very experienced        2                   0.7938   0.02573    21    30.85
+method*exp_video_gam   Extremely experienced             1         0.6395   0.07134    42     8.96
+method*exp_video_gam   Moderately experienced            1         0.5951   0.02378    42    25.02
+method*exp_video_gam   Not at all experienced            1         0.5271   0.02912    42    18.10
+method*exp_video_gam   Slightly experienced              1         0.6081   0.03190    42    19.06
+method*exp_video_gam   Very experienced                  1         0.6492   0.03190    42    20.35
+method*exp_video_gam   Extremely experienced             2         0.7540   0.07134    42    10.57
+method*exp_video_gam   Moderately experienced            2         0.7063   0.02378    42    29.70
+method*exp_video_gam   Not at all experienced            2         0.7391   0.02912    42    25.38
+method*exp_video_gam   Slightly experienced              2         0.7266   0.03190    42    22.77
+method*exp_video_gam   Very experienced                  2         0.7473   0.03190    42    23.42
+method*exp_video_gam   Extremely experienced             3         0.9594   0.07134    42    13.45
+method*exp_video_gam   Moderately experienced            3         0.9461   0.02378    42    39.79
+method*exp_video_gam   Not at all experienced            3         0.9459   0.02912    42    32.48
+method*exp_video_gam   Slightly experienced              3         0.9226   0.03190    42    28.92
+method*exp_video_gam   Very experienced                  3         0.9666   0.03190    42    30.30
+					
+==========================================================================================
+use_full_autonomy  (no significant difference across methods or scenarios)       
+                                  Type 3 Tests of Fixed Effects
+
+                                             Num     Den
+                    Effect                    DF      DF    F Value    Pr > F
+
+                    use_full_autonomy          1      22       3.70    0.0675
+                    scenario*use_full_au       1      22       0.36    0.5559
+                    method*use_full_auto       2      44       0.04    0.9599
+
+                                       Least Squares Means
+
+                       use_full_                                         Standard
+Effect                 autonomy           scenario   method   Estimate      Error     DF   t Value
+
+use_full_autonomy       No                                      0.7753    0.01442     22     53.77
+use_full_autonomy       Yes                                     0.7360    0.01442     22     51.05
+scenario*use_full_au    No                1                     0.7867    0.01629     22     48.29
+scenario*use_full_au    Yes               1                     0.7540    0.01629     22     46.28
+scenario*use_full_au    No                2                     0.7638    0.01629     22     46.88
+scenario*use_full_au    Yes               2                     0.7181    0.01629     22     44.08
+method*use_full_auto    No                           1          0.6175    0.02082     44     29.66
+method*use_full_auto    Yes                          1          0.5729    0.02082     44     27.52
+method*use_full_auto    No                           2          0.7473    0.02082     44     35.90
+method*use_full_auto    Yes                          2          0.7083    0.02082     44     34.03
+method*use_full_auto    No                           3          0.9610    0.02082     44     46.16
+method*use_full_auto    Yes                          3          0.9269    0.02082     44     44.53
+
+==========================================================================================
+order            
+                                  Type 3 Tests of Fixed Effects
+
+                                           Num     Den
+                       Effect               DF      DF    F Value    Pr > F
+
+                       order                 1      24       0.09    0.7672
+                       scenario*order        1      24       0.39    0.5378
+                       method*order          2      48       1.53    0.2278
+
+                                       Least Squares Means
+
+                                                           Standard
+  Effect            scenario   method   order   Estimate      Error     DF   t Value   Pr > |t|
+
+  order                                 0         0.7525    0.01497     24     50.27     <.0001
+  order                                 1         0.7586    0.01386     24     54.74     <.0001
+  scenario*order    1                   0         0.7631    0.01682     24     45.36     <.0001
+  scenario*order    1                   1         0.7758    0.01557     24     49.81     <.0001
+  scenario*order    2                   0         0.7419    0.01682     24     44.11     <.0001
+  scenario*order    2                   1         0.7415    0.01557     24     47.61     <.0001
+  method*order                 1        0         0.5815    0.02060     48     28.23     <.0001
+  method*order                 1        1         0.6048    0.01907     48     31.71     <.0001
+  method*order                 2        0         0.7153    0.02060     48     34.73     <.0001
+  method*order                 2        1         0.7379    0.01907     48     38.69     <.0001
+  method*order                 3        0         0.9608    0.02060     48     46.64     <.0001
+  method*order                 3        1         0.9332    0.01907     48     48.93     <.0001
+
+==========================================================================================
+
+==========================================================================================
