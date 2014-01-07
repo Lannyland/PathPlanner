@@ -1,0 +1,67 @@
+Manual:
+
+Strengths:
+Easy to learn, 
+Go where I want,
+
+Weaknesses:
+Easy to miss
+Doesn't cover the areas throughly
+Requires user's concentration
+Room for user error.
+Not accurate (with time pressure)
+Time costly to start over.
+
+Improvement:
+Stop timer when UAV stops.
+A way to remove the user error from bad kyestrokes.
+Joystick
+
+
+
+Pattern:
+
+Strengths:
+Easy to use.
+Little pressure.
+Could retries different ideas
+
+Weaknesses:
+Runs out of time quickly with large patterns.
+Not as flexible as manual.
+Can't control how much time to spend on each pattern.
+
+Improvements:
+More patterns (including user defined)
+The ability to modify.
+
+
+
+
+Sliding Autonomy:
+
+Strengths:
+AI does it for you.
+Plan paths I had not considered.
+Easier to respond to chat.
+Scores better.
+
+Weaknesses:
+Doesn't' exactly do what we tell it to do.
+The effort I would have to put in to get the exact path that I was looking for. I would have to slide the sliders exactly to get the track that I wanted.
+Twist the method to get the exact path I want.
+Covers the area user doesn't want to. (User is wrong.)
+It doesn't always take the path you had imagined would be the most efficient path to be. (because human is good at detecting bad moves -- verification, and because human is not always right in other sense)
+Less control, because human wants to tell AI what to do.
+When human can't understand why a path is choosen, human is confused.
+Doesn't go where I want it to go.
+
+
+Improvements:
+Task-difficulty map side by side (or combined somehow)
+Second slider was so confusing
+Middle enrouting points.
+-- functions I didn't program:
+-- move endpoints (another sliding thing?)
+-- undo
+-- Compare paths function.
